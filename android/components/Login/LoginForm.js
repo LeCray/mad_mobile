@@ -78,6 +78,18 @@ export class LoginForm extends Component {
 		this._onPressButtonPOST = this._onPressButtonPOST.bind(this);
 	}
 
+	componentWillMount() {
+		AsyncStorage.getItem('email')
+		.then((value) => { 
+			if (value !== null){
+				this.props.navigation.navigate('DashboardHome');
+				console.log('Automatically validated')
+			} else if (value == null) {
+				console.log('Not Automatically Validated')
+			}
+		});
+	}
+
 	render() {
 
 		const {navigate} = this.props.navigation;
