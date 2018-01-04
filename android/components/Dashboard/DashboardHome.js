@@ -20,7 +20,7 @@ export class DashboardHome extends Component {
 	}
 	
 	static navigationOptions = {
-		drawerLabel: 'My Dashboard'
+		drawerLabel: 'Dashboard'
 	}
 
   render() {
