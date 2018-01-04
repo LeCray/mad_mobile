@@ -11,93 +11,106 @@ export class LoginForm extends Component {
 
    _onPressButtonPOST = function() {
         fetch("http://192.168.43.42:5000/api/v1/mobile_login", {
-          method: "POST", 
-          headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+			method: "POST", 
+			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 
-          body: JSON.stringify({
-          email: this.state.email, 
-          password: this.state.password
-          }), 
+			body: JSON.stringify({
+				email: this.state.email, 
+				password: this.state.password
+			}), 
 
         })
-        .then((response) => response.json())
+
+        .then((response) => {
+			response.json()
+		})
+
         .then((responseData) => {
 			console.log(responseData);
-			//ADMIN THINGS
+			
 			if (responseData.admin_authenticated == true){
-			console.log("You're logged in as ADMIN");
+				//ADMIN THINGS
+				console.log("You're logged in as ADMIN");
 			
-			AsyncStorage.setItem('email', responseData.email)
+				AsyncStorage.setItem('email', responseData.email)
 			
-			AsyncStorage.getItem('email')
-			.then((value) => {
-				this.setState({'email': value})
-				console.log({email: value})
-			})
-			.catch((error) => {
-				console.error(error);
-			})
+				AsyncStorage.getItem('email')
+				.then((value) => {
+					this.setState({'email': value})
+					console.log({email: value})
+				})
+				.catch((error) => {
+					console.error(error);
+				})
+
+				this.props.navigation.navigate('DashboardHome');
 
 
-			this.props.navigation.navigate('DashboardHome');
+			} else if (responseData.driver_authenticated == true) {
+				//DRIVER THINGS
+				console.log("You're logged in as DRIVER")
 
+				AsyncStorage.setItem('email', responseData.email)
+			
+				AsyncStorage.getItem('email')
+				.then((value) => {
+					this.setState({'email': value})
+					console.log({email: value})
+				})
+				.catch((error) => {
+					console.error(error);
+				})
 
-          } else if (responseData.driver_authenticated == true) {
-            //DRIVER THINGS
-            console.log("You're logged in as DRIVER")
-
-          }
+				this.props.navigation.navigate('DashboardHome');
+			}
         })
+
         .catch((error) => {
           console.error(error);
         })
+
         .done();
-  }
+    }
 
+	constructor(props) {
+		super(props);
+		this.state = {email: '', password: '', logged_in: false};
+		this._onPressButtonPOST = this._onPressButtonPOST.bind(this);
+	}
 
-  constructor(props) {
-    super(props);
-    this.state = {email: '', password: '', logged_in: false};
-    this._onPressButtonPOST = this._onPressButtonPOST.bind(this);
-  }
+	render() {
 
+		const {navigate} = this.props.navigation;
 
+		return(   
+			<View style={{marginTop: 120, padding: 20}}> 
+				<Text>{this.state.email}</Text>
+				<Text>{this.state.password}</Text>
 
-  
-  
-  render() {
-	const {navigate} = this.props.navigation;
-    return(   
-    <View style={{marginTop: 120, padding: 20}}> 
-        <Text>{this.state.email}</Text>
-        <Text>{this.state.password}</Text>
+				<TextInput style = {styles.input} 
+						autoCapitalize="none" 
+						onSubmitEditing={() => this.passwordInput.focus()} 
+						autoCorrect={false} 
+						keyboardType='email-address' 
+						returnKeyType="next" 
+						placeholder='Email:' 
+						placeholderTextColor='white'
+						onChangeText={(email) => this.setState({email})} />
 
-        <TextInput style = {styles.input} 
-               autoCapitalize="none" 
-               onSubmitEditing={() => this.passwordInput.focus()} 
-               autoCorrect={false} 
-               keyboardType='email-address' 
-               returnKeyType="next" 
-               placeholder='Email:' 
-               placeholderTextColor='white'
-               onChangeText={(email) => this.setState({email})} />
+				<TextInput style = {styles.input}   
+						returnKeyType="go" 
+						ref={(input)=> this.passwordInput = input} 
+						placeholder='Password:' 
+						placeholderTextColor='white' 
+						secureTextEntry
+						onChangeText={(password) => this.setState({password})} />
 
-        <TextInput style = {styles.input}   
-              returnKeyType="go" 
-              ref={(input)=> this.passwordInput = input} 
-              placeholder='Password:' 
-              placeholderTextColor='white' 
-              secureTextEntry
-              onChangeText={(password) => this.setState({password})} />
-
-        <TouchableOpacity style={styles.buttonContainer} onPress={this._onPressButtonPOST} >       
-             <Text style={styles.buttonText}>LOGIN</Text>
-        </TouchableOpacity> 
-      </View>
-    )
-   }
-  
-     
+				<TouchableOpacity style={styles.buttonContainer} onPress={this._onPressButtonPOST} >       
+						<Text style={styles.buttonText}>LOGIN</Text>
+				</TouchableOpacity> 
+			</View>
+		)
+	}
 }
 
 const styles = StyleSheet.create({
