@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Platform, TextInput, TouchableOpacity, StyleSheet, Text, View, AsyncStorage } from 'react-native';
-import {DashboardHome} from '../Dashboard/DashboardHome';
+import {DrawerStack} from '../Dashboard/DashboardHome';
 
 
 
@@ -43,7 +43,7 @@ export class LoginForm extends Component {
 					console.error(error);
 				})
 
-				this.props.navigation.navigate('DashboardHome');
+				this.props.navigation.navigate('DrawerStack');
 
 
 			} else if (responseData.driver_authenticated == true) {
@@ -61,7 +61,7 @@ export class LoginForm extends Component {
 					console.error(error);
 				})
 
-				this.props.navigation.navigate('DashboardHome');
+				this.props.navigation.navigate('DrawerStack');
 			}
         })
 
@@ -82,7 +82,7 @@ export class LoginForm extends Component {
 		AsyncStorage.getItem('email')
 		.then((value) => { 
 			if (value !== null){
-				this.props.navigation.navigate('DashboardHome');
+				this.props.navigation.navigate('DrawerStack');
 				console.log('Automatically validated')
 			} else if (value == null) {
 				console.log('Not Automatically Validated')

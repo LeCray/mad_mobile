@@ -20,12 +20,12 @@ export class DashboardHome extends Component {
 	}
 	
 	static navigationOptions = {
-		title: 'My Dashboard'
+		drawerLabel: 'My Dashboard'
 	}
 
   render() {
     return(  
-		<View style={{paddingLeft: 10, paddingRight: 10}}>
+		<View style={{paddingLeft: 10, paddingRight: 10, paddingTop: 30}}>
 			<TouchableOpacity style={styles.buttonContainer}>       
 				<Text style={{color: 'white', textAlign: 'center'}}>Data Stream</Text>
 			</TouchableOpacity>
