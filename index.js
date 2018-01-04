@@ -12,7 +12,7 @@ import {DashboardHome} from	'./android/components/Dashboard/DashboardHome'
 
 
 
-const TraceMobile = StackNavigator ({
+const MadMobile = StackNavigator ({
 	LoginPage: {screen: LoginPage},
 	DashboardHome: {screen: DashboardHome}
 })
@@ -21,4 +21,4 @@ const TraceMobile = StackNavigator ({
 
 
 
-AppRegistry.registerComponent('trace_mobile', () => TraceMobile);
+AppRegistry.registerComponent('mad_mobile', () => MadMobile);

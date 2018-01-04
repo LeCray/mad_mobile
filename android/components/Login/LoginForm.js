@@ -22,21 +22,25 @@ export class LoginForm extends Component {
         })
         .then((response) => response.json())
         .then((responseData) => {
-          console.log(responseData);
-          if (responseData.admin_authenticated == true){
-            //ADMIN THINGS
-            console.log("You're logged in as ADMIN");
+			console.log(responseData);
+			//ADMIN THINGS
+			if (responseData.admin_authenticated == true){
+			console.log("You're logged in as ADMIN");
+			
+			AsyncStorage.setItem('email', responseData.email)
+			
+			AsyncStorage.getItem('email')
+			.then((value) => {
+				this.setState({'email': value})
+				console.log({email: value})
+			})
+			.catch((error) => {
+				console.error(error);
+			})
+
+
 			this.props.navigation.navigate('DashboardHome');
 
-			
-			AsyncStorage.setItem({'email': this.state.email})
-					
-		
-			
-
-			AsyncStorage.getItem('email').then((res) => console.log(res));
-			
-			 
 
           } else if (responseData.driver_authenticated == true) {
             //DRIVER THINGS
@@ -57,13 +61,7 @@ export class LoginForm extends Component {
     this._onPressButtonPOST = this._onPressButtonPOST.bind(this);
   }
 
-  componentWillMount() {
-  	  AsyncStorage.getItem('email')
-	  .then((value) => { 
-		this.setState({ 'email': value })
-		console.log({Email: this.state.email})
-	  });
-  }
+
 
   
   
