@@ -9,6 +9,7 @@ export class DashboardHome extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {email: ''};	
+		this.navigate = this.navigate.bind(this);
 	}
 
 	componentWillMount() {
@@ -23,6 +24,10 @@ export class DashboardHome extends Component {
 		drawerLabel: 'Dashboard'
 	}
 
+	 navigate = function() {
+		this.props.navigation.navigate('Bookings');
+	 };
+
   render() {
     return(  
 		<View style={{paddingLeft: 10, paddingRight: 10, paddingTop: 30}}>
@@ -30,7 +35,7 @@ export class DashboardHome extends Component {
 				<Text style={{color: 'white', textAlign: 'center'}}>Data Stream</Text>
 			</TouchableOpacity>
 
-			<TouchableOpacity style={styles.buttonContainer}>       
+			<TouchableOpacity style={styles.buttonContainer} onPress={this.navigate} navigation={this.props.navigation}>       
 				<Text style={{color: 'white', textAlign: 'center'}}>Bookings</Text>
 			</TouchableOpacity>
 

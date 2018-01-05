@@ -1,5 +1,6 @@
 import { StackNavigator, DrawerNavigator } from 'react-navigation';
 import {Main} from './Main'
+import {Bookings} from './Actions/Bookings'
 
 
 export const MainDrawerNavigation = StackNavigator({
@@ -7,10 +8,11 @@ export const MainDrawerNavigation = StackNavigator({
 	DrawerStack: { screen: Main }
 	}, {
 		navigationOptions: {
-		title: 'Main',
+		title: 'M.A.D',
 		headerStyle: {backgroundColor: '#E73536'},
 		headerTintColor: 'white'
-	}
+	},
+	Bookings: { screen: Bookings}
   
 })
 

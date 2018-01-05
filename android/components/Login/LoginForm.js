@@ -21,11 +21,7 @@ export class LoginForm extends Component {
 			}), 
 
         })
-
-        .then((response) => {
-			response.json()
-		})
-
+        .then(response => response.json())
         .then((responseData) => {
 			console.log(responseData);
 			
@@ -65,11 +61,9 @@ export class LoginForm extends Component {
 				this.props.navigation.navigate('DrawerStack');
 			}
         })
-
         .catch((error) => {
           console.error(error);
         })
-
         .done();
     }
 
@@ -118,7 +112,7 @@ export class LoginForm extends Component {
 						secureTextEntry
 						onChangeText={(password) => this.setState({password})} />
 
-				<TouchableOpacity style={styles.buttonContainer} onPress={this._onPressButtonPOST} >       
+				<TouchableOpacity style={styles.buttonContainer} onPress={this._onPressButtonPOST} >      
 						<Text style={styles.buttonText}>LOGIN</Text>
 				</TouchableOpacity> 
 			</View>

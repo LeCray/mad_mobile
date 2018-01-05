@@ -1,11 +1,21 @@
 import React, { Component } from 'react';
-import {Platform, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {Platform, StyleSheet, Text, View, TouchableOpacity, AsyncStorage} from 'react-native';
 
 
 
 
 export class Logout extends Component {
 
+	constructor(props) {
+		super(props);
+		this.logout = this.logout.bind(this);
+	}
+
+	logout() {
+		AsyncStorage.removeItem('email')
+		this.props.navigation.navigate('LoginPage');
+		console.log("You have benn logged out")
+	}
 	
 	static navigationOptions = {
 		drawerLabel: 'Logout'
@@ -16,7 +26,7 @@ export class Logout extends Component {
 			<View style={{paddingLeft: 10, paddingRight: 10, paddingTop: '60%'}}>
 			<Text style={{textAlign: 'center'}}> Are you sure you want to Logout? </Text>
 				<View style={{marginTop: 30}}>
-					<TouchableOpacity style={styles.buttonContainer}>       
+					<TouchableOpacity style={styles.buttonContainer} onPress={this.logout}>       
 						<Text style={{color: 'white', textAlign: 'center'}}>Logout</Text>
 					</TouchableOpacity>
 				</View>
