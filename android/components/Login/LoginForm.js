@@ -40,7 +40,7 @@ export class LoginForm extends Component {
 					console.error(error);
 				})
 
-				this.props.navigation.navigate('DrawerStack');
+				this.props.navigation.navigate('MainScreen');
 
 
 			} else if (responseData.driver_authenticated == true) {
@@ -77,7 +77,7 @@ export class LoginForm extends Component {
 		AsyncStorage.getItem('email')
 		.then((value) => { 
 			if (value !== null){
-				this.props.navigation.navigate('DrawerStack');
+				this.props.navigation.navigate('MainScreen');
 				console.log('Automatically validated')
 			} else if (value == null) {
 				console.log('Not Automatically Validated')

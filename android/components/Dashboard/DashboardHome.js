@@ -8,8 +8,7 @@ export class DashboardHome extends Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {email: ''};	
-		this.navigate = this.navigate.bind(this);
+		this.goBook = this.goBook.bind(this);
 	}
 
 	componentWillMount() {
@@ -24,10 +23,18 @@ export class DashboardHome extends Component {
 		drawerLabel: 'Dashboard'
 	}
 
-	 navigate = function() {
-		this.props.navigation.navigate('Bookings');
-	 };
-
+	goBook = function () {
+		console.log('goBook is running')
+		this.props.navigation.dispatch({
+			type: 'Navigate',
+			routeName: 'MainScreen',
+			action: {
+				type: 'Navigate',
+				routeName: 'Bookings',
+			},
+		});
+	}
+	
   render() {
     return(  
 		<View style={{paddingLeft: 10, paddingRight: 10, paddingTop: 30}}>
@@ -35,7 +42,7 @@ export class DashboardHome extends Component {
 				<Text style={{color: 'white', textAlign: 'center'}}>Data Stream</Text>
 			</TouchableOpacity>
 
-			<TouchableOpacity style={styles.buttonContainer} onPress={this.navigate} navigation={this.props.navigation}>       
+			<TouchableOpacity style={styles.buttonContainer} onPress={this.goBook} navigation={this.props.navigation}>       
 				<Text style={{color: 'white', textAlign: 'center'}}>Bookings</Text>
 			</TouchableOpacity>
 
