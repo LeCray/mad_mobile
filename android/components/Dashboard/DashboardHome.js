@@ -57,7 +57,6 @@ export class DashboardHome extends Component {
 		AsyncStorage.getItem('email')
 		.then((value) => { 
 			this.setState({'email': value})	
-			console.log(this.state.email)
 		});
 	}
 	
