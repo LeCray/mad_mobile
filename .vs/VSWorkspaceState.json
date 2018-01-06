@@ -3,9 +3,11 @@
     "",
     "\\android",
     "\\android\\components",
+    "\\android\\components\\Actions",
     "\\android\\components\\Dashboard",
+    "\\android\\components\\Extra",
     "\\android\\components\\Login"
   ],
-  "SelectedNode": "\\App.js",
+  "SelectedNode": "\\android\\components\\Login\\LoginForm.js",
   "PreviewInSolutionExplorer": false
 }

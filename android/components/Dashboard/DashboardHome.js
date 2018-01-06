@@ -5,10 +5,52 @@ import {Platform, StyleSheet, Text, View, TouchableOpacity, AsyncStorage} from '
 
 
 export class DashboardHome extends Component {
+	
 
 	constructor(props) {
 		super(props);
-		this.goBook = this.goBook.bind(this);
+		this.DataStreamBtn = this.DataStreamBtn.bind(this);
+		this.BookingBtn = this.BookingBtn.bind(this);
+		this.InvoicesBtn = this.InvoicesBtn.bind(this);
+		this.CarsBtn = this.CarsBtn.bind(this);
+	}
+
+	
+	static navigationOptions = {
+		drawerLabel: 'Dashboard'
+	}
+
+	
+	DataStreamBtn = function () {
+		console.log('DataStream is running')
+		this.props.navigation.dispatch({
+			type: 'Navigation/NAVIGATE',
+			routeName: 'DataStream'
+		});
+	}
+
+	BookingBtn = function () {
+		console.log('Booking is running')
+		this.props.navigation.dispatch({
+			type: 'Navigation/NAVIGATE',
+			routeName: 'Bookings'
+		});
+	}
+
+	InvoicesBtn = function () {
+		console.log('Invoices is running')
+		this.props.navigation.dispatch({
+			type: 'Navigation/NAVIGATE',
+			routeName: 'Invoices'
+		});
+	}
+
+	CarsBtn = function () {
+		console.log('Cars is running')
+		this.props.navigation.dispatch({
+			type: 'Navigation/NAVIGATE',
+			routeName: 'Cars'
+		});
 	}
 
 	componentWillMount() {
@@ -19,38 +61,22 @@ export class DashboardHome extends Component {
 		});
 	}
 	
-	static navigationOptions = {
-		drawerLabel: 'Dashboard'
-	}
-
-	goBook = function () {
-		console.log('goBook is running')
-		this.props.navigation.dispatch({
-			type: 'Navigate',
-			routeName: 'MainScreen',
-			action: {
-				type: 'Navigate',
-				routeName: 'Bookings',
-			},
-		});
-	}
-	
   render() {
     return(  
 		<View style={{paddingLeft: 10, paddingRight: 10, paddingTop: 30}}>
-			<TouchableOpacity style={styles.buttonContainer}>       
+			<TouchableOpacity style={styles.buttonContainer} onPress={this.DataStreamBtn}>       
 				<Text style={{color: 'white', textAlign: 'center'}}>Data Stream</Text>
 			</TouchableOpacity>
 
-			<TouchableOpacity style={styles.buttonContainer} onPress={this.goBook} navigation={this.props.navigation}>       
+			<TouchableOpacity style={styles.buttonContainer} onPress={this.BookingBtn} >       
 				<Text style={{color: 'white', textAlign: 'center'}}>Bookings</Text>
 			</TouchableOpacity>
 
-			<TouchableOpacity style={styles.buttonContainer}>       
+			<TouchableOpacity style={styles.buttonContainer} onPress={this.InvoicesBtn.bind(this)}>       
 				<Text style={{color: 'white', textAlign: 'center'}}>Invoices</Text>
 			</TouchableOpacity>
 
-			<TouchableOpacity style={styles.buttonContainer}>       
+			<TouchableOpacity style={styles.buttonContainer} onPress={this.CarsBtn}>       
 				<Text style={{color: 'white', textAlign: 'center'}}>Cars</Text>
 			</TouchableOpacity>
 		</View>
