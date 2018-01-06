@@ -11,7 +11,7 @@ export class LoginForm extends Component {
    
 
    _onPressButtonPOST = function() {
-        fetch("http://192.168.43.42:5000/api/v1/mobile_login", {
+        fetch("http://10.0.0.6:5000/api/v1/mobile_login", {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 

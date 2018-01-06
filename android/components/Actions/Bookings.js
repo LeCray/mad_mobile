@@ -6,18 +6,39 @@ import {Platform, StyleSheet, Text, View, TouchableOpacity, AsyncStorage} from '
 
 export class Bookings extends Component {
 
+/*
+	await AsyncStorage.getItem('email')
+	.then((value) => { 
+		this.setState({'email': value})	
+		console.log(this.state.email)
+	});
+*/	
+	
 	constructor(props) {
 		super(props);
-		this.state = {email: ''};
+		/*
+		const value = AsyncStorage.getItem('email')
+		.then((value) => {
+			email = value
+			console.log(email)
+			return email;
+		})
+		*/
+		this.state = {email: ""};
 	}
 
-	componentWillMount() {
-		AsyncStorage.getItem('email')
-		.then((value) => { 
-			this.setState({'email': value})	
-			console.log(this.state.email)
-		});
+	  
 
+
+
+	async componentWillMount() {
+
+		const email = await AsyncStorage.getItem('email')
+		.then((email) => {
+			console.log(email)
+			this.setState({ email: email });		
+		})
+	
 		fetch("http://10.0.0.6:5000/api/v1/bookings", {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
@@ -41,7 +62,12 @@ export class Bookings extends Component {
 		title: 'Bookings'
 	}
 
+	
+
 	render() {
+		
+	
+
 		return(  
 			<View style={{paddingLeft: 10, paddingRight: 10, paddingTop: 30}}>
 				<Text>

@@ -67,7 +67,7 @@ export class DashboardHome extends Component {
 				<Text style={{color: 'white', textAlign: 'center'}}>Data Stream</Text>
 			</TouchableOpacity>
 
-			<TouchableOpacity style={styles.buttonContainer} onPress={this.BookingBtn} >       
+			<TouchableOpacity style={styles.buttonContainer} onPress={this.BookingBtn} screenProps={this.state} >       
 				<Text style={{color: 'white', textAlign: 'center'}}>Bookings</Text>
 			</TouchableOpacity>
 
