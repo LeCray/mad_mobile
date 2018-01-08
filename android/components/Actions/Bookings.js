@@ -16,30 +16,20 @@ export class Bookings extends Component {
 	
 	constructor(props) {
 		super(props);
-		/*
-		const value = AsyncStorage.getItem('email')
-		.then((value) => {
-			email = value
-			console.log(email)
-			return email;
-		})
-		*/
-		this.state = {email: ""};
+		this.state = {email: "", bookings: {}};
+
 	}
-
-	  
-
-
 
 	async componentWillMount() {
 
+		
 		const email = await AsyncStorage.getItem('email')
 		.then((email) => {
 			console.log(email)
 			this.setState({ email: email });		
 		})
-	
-		fetch("http://10.0.0.6:5000/api/v1/bookings", {
+
+		fetch("http://10.0.0.11:5000/api/v1/bookings", {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 			body: JSON.stringify({
@@ -48,12 +38,18 @@ export class Bookings extends Component {
         })
         .then(response => response.json())
         .then((responseData) => {
+			responseData = responseData.toString()
 			console.log(responseData);
+			this.setState({
+				bookings: responseData
+			})
         })
         .catch((error) => {
           console.error(error);
         })
         .done();
+
+	
 	}
 
 
@@ -62,21 +58,23 @@ export class Bookings extends Component {
 		title: 'Bookings'
 	}
 
-	
 
 	render() {
 		
-	
-
-		return(  
-			<View style={{paddingLeft: 10, paddingRight: 10, paddingTop: 30}}>
-				<Text>
-					BOOKINGS SCREEN
-				</Text>
+		
+		var bookings = JSON.stringify(this.state.bookings)
+ 
+		return (
+			<View style={styles.Container}>
+ 
+				
+				<Text>{bookings}</Text>
+				
+ 
 			</View>
-		)
+		);
 	}
-}
+}	
 
 const styles = StyleSheet.create({
     container: {
