@@ -58,6 +58,7 @@ export class DashboardHome extends Component {
 		.then((value) => { 
 			this.setState({'email': value})	
 		});
+		console.log("Dashboard is loading...")
 	}
 	
   render() {

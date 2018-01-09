@@ -11,7 +11,7 @@ export class LoginForm extends Component {
    
 
    _onPressButtonPOST = function() {
-        fetch("http://10.0.0.6:5000/api/v1/mobile_login", {
+        fetch("http://192.168.43.42:5000/api/v1/mobile_login", {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 
@@ -113,7 +113,7 @@ export class LoginForm extends Component {
 						onChangeText={(password) => this.setState({password})} />
 
 				<TouchableOpacity style={styles.buttonContainer} onPress={this._onPressButtonPOST} >      
-						<Text style={styles.buttonText}>LOGIN</Text>
+						<Text style={styles.buttonText}>Login</Text>
 				</TouchableOpacity> 
 			</View>
 		)
