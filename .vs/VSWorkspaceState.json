@@ -1,13 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\android",
     "\\android\\components",
     "\\android\\components\\Actions",
     "\\android\\components\\Dashboard",
     "\\android\\components\\Extra",
     "\\android\\components\\Login"
   ],
-  "SelectedNode": "\\android\\components\\MainScreen.js",
   "PreviewInSolutionExplorer": false
 }
