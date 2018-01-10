@@ -1,11 +1,15 @@
 {
   "ExpandedNodes": [
     "",
+    "\\android",
     "\\android\\components",
     "\\android\\components\\Actions",
     "\\android\\components\\Dashboard",
     "\\android\\components\\Extra",
-    "\\android\\components\\Login"
+    "\\android\\components\\Login",
+    "\\android\\components\\utils",
+    "\\node_modules\\react-native\\local-cli"
   ],
+  "SelectedNode": "\\android\\components\\utils\\Constant.js",
   "PreviewInSolutionExplorer": false
 }
