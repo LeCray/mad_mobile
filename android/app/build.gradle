@@ -137,6 +137,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-dialogs')
     compile project(':react-native-vector-icons')
     compile project(':react-native-sp')
     compile project(':react-native-obd2')

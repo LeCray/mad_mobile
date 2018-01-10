@@ -3,6 +3,7 @@ package com.mad_mobile;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.aakashns.reactnativedialogs.ReactNativeDialogsPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.zenome.rnsp.RnspReactPackage;
 import com.jetbridge.reactobd2.ReactNativeOBD2Package;
@@ -26,6 +27,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new ReactNativeDialogsPackage(),
             new VectorIconsPackage(),
             new RnspReactPackage(),
             new ReactNativeOBD2Package()

@@ -241,9 +241,9 @@ export default class OBDReader extends Component {
       <MenuContext style={{flex: 1}}>
       <View style={{flex: 1}}> 
         <NavigationBar
-          style={{flex: 0.1, backgroundColor: Color.BG_NAVIBAR}}
+          //style={{flex: 0.1, backgroundColor: Color.BG_NAVIBAR}}
           tintColor={Color.WHITE}
-          title={{title: 'OBD-II Reader', tintColor:Color.WHITE}}
+          title={{title: 'OBD-II Reader'}}
           rightButton={
             <Menu onSelect={this.runMenu.bind(this)}>
               <MenuTrigger>
@@ -252,7 +252,7 @@ export default class OBDReader extends Component {
                   padding: 10, 
                   alignSelf: 'center', 
                   fontSize: 20, 
-                  color: Color.WHITE}}>&#8942;</Text>
+                  }}>&#8942;</Text>
               </MenuTrigger>
               <MenuOptions>
                 <MenuOption disabled={this.state.isStartLiveData} value={1}>

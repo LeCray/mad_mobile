@@ -25,7 +25,7 @@ import {
 
 import SharedPreference from 'react-native-sp';
 import OBDReader from './Actions/OBDReader';
-//import Settings from './Settings';
+import Settings from './Settings';
 
 import EventEmitter from 'EventEmitter';
 var AppEventEmitter = new EventEmitter();
@@ -52,7 +52,7 @@ export default class RootRouter extends Component {
       <Router>
         <Scene key="root">
           <Scene key="OBDReader" component={OBDReader} title="OBDReader" hideNavBar={true} initial={true} />
-          
+          <Scene key="Settings" component={Settings} title="Settings" hideNavBar={true} />
         </Scene>
       </Router>
     )
