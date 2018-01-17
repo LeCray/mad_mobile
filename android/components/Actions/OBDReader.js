@@ -43,11 +43,12 @@ export default class OBDReader extends Component {
       speed: '0km/h',
       rpm: '0RPM',
       engineRunTime: '00:00:00',
+
       isStartLiveData: false,
       gpsState: '-',
       btStatus : '-',
       btDeviceList: [],
-      btSelectedDeviceAddress: '',
+      btSelectedDeviceAddress: '00:1D:A5:00:2C:74',
       obdStatus: 'disconnected',
       debug : '-',
       obd2Data : { } 
@@ -161,7 +162,7 @@ export default class OBDReader extends Component {
           isStartLiveData: true,
         });
         
-        SensorManager.startOrientation(1000);
+        //SensorManager.startOrientation(1000);
         this.listenerOrientation = DeviceEventEmitter.addListener('Orientation', this.sensorOrientation);
         obd2.setMockUpMode(isMockUpMode);
         obd2.startLiveData(this.state.btSelectedDeviceAddress);
@@ -174,7 +175,7 @@ export default class OBDReader extends Component {
       direction: '-',
       bluetoothStatus: '-',
     });
-    SensorManager.stopOrientation();
+    //SensorManager.stopOrientation();
     this.obdLiveDataListener && this.obdLiveDataListener.remove();
     this.listenerOrientation && this.listenerOrientation.remove();
     obd2.stopLiveData();
@@ -241,8 +242,8 @@ export default class OBDReader extends Component {
       <MenuContext style={{flex: 1}}>
       <View style={{flex: 1}}> 
         <NavigationBar
-          //style={{flex: 0.1, backgroundColor: Color.BG_NAVIBAR}}
-          tintColor={Color.WHITE}
+          //style={{backgroundColor: Color.BG_NAVIBAR}}
+         //tintColor={Color.WHITE}
           title={{title: 'OBD-II Reader'}}
           rightButton={
             <Menu onSelect={this.runMenu.bind(this)}>
@@ -252,7 +253,7 @@ export default class OBDReader extends Component {
                   padding: 10, 
                   alignSelf: 'center', 
                   fontSize: 20, 
-                  }}>&#8942;</Text>
+                  }} >Menu</Text>
               </MenuTrigger>
               <MenuOptions>
                 <MenuOption disabled={this.state.isStartLiveData} value={1}>
@@ -308,6 +309,9 @@ export default class OBDReader extends Component {
               <Text style={{fontSize:15, textAlign: 'center'}}>{this.state.obdStatus}</Text>
             </View>
           </View>
+
+         
+  
         </View>
       </View>
      </MenuContext>
@@ -324,6 +328,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     padding: 5,
     color: Color.BLACK
+  },
+
+  buttonContainer: {
+    backgroundColor: "#2980b6", 
+    paddingVertical: 15, 
+    marginTop: 10
   }
 });
 
