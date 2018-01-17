@@ -13,8 +13,10 @@ import {
   BackAndroid,
   Dimensions,
   DeviceEventEmitter,
-  ScrollView
+  ScrollView,
+  AsyncStorage
 } from 'react-native';
+import StreamChannel from './StreamChannel'
 
 import { Actions } from 'react-native-router-flux';
 import { List } from 'react-native-elements';
@@ -39,6 +41,7 @@ export default class OBDReader extends Component {
     super(props);
 
     this.state = {
+      email: "captain@gmail.com",
       direction: '-',
       speed: '0km/h',
       rpm: '0RPM',
@@ -74,6 +77,25 @@ export default class OBDReader extends Component {
     this.setState({
       obd2Data : copyData,
     });
+    
+    fetch("http://10.0.0.11:5000/api/v1/data_stream", {
+      method: "POST", 
+      headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+
+      body: JSON.stringify({
+        email: this.state.email,
+        obd2Data: this.state.obd2Data 
+      }), 
+    })
+    .then(response => response.json())
+    .then((responseData) => {
+      console.log(responseData);
+    })
+    .catch((error) => {
+      console.error(error);
+    })
+    .done();
+
 
     if (data.cmdID === 'ENGINE_RPM') {
       this.setState({
@@ -125,6 +147,17 @@ export default class OBDReader extends Component {
     }
   }
 
+/*
+  async componentWillMount() {
+    const email = await AsyncStorage.getItem('email')
+    .then((email) => {
+      console.log("AsyncStorage is running")
+
+      this.setState({ email: email });    
+    })
+  }
+*/
+
   componentDidMount() {
     this.btStatusListener = DeviceEventEmitter.addListener('obd2BluetoothStatus', this.btStatus);
     this.obdStatusListener = DeviceEventEmitter.addListener('obd2Status', this.obdStatus);
@@ -132,6 +165,8 @@ export default class OBDReader extends Component {
     this.setDeviceAddressListener = AppEventEmitter.addListener('OBDReader.setDeviceAddress', this.setDeviceAddress.bind(this));
 
     this.onReady();
+
+    
   }
 
   componentWillUnmount() {
@@ -166,7 +201,9 @@ export default class OBDReader extends Component {
         this.listenerOrientation = DeviceEventEmitter.addListener('Orientation', this.sensorOrientation);
         obd2.setMockUpMode(isMockUpMode);
         obd2.startLiveData(this.state.btSelectedDeviceAddress);
-      });
+
+      
+    });
   }
 
   stopLiveData() {
@@ -213,6 +250,8 @@ export default class OBDReader extends Component {
       });
 */
   }
+   
+  
 
   runMenu(value) {
     switch(value) {
@@ -292,8 +331,10 @@ export default class OBDReader extends Component {
                     <Text style={{flex: .4}}>: {item.cmdResult}</Text>
                   </View>
                 ))
+                
               }
             </ScrollView>
+
           </View>
           <View style={{flex: .1, flexDirection:'row', justifyContent: 'space-around'}}>
             <View>
@@ -310,11 +351,13 @@ export default class OBDReader extends Component {
             </View>
           </View>
 
-         
   
         </View>
       </View>
+    
      </MenuContext>
+
+     
     );
   }
 }
