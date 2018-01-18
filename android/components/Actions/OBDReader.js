@@ -78,13 +78,24 @@ export default class OBDReader extends Component {
       obd2Data : copyData,
     });
     
-    fetch("http://10.0.0.11:5000/api/v1/data_stream", {
+    fetch("http://10.0.0.11:3000/api/v1/data_stream", {
       method: "POST", 
       headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 
       body: JSON.stringify({
         email: this.state.email,
-        obd2Data: this.state.obd2Data 
+        SPEED: this.state.obd2Data.SPEED, 
+        ENGINE_RPM: this.state.obd2Data.ENGINE_RPM,
+        /*
+        ENGINE_RUNTIME: this.state.obd2Data.ENGINE_RUNTIME,
+        FUEL_LEVEL: this.state.obd2Data.FUEL_LEVEL, 
+        FUEL_CONSUMPTION_RATE: this.state.obd2Data.FUEL_CONSUMPTION_RATE, 
+        THROTTLE_POS: this.state.obd2Data.THROTTLE_POS, 
+        AIR_FUEL_RATIO: this.state.obd2Data.AIR_FUEL_RATIO, 
+        ENGINE_OIL_TEMP: this.state.obd2Data.ENGINE_OIL_TEMP,
+        AIR_INTAKE_TEMP: this.state.obd2Data.AIR_INTAKE_TEMP,
+        DTC_NUMBER: this.state.obd2Data.DTC_NUMBER
+        */
       }), 
     })
     .then(response => response.json())
