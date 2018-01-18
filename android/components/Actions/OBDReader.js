@@ -96,10 +96,6 @@ export default class OBDReader extends Component {
         DTC_NUMBER: this.state.obd2Data.DTC_NUMBER
       }), 
     })
-    .then(response => response.json())
-    .then((responseData) => {
-      console.log(responseData);
-    })
     .catch((error) => {
       console.error(error);
     })
