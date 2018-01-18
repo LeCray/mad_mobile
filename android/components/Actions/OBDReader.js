@@ -86,7 +86,6 @@ export default class OBDReader extends Component {
         email: this.state.email,
         SPEED: this.state.obd2Data.SPEED, 
         ENGINE_RPM: this.state.obd2Data.ENGINE_RPM,
-        /*
         ENGINE_RUNTIME: this.state.obd2Data.ENGINE_RUNTIME,
         FUEL_LEVEL: this.state.obd2Data.FUEL_LEVEL, 
         FUEL_CONSUMPTION_RATE: this.state.obd2Data.FUEL_CONSUMPTION_RATE, 
@@ -95,7 +94,6 @@ export default class OBDReader extends Component {
         ENGINE_OIL_TEMP: this.state.obd2Data.ENGINE_OIL_TEMP,
         AIR_INTAKE_TEMP: this.state.obd2Data.AIR_INTAKE_TEMP,
         DTC_NUMBER: this.state.obd2Data.DTC_NUMBER
-        */
       }), 
     })
     .then(response => response.json())
