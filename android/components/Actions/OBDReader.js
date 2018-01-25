@@ -78,7 +78,7 @@ export default class OBDReader extends Component {
       obd2Data : copyData,
     });
     
-    fetch("http://10.0.0.11:3000/api/v1/data_stream", {
+    fetch("https://mad-beta.herokuapp.com/api/v1/data_stream", {
       method: "POST", 
       headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 
