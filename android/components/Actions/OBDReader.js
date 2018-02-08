@@ -37,6 +37,11 @@ const Color = require('../utils/Color');
 const Constant = require('../utils/Constant');
 
 export default class OBDReader extends Component {
+
+  static navigationOptions = {
+    title: 'OBD Reader'
+  }
+
   constructor(props) {
     super(props);
 
@@ -239,6 +244,15 @@ export default class OBDReader extends Component {
       btSelectedDeviceAddress : this.state.btSelectedDeviceAddress,
     });
 
+  SettingsBtn = function () {
+    console.log('Settings is running')
+    this.props.navigation.dispatch({
+      type: 'Navigation/NAVIGATE',
+      btSelectedDeviceAddress : this.state.btSelectedDeviceAddress,
+      routeName: 'Setting'
+    });
+  }
+
     /*
     obd2.getBluetoothDeviceNameList()
       .then((nameList) => {
@@ -286,9 +300,9 @@ export default class OBDReader extends Component {
       <MenuContext style={{flex: 1}}>
       <View style={{flex: 1}}> 
         <NavigationBar
-          //style={{backgroundColor: Color.BG_NAVIBAR}}
+          style={{backgroundColor: "#ffe6e6"}}
          //tintColor={Color.WHITE}
-          title={{title: 'OBD-II Reader'}}
+          
           rightButton={
             <Menu onSelect={this.runMenu.bind(this)}>
               <MenuTrigger>

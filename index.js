@@ -6,11 +6,12 @@ import {
 } from 'react-native';
 
 import RootRouter from './android/components/RootRouter';
+import {MainScreen} from './android/components/MainScreen';
 
 class MadMobile extends Component {
   render() {
     return (
-        <RootRouter />
+        <MainScreen />
     );
   }
 }

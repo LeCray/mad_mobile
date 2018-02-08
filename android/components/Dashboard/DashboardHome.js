@@ -12,7 +12,8 @@ export class DashboardHome extends Component {
 		this.DataStreamBtn = this.DataStreamBtn.bind(this);
 		this.BookingBtn = this.BookingBtn.bind(this);
 		this.InvoicesBtn = this.InvoicesBtn.bind(this);
-		this.CarsBtn = this.CarsBtn.bind(this);
+		this.CsiBtn = this.CsiBtn.bind(this);
+		this.QuotesBtn = this.QuotesBtn.bind(this);
 	}
 
 	
@@ -25,7 +26,7 @@ export class DashboardHome extends Component {
 		console.log('DataStream is running')
 		this.props.navigation.dispatch({
 			type: 'Navigation/NAVIGATE',
-			routeName: 'DataStream'
+			routeName: 'OBDReader'
 		});
 	}
 
@@ -34,6 +35,14 @@ export class DashboardHome extends Component {
 		this.props.navigation.dispatch({
 			type: 'Navigation/NAVIGATE',
 			routeName: 'Bookings'
+		});
+	}
+	
+	QuotesBtn = function () {
+		console.log('Quotes is running')
+		this.props.navigation.dispatch({
+			type: 'Navigation/NAVIGATE',
+			routeName: 'Quotes'
 		});
 	}
 
@@ -45,11 +54,11 @@ export class DashboardHome extends Component {
 		});
 	}
 
-	CarsBtn = function () {
-		console.log('Cars is running')
+	CsiBtn = function () {
+		console.log('Csi is running')
 		this.props.navigation.dispatch({
 			type: 'Navigation/NAVIGATE',
-			routeName: 'Cars'
+			routeName: 'Csi'
 		});
 	}
 
@@ -63,20 +72,25 @@ export class DashboardHome extends Component {
   render() {
     return(  
 		<View style={{paddingLeft: 10, paddingRight: 10, paddingTop: 30}}>
-			<TouchableOpacity style={styles.buttonContainer} onPress={this.DataStreamBtn}>       
-				<Text style={{color: 'white', textAlign: 'center'}}>Data Stream</Text>
-			</TouchableOpacity>
 
 			<TouchableOpacity style={styles.buttonContainer} onPress={this.BookingBtn} screenProps={this.state} >       
 				<Text style={{color: 'white', textAlign: 'center'}}>Bookings</Text>
+			</TouchableOpacity>
+
+			<TouchableOpacity style={styles.buttonContainer} onPress={this.QuotesBtn.bind(this)}>       
+				<Text style={{color: 'white', textAlign: 'center'}}>Quotes</Text>
 			</TouchableOpacity>
 
 			<TouchableOpacity style={styles.buttonContainer} onPress={this.InvoicesBtn.bind(this)}>       
 				<Text style={{color: 'white', textAlign: 'center'}}>Invoices</Text>
 			</TouchableOpacity>
 
-			<TouchableOpacity style={styles.buttonContainer} onPress={this.CarsBtn}>       
-				<Text style={{color: 'white', textAlign: 'center'}}>Cars</Text>
+			<TouchableOpacity style={styles.buttonContainer} onPress={this.CsiBtn}>       
+				<Text style={{color: 'white', textAlign: 'center'}}>CSI</Text>
+			</TouchableOpacity>
+
+			<TouchableOpacity style={styles.buttonContainer} onPress={this.DataStreamBtn}>       
+				<Text style={{color: 'white', textAlign: 'center'}}>Data Stream</Text>
 			</TouchableOpacity>
 		</View>
     )

@@ -3,8 +3,10 @@ import {DrawerStack} from './DrawerStack'
 //import {DataStream} from './Actions/DataStream'
 import {Bookings} from './Actions/Bookings'
 import {Invoices} from './Actions/Invoices'
-import {Cars} from './Actions/Cars'
+import {Csi} from './Actions/Csi'
+import {Quotes} from './Actions/Quotes'
 import OBDReader from './Actions/OBDReader';
+import RootRouter from './RootRouter'
 
 
 export const MainScreen = StackNavigator({
@@ -13,7 +15,9 @@ export const MainScreen = StackNavigator({
 	OBDReader: { screen: OBDReader},
 	Bookings: { screen: Bookings },
 	Invoices: { screen: Invoices},
-	Cars: { screen: Cars},
+	Csi: { screen: Csi},
+	Quotes: { screen: Quotes},
+
 
 	}, {
 		navigationOptions: {

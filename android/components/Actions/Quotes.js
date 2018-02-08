@@ -4,18 +4,18 @@ import {Platform, StyleSheet, Text, View} from 'react-native';
 
 
 
-export class Cars extends Component {
+export class Quotes extends Component {
 
 	
 	static navigationOptions = {
-		title: 'Cars'
+		title: 'Quotes'
 	}
 
 	render() {
 		return(  
 			<View style={{paddingLeft: 10, paddingRight: 10, paddingTop: 30}}>
 				<Text>
-					CARS SCREEN
+					QUOTES SCREEN
 				</Text>
 			</View>
 		)

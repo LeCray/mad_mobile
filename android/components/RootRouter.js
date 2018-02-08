@@ -29,6 +29,8 @@ import DrawerStack from './DrawerStack';
 import MainScreen from './MainScreen';
 import Settings from './Settings';
 
+
+
 import EventEmitter from 'EventEmitter';
 var AppEventEmitter = new EventEmitter();
 
@@ -53,8 +55,8 @@ export default class RootRouter extends Component {
     return (
       <Router>
         <Scene key="root">
-          
-          <Scene key="OBDReader" component={OBDReader} title="OBDReader" hideNavBar={true} initial={true} />
+          <Scene key="DrawerStack" component={DrawerStack} title="" hideNavBar={true} initial/>
+          <Scene key="OBDReader" component={OBDReader} title="OBDReader" hideNavBar={true} />
           <Scene key="Settings" component={Settings} title="Settings" hideNavBar={true} />
         </Scene>
       </Router>
