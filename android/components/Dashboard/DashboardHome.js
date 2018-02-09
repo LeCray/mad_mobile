@@ -71,17 +71,17 @@ export class DashboardHome extends Component {
 	
   render() {
     return(  
-		<View style={{paddingLeft: 10, paddingRight: 10, paddingTop: 30}}>
+		<View style={styles.container}>
 
-			<TouchableOpacity style={styles.buttonContainer} onPress={this.BookingBtn} screenProps={this.state} >       
+			<TouchableOpacity style={styles.buttonContainer} onPress={this.BookingBtn}>       
 				<Text style={{color: 'white', textAlign: 'center'}}>Bookings</Text>
 			</TouchableOpacity>
 
-			<TouchableOpacity style={styles.buttonContainer} onPress={this.QuotesBtn.bind(this)}>       
+			<TouchableOpacity style={styles.buttonContainer} onPress={this.QuotesBtn}>       
 				<Text style={{color: 'white', textAlign: 'center'}}>Quotes</Text>
 			</TouchableOpacity>
 
-			<TouchableOpacity style={styles.buttonContainer} onPress={this.InvoicesBtn.bind(this)}>       
+			<TouchableOpacity style={styles.buttonContainer} onPress={this.InvoicesBtn}>       
 				<Text style={{color: 'white', textAlign: 'center'}}>Invoices</Text>
 			</TouchableOpacity>
 
@@ -99,15 +99,21 @@ export class DashboardHome extends Component {
 
 const styles = StyleSheet.create({
     container: {
-
-        marginTop: '70%',
-        padding: 20
+		flex: 1,
+        flexDirection: 'column',
+        alignItems: 'center',
+        paddingLeft: 10, 
+        paddingRight: 10,
+        paddingTop: 30,
     },
 
 	buttonContainer: {
       backgroundColor: "#2980b6", 
 	  paddingVertical: 15, 
-	  marginTop: 10
+	  marginTop: 20,
+	  width: 200,
+
+
     },
 
 })
