@@ -19,7 +19,7 @@ export class Bookings extends Component {
 		this.state = {email: "", bookings: {}};
 
 	}
-
+/*
 	async componentWillMount() {
 
 		
@@ -52,7 +52,7 @@ export class Bookings extends Component {
 	
 	}
 
-
+*/
 	
 	static navigationOptions = {
 		title: 'Bookings'
@@ -60,27 +60,26 @@ export class Bookings extends Component {
 
 
 	render() {
-		
-		
-		var bookings = JSON.stringify(this.state.bookings)
- 
-		return (
-			<View style={styles.Container}>
- 
-				
-				<Text>{bookings}</Text>
-				
- 
+		return(  
+			<View style={styles.container}>
+				<Text>
+					BOOKINGS SCREEN
+				</Text>
 			</View>
-		);
+		)
+		
 	}
 }	
 
 const styles = StyleSheet.create({
     container: {
-
-        marginTop: '70%',
-        padding: 20
+		paddingLeft: 10, 
+		paddingRight: 10, 
+        padding: 20,
+        marginTop: '40%',
+        flex: 1,
+        flexDirection: 'column',
+        alignItems: 'center',
     },
 
 	buttonContainer: {

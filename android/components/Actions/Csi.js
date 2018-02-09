@@ -13,11 +13,31 @@ export class Csi extends Component {
 
 	render() {
 		return(  
-			<View style={{paddingLeft: 10, paddingRight: 10, paddingTop: 30}}>
+			<View style={styles.container}>
 				<Text>
-					CLIENT SATISFACTION INSURANCE SCREEN
+					CSI SCREEN
 				</Text>
 			</View>
 		)
 	}
 }
+
+
+const styles = StyleSheet.create({
+    container: {
+		paddingLeft: 10, 
+		paddingRight: 10, 
+        padding: 20,
+        marginTop: '40%',
+        flex: 1,
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+
+	buttonContainer: {
+      backgroundColor: "#2980b6", 
+	  paddingVertical: 15, 
+	  marginTop: 10
+    },
+
+})
