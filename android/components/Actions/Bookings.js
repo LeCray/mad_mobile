@@ -19,7 +19,7 @@ export class Bookings extends Component {
 		this.state = {email: "", bookings: {}};
 
 	}
-/*
+
 	async componentWillMount() {
 
 		
@@ -29,16 +29,16 @@ export class Bookings extends Component {
 			this.setState({ email: email });		
 		})
 
-		fetch("http://10.0.0.11:5000/api/v1/bookings", {
+		fetch("http://10.0.0.11:3000/api/v1/bookings", {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 			body: JSON.stringify({
-				email: this.state.email, 
+				email: "captain@gmail.com", 
 			}), 
         })
         .then(response => response.json())
         .then((responseData) => {
-			responseData = responseData.toString()
+			responseData = responseData.json()
 			console.log(responseData);
 			this.setState({
 				bookings: responseData
@@ -52,7 +52,7 @@ export class Bookings extends Component {
 	
 	}
 
-*/
+
 	
 	static navigationOptions = {
 		title: 'Bookings'
@@ -60,26 +60,27 @@ export class Bookings extends Component {
 
 
 	render() {
-		return(  
-			<View style={styles.container}>
-				<Text>
-					BOOKINGS SCREEN
-				</Text>
-			</View>
-		)
 		
+		
+		var bookings = JSON.stringify(this.state.bookings)
+ 
+		return (
+			<View style={styles.Container}>
+ 
+				
+				<Text>{bookings}</Text>
+				
+ 
+			</View>
+		);
 	}
 }	
 
 const styles = StyleSheet.create({
     container: {
-		paddingLeft: 10, 
-		paddingRight: 10, 
-        padding: 20,
-        marginTop: '40%',
-        flex: 1,
-        flexDirection: 'column',
-        alignItems: 'center',
+
+        marginTop: '70%',
+        padding: 20
     },
 
 	buttonContainer: {
