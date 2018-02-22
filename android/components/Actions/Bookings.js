@@ -29,7 +29,7 @@ export class Bookings extends Component {
 			this.setState({ email: email });		
 		})
 
-		fetch("http://10.0.0.11:3000/api/v1/bookings", {
+		fetch("http://192.168.43.42:3000/api/v1/bookings", {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 			body: JSON.stringify({

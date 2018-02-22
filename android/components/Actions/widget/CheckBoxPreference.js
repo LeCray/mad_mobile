@@ -15,7 +15,7 @@ import {
 import { CheckBox } from 'react-native-elements'
 import SharedPreferences from 'react-native-sp';
 
-const Color = require('../../utils/Color');
+const Color = require('../utils/Color');
 
 export default class CheckBoxPreference extends Component {
   constructor(props) {

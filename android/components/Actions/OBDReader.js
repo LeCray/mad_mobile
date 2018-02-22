@@ -36,6 +36,11 @@ const SensorManager = require('NativeModules').SensorManager;
 const Color = require('../utils/Color');
 const Constant = require('../utils/Constant');
 
+const PreferenceDefaultValue = {
+  enable_bluetooth_preference: false,
+  enable_mockup_preference: false,
+};
+
 export default class OBDReader extends Component {
 
   static navigationOptions = {
@@ -44,6 +49,7 @@ export default class OBDReader extends Component {
 
   constructor(props) {
     super(props);
+    SharedPreference.init(PreferenceDefaultValue);
 
     this.state = {
       email: "captain@gmail.com",
@@ -243,13 +249,14 @@ export default class OBDReader extends Component {
     Actions.Settings({
       btSelectedDeviceAddress : this.state.btSelectedDeviceAddress,
     });
+  }
 
-  SettingsBtn = function () {
+  SettingsBtn() {
     console.log('Settings is running')
     this.props.navigation.dispatch({
       type: 'Navigation/NAVIGATE',
       btSelectedDeviceAddress : this.state.btSelectedDeviceAddress,
-      routeName: 'Setting'
+      routeName: 'Settings'
     });
   }
 
@@ -268,7 +275,7 @@ export default class OBDReader extends Component {
         });
       });
 */
-  }
+  
    
   
 
@@ -281,7 +288,7 @@ export default class OBDReader extends Component {
         this.stopLiveData();
         break;
       case 3 :
-        this.openSettings();
+        this.SettingsBtn();
         break;
       default :
         break;

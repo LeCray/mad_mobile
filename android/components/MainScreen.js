@@ -6,13 +6,17 @@ import {Invoices} from './Actions/Invoices'
 import {Csi} from './Actions/Csi'
 import {Quotes} from './Actions/Quotes'
 import OBDReader from './Actions/OBDReader';
+import Settings from './Actions/Settings';
 import RootRouter from './RootRouter'
 
 
 export const MainScreen = StackNavigator({
 	//Stack where hamburger is to be placed
 	Main: { screen: DrawerStack },
+
+	//Screens that are accessed by DashboardHome.js
 	OBDReader: { screen: OBDReader},
+	Settings: { screen: Settings },
 	Bookings: { screen: Bookings },
 	Invoices: { screen: Invoices},
 	Csi: { screen: Csi},
