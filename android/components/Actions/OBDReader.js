@@ -38,7 +38,7 @@ const Constant = require('../utils/Constant');
 
 const PreferenceDefaultValue = {
   enable_bluetooth_preference: false,
-  enable_mockup_preference: false,
+  enable_mockup_preference: true,
 };
 
 export default class OBDReader extends Component {
