@@ -1,28 +1,22 @@
 import React, { Component } from 'react';
 import {Platform, StyleSheet, Text, View, TouchableOpacity, AsyncStorage} from 'react-native';
-
-
+import ActionButton from 'react-native-action-button';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 
 export class Bookings extends Component {
 
-/*
-	await AsyncStorage.getItem('email')
-	.then((value) => { 
-		this.setState({'email': value})	
-		console.log(this.state.email)
-	});
-*/	
+	static navigationOptions = {
+		title: 'Bookings'
+	}
 	
 	constructor(props) {
 		super(props);
 		this.state = {email: "", bookingDates: "", bookingTimes: {}};
-
 	}
 
 	async componentWillMount() {
 
-		
 		const email = await AsyncStorage.getItem('email')
 		.then((email) => {
 			console.log(email)
@@ -55,35 +49,28 @@ export class Bookings extends Component {
           console.error(error);
         })
         .done();
-
-	
-	}
-
-
-	
-	static navigationOptions = {
-		title: 'Bookings'
 	}
 
 
 	render() {
-		
-		
+	
 		var bookingDates = JSON.stringify(this.state.bookingDates)
 		var bookingTimes = JSON.stringify(this.state.bookingTimes)
 
 		
  
 		return (
-			<View style={styles.Container}>
+			<View style={styles.container}>
+				<Text style={styles.booking}>DATE: </Text>
+				<View style={styles.hr}/>
 
-					{this.state.bookingDates.map((dates) =>
-						<Text>{dates}</Text>		
-					)}
+				<Text style={styles.booking}>TIME: </Text>
+				<View style={styles.hr}/>
 
-					{this.state.bookingTimes.map((times) =>
-						<Text>{times}</Text>		
-					)}
+				<Text style={styles.booking}>DESCRIPTION: </Text>
+				<View style={styles.hr}/>
+				  
+				
 				
 			</View>
 		);
@@ -92,15 +79,22 @@ export class Bookings extends Component {
 
 const styles = StyleSheet.create({
     container: {
-
-        marginTop: '70%',
-        padding: 20
+    	flex: 1,
+		backgroundColor: '#f3f3f3',
+        padding: 20,
+		
+    },
+    hr: {
+		borderBottomColor: '#d3d3d3',
+		borderBottomWidth: 1,
+		marginTop: 10,
+		width: '90%',
+		alignSelf: 'center'
     },
 
-	buttonContainer: {
-      backgroundColor: "#2980b6", 
-	  paddingVertical: 15, 
-	  marginTop: 10
+	booking: {
+		fontSize: 15,
+		marginTop: 10,
     },
 
 })
