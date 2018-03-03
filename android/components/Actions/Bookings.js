@@ -70,8 +70,12 @@ export class Bookings extends Component {
 				<Text style={styles.booking}>DESCRIPTION: </Text>
 				<View style={styles.hr}/>
 				  
-				
-				
+				<ActionButton buttonColor="rgba(231,76,60,1)">
+					<ActionButton.Item buttonColor='#9b59b6' title="New Booking" >
+						<Icon name="md-create" style={styles.actionButtonIcon} />
+					</ActionButton.Item>
+				</ActionButton>
+	
 			</View>
 		);
 	}
@@ -82,7 +86,6 @@ const styles = StyleSheet.create({
     	flex: 1,
 		backgroundColor: '#f3f3f3',
         padding: 20,
-		
     },
     hr: {
 		borderBottomColor: '#d3d3d3',
@@ -91,10 +94,14 @@ const styles = StyleSheet.create({
 		width: '90%',
 		alignSelf: 'center'
     },
-
 	booking: {
 		fontSize: 15,
 		marginTop: 10,
     },
+	actionButtonIcon: {
+		fontSize: 20,
+		height: 22,
+		color: 'white',
+	},
 
 })
