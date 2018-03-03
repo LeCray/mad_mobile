@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, Text, View, TouchableOpacity, AsyncStorage} from 'react-native';
+import DateTimePicker from 'react-native-modal-datetime-picker';
 
 
 export class NewBooking extends Component {
@@ -11,12 +12,32 @@ export class NewBooking extends Component {
 		headerMode: 'none'
 	}
 
+	constructor(props) {
+		super(props);
+		this.state = {isDateTimePickerVisible: false,};
+	}
+
+	_showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true })
+
+  	_hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false })
+
+	_handleDateTimePicked = (dateTime) => {
+		console.log('A date has been picked: ', dateTime);
+		this._hideDateTimePicker();
+	}
+
 	render() {
 		return(  
-			<View style={styles.container}>
-				<Text>
-					New Booking
-				</Text>
+			<View style={{ flex: 1 }}>
+				<TouchableOpacity style={styles.buttonContainer} onPress={this._showDateTimePicker}>
+					<Text style={{color: 'white', textAlign: 'center'}}>Select Date & Time</Text>
+				</TouchableOpacity>
+				<DateTimePicker
+				isVisible={this.state.isDateTimePickerVisible}
+				onConfirm={this._handleDateTimePicked}
+				onCancel={this._hideDateTimePicker}
+				mode="datetime"
+				/>
 			</View>
 		)
 	}
@@ -36,7 +57,8 @@ const styles = StyleSheet.create({
 	buttonContainer: {
       backgroundColor: "#2980b6", 
 	  paddingVertical: 15, 
-	  marginTop: 10
+	  marginTop: 10,
+	  width: 250,
     },
 
 })
