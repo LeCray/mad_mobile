@@ -12,6 +12,7 @@ export class Bookings extends Component {
 	
 	constructor(props) {
 		super(props);
+		this.NewBookingBtn = this.NewBookingBtn.bind(this);
 		this.state = {email: "", bookingDates: "", bookingTimes: {}};
 	}
 
@@ -51,6 +52,13 @@ export class Bookings extends Component {
         .done();
 	}
 
+	NewBookingBtn = function () {
+		console.log('NewBooking is running')
+		this.props.navigation.dispatch({
+			type: 'Navigation/NAVIGATE',
+			routeName: 'NewBooking'
+		});
+	}
 
 	render() {
 	
@@ -71,7 +79,7 @@ export class Bookings extends Component {
 				<View style={styles.hr}/>
 				  
 				<ActionButton buttonColor="rgba(231,76,60,1)">
-					<ActionButton.Item buttonColor='#9b59b6' title="New Booking" >
+					<ActionButton.Item buttonColor='#9b59b6' title="New Booking" onPress={this.NewBookingBtn}>
 						<Icon name="md-create" style={styles.actionButtonIcon} />
 					</ActionButton.Item>
 				</ActionButton>
