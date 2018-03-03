@@ -9,6 +9,7 @@
   "dependencies": {
     "react": "16.0.0",
     "react-native": "0.51.0",
+    "react-native-action-button": "^2.8.4",
     "react-native-dialogs": "0.0.21",
     "react-native-elements": "^0.18.5",
     "react-native-menu": "^0.23.0",

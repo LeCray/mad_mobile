@@ -16,7 +16,7 @@ export class Bookings extends Component {
 	
 	constructor(props) {
 		super(props);
-		this.state = {email: "", bookings: {}};
+		this.state = {email: "", bookingDates: "", bookingTimes: {}};
 
 	}
 
@@ -36,12 +36,19 @@ export class Bookings extends Component {
 				email: "captain@gmail.com", 
 			}), 
         })
-        .then(response => response.json())
+        .then(responseData => responseData.json())
         .then((responseData) => {
-			responseData = responseData.json()
+			//responseData.json()
+			console.log("Below is response from mobile side")
 			console.log(responseData);
+
+			responseData.date.map((dates) => {
+			    console.log(dates);
+			});
+
 			this.setState({
-				bookings: responseData
+				bookingDates: responseData.date,
+				bookingTimes: responseData.time
 			})
         })
         .catch((error) => {
@@ -62,15 +69,22 @@ export class Bookings extends Component {
 	render() {
 		
 		
-		var bookings = JSON.stringify(this.state.bookings)
+		var bookingDates = JSON.stringify(this.state.bookingDates)
+		var bookingTimes = JSON.stringify(this.state.bookingTimes)
+
+		
  
 		return (
 			<View style={styles.Container}>
- 
+
+					{this.state.bookingDates.map((dates) =>
+						<Text>{dates}</Text>		
+					)}
+
+					{this.state.bookingTimes.map((times) =>
+						<Text>{times}</Text>		
+					)}
 				
-				<Text>{bookings}</Text>
-				
- 
 			</View>
 		);
 	}
