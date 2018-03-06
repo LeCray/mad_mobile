@@ -112,8 +112,6 @@ const styles = StyleSheet.create({
 	  paddingVertical: 15, 
 	  marginTop: 20,
 	  width: 250,
-
-
     },
 
 })
