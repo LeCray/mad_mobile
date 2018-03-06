@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Platform, StyleSheet, Text, View, TouchableOpacity, AsyncStorage} from 'react-native';
+import {Platform, StyleSheet, Text, View, TouchableOpacity, AsyncStorage, Modal, TouchableHighlight} from 'react-native';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -15,10 +15,16 @@ export class Bookings extends Component {
 	
 	constructor(props) {
 		super(props);
-		this.state = {email: "", bookingDates: "", bookingTimes: {}};
-		this.state = {isDateTimePickerVisible: false};
-		this.state = {date: ""};
-		this.state = {time: ""};
+		this.state = {
+			email: "", 
+			bookingDates: "", 
+			bookingTimes: {},
+			isDateTimePickerVisible: false,
+			isBookingMade: false,
+			modalVisible: false,
+			date: "",
+			time: ""
+		};
 	}
 
 	async componentWillMount() {
@@ -57,15 +63,7 @@ export class Bookings extends Component {
         .done();
 	}
 
-/*
-	NewBookingBtn = function () {
-		console.log('NewBooking is running')
-		this.props.navigation.dispatch({
-			type: 'Navigation/NAVIGATE',
-			routeName: 'NewBooking'
-		});
-	}
-*/
+
 	_showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true })
   	_hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false })
   	
@@ -74,12 +72,16 @@ export class Bookings extends Component {
 
 		date = dateFormat(datetime, "dddd, mmmm dS, yyyy");
 		time = dateFormat(datetime, "h:MM TT");
-		this.setState({date: date, time: time})
+		this.setState({date: date, time: time});
+		this.setState({isBookingMade: true});
+		this.setState({isNewBookingMade: true});
 
 		console.log('Date: ', this.state.date);	
 		console.log('Time: ', this.state.time);
-
 	}
+
+	_showModal = () => this.setState({ modalVisible: true })
+	_hideModal = () => this.setState({ modalVisible: false })
 	
 
 
@@ -87,14 +89,42 @@ export class Bookings extends Component {
 	
 		return (
 			<View style={styles.container}>
-				<Text style={styles.booking}>DATE: </Text>
+				<Text style={styles.booking}>DATE: {this.state.date}</Text>
 				<View style={styles.hr}/>
 
-				<Text style={styles.booking}>TIME: </Text>
+				<Text style={styles.booking}>TIME: {this.state.time}</Text>
 				<View style={styles.hr}/>
 
 				<Text style={styles.booking}>DESCRIPTION: </Text>
 				<View style={styles.hr}/>
+
+				<TouchableOpacity 
+					style = {styles.buttonContainer}
+					isVisible = {false}>
+					<Text style={{color: 'white', textAlign: 'center'}}>Place Booking</Text>
+				</TouchableOpacity>
+
+				<Modal
+					animationType="slide"
+					transparent={false}
+					visible = { this.state.modalVisible }
+					onRequestClose={() => {
+						alert('Modal has been closed.');
+					}}>
+					<View style={{marginTop: 22}}>
+						<View>
+							<Text>Hello World!</Text>
+
+							<TouchableHighlight onPress = {this._hideModal}>								
+								<Text>Hide Modal</Text>
+							</TouchableHighlight>
+						</View>
+					</View>
+		        </Modal>
+
+		        <TouchableHighlight onPress = {this._showModal}>
+	        		<Text>Show Modal</Text>
+		        </TouchableHighlight>
 
 				<DateTimePicker
 					isVisible={this.state.isDateTimePickerVisible}
@@ -106,6 +136,9 @@ export class Bookings extends Component {
 				<ActionButton buttonColor="rgba(231,76,60,1)">
 					<ActionButton.Item buttonColor='#9b59b6' title="New Booking" onPress={this._showDateTimePicker}>
 						<Icon name="md-create" style={styles.actionButtonIcon} />
+					</ActionButton.Item>
+					<ActionButton.Item buttonColor='#9b59b6' title="Add Description" onPress={this._showModal}>
+						<Icon name="md-clipboard" style={styles.actionButtonIcon} />
 					</ActionButton.Item>
 				</ActionButton>
 			</View>
@@ -137,5 +170,12 @@ const styles = StyleSheet.create({
 		width: '90%',
 		alignSelf: 'center'
     },
+	buttonContainer: {
+      backgroundColor: "#2980b6", 
+	  paddingVertical: 15, 
+	  marginTop: 20,
+	  width: 250,
+	  alignSelf: 'center'
+    }
 
 })
