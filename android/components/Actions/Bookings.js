@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import {Platform, StyleSheet, Text, View, TouchableOpacity, 
-		AsyncStorage, Modal, TouchableHighlight, TextInput} from 'react-native';
+		AsyncStorage, Modal, TouchableHighlight, TextInput, KeyboardAvoidingView} from 'react-native';
 
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import ActionButton from 'react-native-action-button';
@@ -27,9 +27,14 @@ export class Bookings extends Component {
 			modalVisible: false,
 			date: "",
 			time: "",
-			text: "",
+			description: "",
+			carMake: "",
+			carModel: ""
 		};
 	}
+
+
+
 
 	async componentWillMount() {
 
@@ -77,6 +82,9 @@ export class Bookings extends Component {
 		date = dateFormat(datetime, "dddd, mmmm dS, yyyy");
 		time = dateFormat(datetime, "h:MM TT");
 		this.setState({date: date, time: time});
+
+		
+
 		this.setState({isBookingMade: true});
 		this.setState({isNewBookingMade: true});
 
@@ -86,10 +94,74 @@ export class Bookings extends Component {
 
 	_showModal = () => this.setState({ modalVisible: true })
 	_hideModal = () => this.setState({ modalVisible: false })
-	
+
+	_handleBooking = () => {
+		AsyncStorage.setItem('date', this.state.date)
+		AsyncStorage.setItem('time', this.state.time)
+		AsyncStorage.setItem('description', this.state.description)
+		AsyncStorage.setItem('carMake', this.state.carMake)
+		AsyncStorage.setItem('carModel', this.state.carModel)
+		console.log('booking saved')
+	}
+
+	componentWillMount() {
+		AsyncStorage.getItem('date')
+		.then((date) => {
+			this.setState({'date': date})
+			console.log({date: date})
+		})
+		.catch((error) => {
+			console.error(error);
+		})
+
+		AsyncStorage.getItem('time')
+		.then((time) => {
+			this.setState({'time': time})
+			console.log({time: time})
+		})
+		.catch((error) => {
+			console.error(error);
+		})
+
+		AsyncStorage.getItem('description')
+		.then((description) => {
+			this.setState({'description': description})
+			console.log({description: description})
+		})
+		.catch((error) => {
+			console.error(error);
+		})
+
+		AsyncStorage.getItem('carMake')
+		.then((carMake) => {
+			this.setState({'carMake': carMake})
+			console.log({carMake: carMake})
+		})
+		.catch((error) => {
+			console.error(error);
+		})
+
+		AsyncStorage.getItem('carModel')
+		.then((carModel) => {
+			this.setState({'carModel': carModel})
+			console.log({carModel: carModel})
+		})
+		.catch((error) => {
+			console.error(error);
+		})
+	}
 
 
 	render() {
+
+		AsyncStorage.getItem('date')
+		.then((date) => {
+			var storedDate = date
+			console.log("storedDate", storedDate)
+		})
+		.catch((error) => {
+			console.error(error);
+		})
 	
 		return (
 			<View style={styles.container}>
@@ -100,37 +172,63 @@ export class Bookings extends Component {
 				<View style={styles.hr}/>
 
 				<Text style={styles.booking}>DESCRIPTION: </Text>
+				<Text style={{fontStyle: 'italic', marginLeft: 15}}>{this.state.description}</Text>
 				<View style={styles.hr}/>
 
-				<TouchableOpacity 
-					style = {styles.buttonContainer}
-					isVisible = {false}>
-					<Text style={{color: 'white', textAlign: 'center'}}>Place Booking</Text>
-				</TouchableOpacity>
-
+				{this.state.carMake? 
+					<Text style={styles.carDesc}>CAR MAKE: {this.state.carMake}</Text>: null 
+				}
+				{this.state.carModel? 
+					<Text style={styles.carDesc}>CAR MODEL: {this.state.carModel}</Text>: null 
+				}
+				
+				
+				{this.state.date != AsyncStorage.getItem('date')? 
+					<TouchableOpacity 
+						style = {styles.buttonContainer}
+						isVisible = {false}>
+						<Text onPress={this._handleBooking} style={{color: 'white', textAlign: 'center'}}>Place Booking</Text>
+					</TouchableOpacity>: null
+				}
+				
 				<Modal
 					animationType="slide"
-					transparent={false}
+					transparent={true}
 					visible = { this.state.modalVisible }
 					onRequestClose={this._hideModal}>
+					
+					<View style={{paddingTop: 50, backgroundColor: '#00000080', flex: 1}}>
+						<View  style={{backgroundColor: '#fff', padding: 20, flex: 1}}>
+							
+							<Text style={styles.descHeader}>Add Description</Text>
+							<View style={styles.descHr}/>
+							<View style={styles.descText}>
+								<TextInput
+						        	multiline = {true}
+									numberOfLines = {2}
+									onChangeText={(text) => this.setState({description: text})}
+									placeholder = "Type problem here"
+									style={{borderWidth: 0}}/>
+								<TextInput
+									onChangeText={(text) => this.setState({carMake: text})}
+									placeholder = "Car Make e.g. BMW"
+									returnKeyType="next"
+									style={{borderWidth: 0}}/>
+								<TextInput
+									onChangeText={(text) => this.setState({carModel: text})}
+									placeholder = "Car Model e.g. M4 Coupe"
+									returnKeyType="done" 
+									style={{borderWidth: 0}}/>
+							</View>
+							<TouchableHighlight style={styles.descButton} onPress={this._hideModal}>								
+								<Text style={{color: 'white', textAlign: 'center'}}>Done</Text>
+							</TouchableHighlight>
 
-					<View style={{marginTop: 50}}>
-						<Text style={styles.descHeader}>Add Description</Text>
-						<View style={styles.descHr}/>
-						<View style={styles.descText}>
-							<TextInput
-					        	multiline = {true}
-								numberOfLines = {2}
-								onChangeText={(text) => this.setState({text})}
-								placeholder = "Type here"
-								style={{borderWidth: 0}}
-							/>
 						</View>
-						<TouchableHighlight style={styles.descButton} onPress = {this._hideModal}>								
-							<Text style={{color: 'white', textAlign: 'center'}}>Done</Text>
-						</TouchableHighlight>
 					</View>
+
 		        </Modal>
+				
 
 				<DateTimePicker
 					isVisible={this.state.isDateTimePickerVisible}
@@ -148,6 +246,7 @@ export class Bookings extends Component {
 					</ActionButton.Item>
 				</ActionButton>
 			</View>
+
 		);
 	}
 }	
@@ -202,7 +301,11 @@ const styles = StyleSheet.create({
     },
     descText: {
     	paddingLeft: 30,
-    	paddingRight: 30
+    	paddingRight: 30,
+
+    },
+    carDesc: {
+		marginTop: 10,
     }
 
 })
