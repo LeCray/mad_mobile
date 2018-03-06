@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import {Platform, StyleSheet, Text, View, TouchableOpacity, AsyncStorage, Modal, TouchableHighlight} from 'react-native';
+
+import {Platform, StyleSheet, Text, View, TouchableOpacity, 
+		AsyncStorage, Modal, TouchableHighlight, TextInput} from 'react-native';
+
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -23,7 +26,8 @@ export class Bookings extends Component {
 			isBookingMade: false,
 			modalVisible: false,
 			date: "",
-			time: ""
+			time: "",
+			text: "",
 		};
 	}
 
@@ -108,23 +112,25 @@ export class Bookings extends Component {
 					animationType="slide"
 					transparent={false}
 					visible = { this.state.modalVisible }
-					onRequestClose={() => {
-						alert('Modal has been closed.');
-					}}>
-					<View style={{marginTop: 22}}>
-						<View>
-							<Text>Hello World!</Text>
+					onRequestClose={this._hideModal}>
 
-							<TouchableHighlight onPress = {this._hideModal}>								
-								<Text>Hide Modal</Text>
-							</TouchableHighlight>
+					<View style={{marginTop: 50}}>
+						<Text style={styles.descHeader}>Add Description</Text>
+						<View style={styles.descHr}/>
+						<View style={styles.descText}>
+							<TextInput
+					        	multiline = {true}
+								numberOfLines = {2}
+								onChangeText={(text) => this.setState({text})}
+								placeholder = "Type here"
+								style={{borderWidth: 0}}
+							/>
 						</View>
+						<TouchableHighlight style={styles.descButton} onPress = {this._hideModal}>								
+							<Text style={{color: 'white', textAlign: 'center'}}>Done</Text>
+						</TouchableHighlight>
 					</View>
 		        </Modal>
-
-		        <TouchableHighlight onPress = {this._showModal}>
-	        		<Text>Show Modal</Text>
-		        </TouchableHighlight>
 
 				<DateTimePicker
 					isVisible={this.state.isDateTimePickerVisible}
@@ -134,11 +140,11 @@ export class Bookings extends Component {
 		        />
 				  
 				<ActionButton buttonColor="rgba(231,76,60,1)">
-					<ActionButton.Item buttonColor='#9b59b6' title="New Booking" onPress={this._showDateTimePicker}>
-						<Icon name="md-create" style={styles.actionButtonIcon} />
+					<ActionButton.Item buttonColor='#009900' title="New Booking" onPress={this._showDateTimePicker}>
+						<Icon name="md-time" style={styles.actionButtonIcon} />
 					</ActionButton.Item>
 					<ActionButton.Item buttonColor='#9b59b6' title="Add Description" onPress={this._showModal}>
-						<Icon name="md-clipboard" style={styles.actionButtonIcon} />
+						<Icon name="md-create" style={styles.actionButtonIcon} />
 					</ActionButton.Item>
 				</ActionButton>
 			</View>
@@ -152,8 +158,6 @@ const styles = StyleSheet.create({
 		backgroundColor: '#f3f3f3',
         padding: 20,
     },
- 
-
 	actionButtonIcon: {
 		fontSize: 20,
 		height: 22,
@@ -170,12 +174,35 @@ const styles = StyleSheet.create({
 		width: '90%',
 		alignSelf: 'center'
     },
+	descHr: {
+		borderBottomColor: '#d3d3d3',
+		borderBottomWidth: 1,
+		marginTop: 10,
+		width: '80%',
+		alignSelf: 'center'
+    },
 	buttonContainer: {
-      backgroundColor: "#2980b6", 
-	  paddingVertical: 15, 
-	  marginTop: 20,
-	  width: 250,
-	  alignSelf: 'center'
+		backgroundColor: "#2980b6", 
+		paddingVertical: 15, 
+		marginTop: 20,
+		width: 250,
+		alignSelf: 'center'
+    },
+	descButton: {
+		backgroundColor: "#9b59b6", 
+		paddingVertical: 15, 
+		marginTop: 20,
+		width: 250,
+		alignSelf: 'center'
+	},
+    descHeader: {
+    	alignSelf: 'center',
+    	fontSize: 20,
+    	color: '#9b59b6'
+    },
+    descText: {
+    	paddingLeft: 30,
+    	paddingRight: 30
     }
 
 })
