@@ -22,6 +22,7 @@ export class Bookings extends Component {
 			email: "", 
 			bookingDates: "", 
 			bookingTimes: {},
+			isBookingPlaced: false,
 			isDateTimePickerVisible: false,
 			isBookingMade: false,
 			modalVisible: false,
@@ -78,15 +79,11 @@ export class Bookings extends Component {
   	
 	_handleDateTimePicked = (datetime) => {	
 		var dateFormat = require('dateformat');
-
 		date = dateFormat(datetime, "dddd, mmmm dS, yyyy");
 		time = dateFormat(datetime, "h:MM TT");
+
 		this.setState({date: date, time: time});
-
-		
-
-		this.setState({isBookingMade: true});
-		this.setState({isNewBookingMade: true});
+		this.setState({isBookingPlaced: false});
 
 		console.log('Date: ', this.state.date);	
 		console.log('Time: ', this.state.time);
@@ -101,14 +98,25 @@ export class Bookings extends Component {
 		AsyncStorage.setItem('description', this.state.description)
 		AsyncStorage.setItem('carMake', this.state.carMake)
 		AsyncStorage.setItem('carModel', this.state.carModel)
-		console.log('booking saved')
+		
+		this.setState({ isBookingPlaced: true })
+		AsyncStorage.setItem('isBookingPlaced', "true")
+		console.log('Handle Booking has ran')
+
+		
 	}
 
 	componentWillMount() {
+		AsyncStorage.getItem('isBookingPlaced')
+		.then((value) => {
+			this.setState({'isBookingPlaced': value})
+			console.log({isBookingPlaced: value})
+		})
+
 		AsyncStorage.getItem('date')
 		.then((date) => {
 			this.setState({'date': date})
-			console.log({date: date})
+			//console.log({date: date})
 		})
 		.catch((error) => {
 			console.error(error);
@@ -117,7 +125,7 @@ export class Bookings extends Component {
 		AsyncStorage.getItem('time')
 		.then((time) => {
 			this.setState({'time': time})
-			console.log({time: time})
+			//console.log({time: time})
 		})
 		.catch((error) => {
 			console.error(error);
@@ -126,7 +134,7 @@ export class Bookings extends Component {
 		AsyncStorage.getItem('description')
 		.then((description) => {
 			this.setState({'description': description})
-			console.log({description: description})
+			//console.log({description: description})
 		})
 		.catch((error) => {
 			console.error(error);
@@ -135,7 +143,7 @@ export class Bookings extends Component {
 		AsyncStorage.getItem('carMake')
 		.then((carMake) => {
 			this.setState({'carMake': carMake})
-			console.log({carMake: carMake})
+			//console.log({carMake: carMake})
 		})
 		.catch((error) => {
 			console.error(error);
@@ -144,7 +152,7 @@ export class Bookings extends Component {
 		AsyncStorage.getItem('carModel')
 		.then((carModel) => {
 			this.setState({'carModel': carModel})
-			console.log({carModel: carModel})
+			//console.log({carModel: carModel})
 		})
 		.catch((error) => {
 			console.error(error);
@@ -153,15 +161,6 @@ export class Bookings extends Component {
 
 
 	render() {
-
-		AsyncStorage.getItem('date')
-		.then((date) => {
-			var storedDate = date
-			console.log("storedDate", storedDate)
-		})
-		.catch((error) => {
-			console.error(error);
-		})
 	
 		return (
 			<View style={styles.container}>
@@ -183,11 +182,15 @@ export class Bookings extends Component {
 				}
 				
 				
-				{this.state.date != AsyncStorage.getItem('date')? 
+				{!this.state.isBookingPlaced? 
 					<TouchableOpacity 
 						style = {styles.buttonContainer}
 						isVisible = {false}>
-						<Text onPress={this._handleBooking} style={{color: 'white', textAlign: 'center'}}>Place Booking</Text>
+						<Text 	
+							onPress={this._handleBooking} 
+							style={{color: 'rgba(231,76,60,1)', textAlign: 'center'}}>
+							Place Booking
+						</Text>
 					</TouchableOpacity>: null
 				}
 				
@@ -220,6 +223,7 @@ export class Bookings extends Component {
 									returnKeyType="done" 
 									style={{borderWidth: 0}}/>
 							</View>
+
 							<TouchableHighlight style={styles.descButton} onPress={this._hideModal}>								
 								<Text style={{color: 'white', textAlign: 'center'}}>Done</Text>
 							</TouchableHighlight>
@@ -281,7 +285,11 @@ const styles = StyleSheet.create({
 		alignSelf: 'center'
     },
 	buttonContainer: {
-		backgroundColor: "#2980b6", 
+		//backgroundColor: "#2980b6", 
+		borderTopWidth: 1,
+		borderTopColor: '#d3d3d3',
+		borderBottomWidth: 1,
+		borderBottomColor: '#d3d3d3',
 		paddingVertical: 15, 
 		marginTop: 20,
 		width: 250,
