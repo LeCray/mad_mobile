@@ -114,49 +114,19 @@ export class Bookings extends Component {
 		})
 
 		AsyncStorage.getItem('date')
-		.then((date) => {
-			this.setState({'date': date})
-			//console.log({date: date})
-		})
-		.catch((error) => {
-			console.error(error);
-		})
+		.then((date) => this.setState({'date': date}))
 
 		AsyncStorage.getItem('time')
-		.then((time) => {
-			this.setState({'time': time})
-			//console.log({time: time})
-		})
-		.catch((error) => {
-			console.error(error);
-		})
-
+		.then((time) => this.setState({'time': time}))
+		
 		AsyncStorage.getItem('description')
-		.then((description) => {
-			this.setState({'description': description})
-			//console.log({description: description})
-		})
-		.catch((error) => {
-			console.error(error);
-		})
+		.then((description) => this.setState({'description': description}))
 
 		AsyncStorage.getItem('carMake')
-		.then((carMake) => {
-			this.setState({'carMake': carMake})
-			//console.log({carMake: carMake})
-		})
-		.catch((error) => {
-			console.error(error);
-		})
+		.then((carMake) => this.setState({'carMake': carMake}))
 
 		AsyncStorage.getItem('carModel')
-		.then((carModel) => {
-			this.setState({'carModel': carModel})
-			//console.log({carModel: carModel})
-		})
-		.catch((error) => {
-			console.error(error);
-		})
+		.then((carModel) => this.setState({'carModel': carModel}))
 	}
 
 
@@ -164,10 +134,14 @@ export class Bookings extends Component {
 	
 		return (
 			<View style={styles.container}>
-				<Text style={styles.booking}>DATE: {this.state.date}</Text>
+			<Text style={styles.booking}>DATE: 
+					<Text style={{fontStyle: 'italic'}}> {this.state.date}</Text>
+				</Text>
 				<View style={styles.hr}/>
 
-				<Text style={styles.booking}>TIME: {this.state.time}</Text>
+				<Text style={styles.booking}>TIME: 
+					<Text style={{fontStyle: 'italic'}}> {this.state.time}</Text>
+				</Text>
 				<View style={styles.hr}/>
 
 				<Text style={styles.booking}>DESCRIPTION: </Text>
@@ -175,10 +149,14 @@ export class Bookings extends Component {
 				<View style={styles.hr}/>
 
 				{this.state.carMake? 
-					<Text style={styles.carDesc}>CAR MAKE: {this.state.carMake}</Text>: null 
-				}
-				{this.state.carModel? 
-					<Text style={styles.carDesc}>CAR MODEL: {this.state.carModel}</Text>: null 
+					<View>
+						<Text style={styles.carDesc}>CAR MAKE: 
+							<Text style={{fontStyle: 'italic'}}> {this.state.carMake}</Text>
+						</Text>
+						<Text style={styles.carDesc}>CAR MODEL: 
+							<Text style={{fontStyle: 'italic'}}> {this.state.carModel}</Text>
+						</Text>
+					</View>: null 
 				}
 				
 				
