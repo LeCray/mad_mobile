@@ -98,12 +98,10 @@ export class Bookings extends Component {
 		AsyncStorage.setItem('description', this.state.description)
 		AsyncStorage.setItem('carMake', this.state.carMake)
 		AsyncStorage.setItem('carModel', this.state.carModel)
-		
-		this.setState({ isBookingPlaced: true })
 		AsyncStorage.setItem('isBookingPlaced', "true")
-		console.log('Handle Booking has ran')
-
+		this.setState({ isBookingPlaced: true })
 		
+		console.log('Handle Booking has ran')
 	}
 
 	componentWillMount() {
@@ -148,7 +146,7 @@ export class Bookings extends Component {
 				<Text style={{fontStyle: 'italic', marginLeft: 15}}>{this.state.description}</Text>
 				<View style={styles.hr}/>
 
-				{this.state.carMake? 
+				{this.state.carMake || this.state.carModel? 
 					<View>
 						<Text style={styles.carDesc}>CAR MAKE: 
 							<Text style={{fontStyle: 'italic'}}> {this.state.carMake}</Text>
@@ -156,7 +154,8 @@ export class Bookings extends Component {
 						<Text style={styles.carDesc}>CAR MODEL: 
 							<Text style={{fontStyle: 'italic'}}> {this.state.carModel}</Text>
 						</Text>
-					</View>: null 
+					</View> : null 
+
 				}
 				
 				
@@ -169,7 +168,16 @@ export class Bookings extends Component {
 							style={{color: 'rgba(231,76,60,1)', textAlign: 'center'}}>
 							Place Booking
 						</Text>
-					</TouchableOpacity>: null
+					</TouchableOpacity>
+				: 
+					<View>
+						<View style={styles.hr}/>
+						<View style={{marginTop: 10, alignSelf: 'center'}}>
+							<Text style={{fontSize: 18, color: "rgba(231,76,60,1)"}}> STATUS: 
+								<Text style={{color: "#999999", fontWeight: 'bold'}}> PENDING </Text>
+							</Text>
+						</View> 
+					</View>
 				}
 				
 				<Modal
