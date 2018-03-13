@@ -121,7 +121,7 @@ export class Bookings extends Component {
 
 	_handleBooking = () => {
 
-		if ( this.state.date && this.state.time ){ 
+		/*if ( this.state.date && this.state.time ){ 
 			AsyncStorage.setItem('date', this.state.date);
 			AsyncStorage.setItem('time', this.state.time);
 			AsyncStorage.setItem('description', this.state.description);
@@ -129,17 +129,17 @@ export class Bookings extends Component {
 			AsyncStorage.setItem('carModel', this.state.carModel);
 			AsyncStorage.setItem('isBookingPlaced', "true");
 			this.setState({ isBookingPlaced: true });
-
+		*/
 			fetch("http://10.0.1.156:3000/api/v1/bookings", {
 				method: "POST", 
 				headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 				body: JSON.stringify({
 					email: "captain@gmail.com", 
-					date: this.state.date,
-					time: this.state.time,
-					description: this.state.description,
-					carMake: this.state.carMake,
-					carModel: this.state.carModel
+					date: "Tuesday, March 13th, 2018",//this.state.date,
+					time: "10:08PM",//this.state.time,
+					description: "Car wont start",//this.state.description,
+					carMake: "AUDI",//this.state.carMake,
+					carModel: "RS3", //this.state.carModel
 				}), 
 	        })
 	        .then(responseData => responseData.json())
@@ -152,12 +152,12 @@ export class Bookings extends Component {
 	          console.error(error);
 	        })
 	        .done();
-
+		/*
 		} else {
 			ToastAndroid.show('Incomplete Data', ToastAndroid.SHORT);
 			console.log("No date provided")
 		};
-
+		*/
 		console.log('Booking Handled');
 	}
 
@@ -232,7 +232,7 @@ export class Bookings extends Component {
 				}
 				
 				
-				{!this.state.isBookingPlaced? 
+				
 			
 				<TouchableOpacity 
 					style = {styles.buttonContainer}
@@ -244,7 +244,7 @@ export class Bookings extends Component {
 					</Text> 
 				</TouchableOpacity>
 			
-				:
+				
 		
 				<View>
 					<View style={styles.hr}/>
@@ -263,7 +263,7 @@ export class Bookings extends Component {
 						</Text>
 					</TouchableOpacity>
 				</View>
-				}
+				
 				
 				<Modal
 					animationType="slide"
