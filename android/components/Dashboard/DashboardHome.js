@@ -71,27 +71,36 @@ export class DashboardHome extends Component {
 	
   render() {
     return(  
-		<View style={styles.container}>
+		<View style={styles.container}>		
+			<View style={styles.buttonContainer}>
+				<TouchableOpacity onPress={this.BookingBtn}>       
+					<Text style={{color:'rgba(231,76,60,1)', textAlign: 'center'}}>Bookings</Text>
+				</TouchableOpacity>
+			</View>
+			
+			<View style={styles.buttonContainer}>
+				<TouchableOpacity onPress={this.QuotesBtn}>       
+					<Text style={{color:'rgba(231,76,60,1)', textAlign: 'center'}}>Quotes</Text>
+				</TouchableOpacity>
+			</View>
 
-			<TouchableOpacity style={styles.buttonContainer} onPress={this.BookingBtn}>       
-				<Text style={{color: 'white', textAlign: 'center'}}>Bookings</Text>
-			</TouchableOpacity>
+			<View style={styles.buttonContainer}>
+				<TouchableOpacity onPress={this.InvoicesBtn}>       
+					<Text style={{color:'rgba(231,76,60,1)', textAlign: 'center'}}>Invoices</Text>
+				</TouchableOpacity>
+			</View>
+			
+			<View style={styles.buttonContainer}>		
+				<TouchableOpacity onPress={this.CsiBtn}>       
+					<Text style={{color:'rgba(231,76,60,1)', textAlign: 'center'}}>CSI</Text>
+				</TouchableOpacity>
+			</View>
 
-			<TouchableOpacity style={styles.buttonContainer} onPress={this.QuotesBtn}>       
-				<Text style={{color: 'white', textAlign: 'center'}}>Quotes</Text>
-			</TouchableOpacity>
-
-			<TouchableOpacity style={styles.buttonContainer} onPress={this.InvoicesBtn}>       
-				<Text style={{color: 'white', textAlign: 'center'}}>Invoices</Text>
-			</TouchableOpacity>
-
-			<TouchableOpacity style={styles.buttonContainer} onPress={this.CsiBtn}>       
-				<Text style={{color: 'white', textAlign: 'center'}}>CSI</Text>
-			</TouchableOpacity>
-
-			<TouchableOpacity style={styles.buttonContainer} onPress={this.DataStreamBtn}>       
-				<Text style={{color: 'white', textAlign: 'center'}}>Data Stream</Text>
-			</TouchableOpacity>
+			<View style={styles.buttonContainer}>
+				<TouchableOpacity onPress={this.DataStreamBtn}>       
+					<Text style={{color:'rgba(231,76,60,1)', textAlign: 'center'}}>Data Stream</Text>
+				</TouchableOpacity>
+			</View>
 		</View>
     )
   }
@@ -108,10 +117,15 @@ const styles = StyleSheet.create({
     },
 
 	buttonContainer: {
-      backgroundColor: "#2980b6", 
-	  paddingVertical: 15, 
-	  marginTop: 20,
-	  width: 250,
+		//backgroundColor: "#2980b6", 
+		borderTopWidth: 1,
+		borderTopColor: '#d3d3d3',
+		borderBottomWidth: 1,
+		borderBottomColor: '#d3d3d3',
+		paddingVertical: 15, 
+		marginTop: 20,
+		width: 250,
+		alignSelf: 'center'
     },
 
 })
