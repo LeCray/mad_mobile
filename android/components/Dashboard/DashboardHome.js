@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {Platform, StyleSheet, Text, View, TouchableOpacity, AsyncStorage} from 'react-native';
-
-
+import FCM, { FCMEvent } from "react-native-fcm";
 
 
 export class DashboardHome extends Component {
@@ -14,6 +13,11 @@ export class DashboardHome extends Component {
 		this.InvoicesBtn = this.InvoicesBtn.bind(this);
 		this.CsiBtn = this.CsiBtn.bind(this);
 		this.QuotesBtn = this.QuotesBtn.bind(this);
+
+		this.state = {
+			fcm_token: "",
+			email: ""
+		};
 	}
 
 	
@@ -66,6 +70,39 @@ export class DashboardHome extends Component {
 		AsyncStorage.getItem('email')
 		.then((value) => { 
 			this.setState({'email': value})	
+		});
+	}
+
+	componentDidMount () {
+		FCM.on(FCMEvent.RefreshToken, token => {
+		  console.log("FCM Token Refresh: ",token);
+		});
+
+		FCM.on('FCMTokenRefreshed', token => {
+		  console.log("FCM Token Refresh: ", token);
+		});
+
+		FCM.requestPermissions();
+		FCM.getFCMToken().then(token => {
+			this.setState({ fcm_token: token });
+			console.log('getFCMToken: ', token)
+			
+			//updating fcm token on rails server.
+			fetch("http://192.168.43.42:3000/api/v1/fcm", {
+				method: "POST", 
+				headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+				body: JSON.stringify({
+					fcm_token: token,
+					email: "captain@gmail.com"
+				}), 
+	        })
+	        .then(() => {
+				console.log('FCM Token sent to rails server: ', token)
+	        })
+	        .catch((error) => {
+	          console.error(error);
+	        })
+	        .done();
 		});
 	}
 	
