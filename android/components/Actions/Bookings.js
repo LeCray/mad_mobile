@@ -130,7 +130,7 @@ export class Bookings extends Component {
 			AsyncStorage.setItem('isBookingPlaced', "true");
 			this.setState({ isBookingPlaced: true });
 		*/
-			fetch("http://10.0.1.156:3000/api/v1/bookings", {
+			fetch("http://10.30.99.163:3000/api/v1/bookings", {
 				method: "POST", 
 				headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 				body: JSON.stringify({
@@ -178,7 +178,7 @@ export class Bookings extends Component {
 
 		this.setState({isBookingDataProvided: ""})
 
-		fetch("http://10.0.1.156:3000/api/v1/bookings", {
+		fetch("http://10.30.99.163:3000/api/v1/bookings", {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 			body: JSON.stringify({
