@@ -76,7 +76,7 @@ export class Bookings extends Component {
 		AsyncStorage.getItem('isBookingPlaced')
 		.then((value) => {
 			this.setState({'isBookingPlaced': value})
-			console.log('CWR isBookingPlaced: ', this.state.isBookingPlaced)
+			console.log('CWM isBookingPlaced: ', this.state.isBookingPlaced)
 		})
 
 		AsyncStorage.getItem('date')
@@ -93,8 +93,6 @@ export class Bookings extends Component {
 
 		AsyncStorage.getItem('carModel')
 		.then((carModel) => this.setState({'carModel': carModel}))
-
-
 	}
 
 
@@ -119,9 +117,9 @@ export class Bookings extends Component {
 	_showModal = () => this.setState({ modalVisible: true })
 	_hideModal = () => this.setState({ modalVisible: false })
 
-	_handleBooking = () => {
+	_newBooking = () => {
 
-		/*if ( this.state.date && this.state.time ){ 
+		if ( this.state.date && this.state.time ){ 
 			AsyncStorage.setItem('date', this.state.date);
 			AsyncStorage.setItem('time', this.state.time);
 			AsyncStorage.setItem('description', this.state.description);
@@ -129,17 +127,17 @@ export class Bookings extends Component {
 			AsyncStorage.setItem('carModel', this.state.carModel);
 			AsyncStorage.setItem('isBookingPlaced', "true");
 			this.setState({ isBookingPlaced: true });
-		*/
-			fetch("http://10.30.99.163:3000/api/v1/bookings", {
+		
+			fetch("http://192.168.43.42:3000/api/v1/new_booking", {
 				method: "POST", 
 				headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 				body: JSON.stringify({
 					email: "captain@gmail.com", 
-					date: "Tuesday, March 13th, 2018",//this.state.date,
-					time: "10:08PM",//this.state.time,
-					description: "Car wont start",//this.state.description,
-					carMake: "AUDI",//this.state.carMake,
-					carModel: "RS3", //this.state.carModel
+					date: this.state.date,
+					time: this.state.time,
+					description: this.state.description,
+					carMake: this.state.carMake,
+					carModel: this.state.carModel
 				}), 
 	        })
 	        .then(responseData => responseData.json())
@@ -152,12 +150,12 @@ export class Bookings extends Component {
 	          console.error(error);
 	        })
 	        .done();
-		/*
+		
 		} else {
 			ToastAndroid.show('Incomplete Data', ToastAndroid.SHORT);
 			console.log("No date provided")
 		};
-		*/
+		
 		console.log('Booking Handled');
 	}
 
@@ -178,7 +176,7 @@ export class Bookings extends Component {
 
 		this.setState({isBookingDataProvided: ""})
 
-		fetch("http://10.30.99.163:3000/api/v1/bookings", {
+		fetch("http://192.168.43.42:3000/api/v1/cancel_booking", {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 			body: JSON.stringify({
@@ -231,38 +229,36 @@ export class Bookings extends Component {
 					: null 
 				}
 				
-				
-				
-			
-				<TouchableOpacity 
-					style = {styles.buttonContainer}
-					isVisible = {false}>
-					<Text 	
-						onPress={this._handleBooking} 
-						style={{color: 'rgba(231,76,60,1)', textAlign: 'center'}}>
-						Place Booking
-					</Text> 
-				</TouchableOpacity>
-			
-				
-		
-				<View>
-					<View style={styles.hr}/>
-					<View style={{marginTop: 20, alignSelf: 'center'}}>
-						<Text style={{fontSize: 15, color: "rgba(231,76,60,1)"}}> STATUS: 
-							<Text style={{color: "#8c8c8c", fontWeight: 'bold'}}> PENDING</Text>
-						</Text>
-					</View> 
+							
+				{!this.state.isBookingPlaced?
 					<TouchableOpacity 
 						style = {styles.buttonContainer}
 						isVisible = {false}>
 						<Text 	
-							onPress={this._cancelBooking} 
+							onPress={this._newBooking} 
 							style={{color: 'rgba(231,76,60,1)', textAlign: 'center'}}>
-							Cancel
-						</Text>
-					</TouchableOpacity>
-				</View>
+							Place Booking
+						</Text> 
+					</TouchableOpacity>			
+				:
+					<View>
+						<View style={styles.hr}/>
+						<View style={{marginTop: 20, alignSelf: 'center'}}>
+							<Text style={{fontSize: 15, color: "rgba(231,76,60,1)"}}> STATUS: 
+								<Text style={{color: "#8c8c8c", fontWeight: 'bold'}}> PENDING</Text>
+							</Text>
+						</View> 
+						<TouchableOpacity 
+							style = {styles.buttonContainer}
+							isVisible = {false}>
+							<Text 	
+								onPress={this._cancelBooking} 
+								style={{color: 'rgba(231,76,60,1)', textAlign: 'center'}}>
+								Cancel
+							</Text>
+						</TouchableOpacity>
+					</View>
+				}
 				
 				
 				<Modal
