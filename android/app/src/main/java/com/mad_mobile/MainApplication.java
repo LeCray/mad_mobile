@@ -3,6 +3,10 @@ package com.mad_mobile;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import org.wonday.pdf.RCTPdfView;
+import com.RNFetchBlob.RNFetchBlobPackage;
+import org.wonday.pdf.RCTPdfView;
+import com.RNFetchBlob.RNFetchBlobPackage;
 import com.evollu.react.fcm.FIRMessagingPackage;
 import com.aakashns.reactnativedialogs.ReactNativeDialogsPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -28,6 +32,10 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RCTPdfView(),
+            new RNFetchBlobPackage(),
+            new RCTPdfView(),
+            new RNFetchBlobPackage(),
             new FIRMessagingPackage(),
             new ReactNativeDialogsPackage(),
             new VectorIconsPackage(),
