@@ -141,7 +141,7 @@ export class Bookings extends Component {
 			this.setState({ isBookingPlaced: true });
 			
 		
-			fetch("http://192.168.43.42:3000/api/v1/new_booking", {
+			fetch("http://mad-beta.herokuapp.com/api/v1/new_booking", {
 				method: "POST", 
 				headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 				body: JSON.stringify({
