@@ -88,7 +88,7 @@ export class DashboardHome extends Component {
 			console.log('getFCMToken: ', token)
 			
 			//updating fcm token on rails server.
-			fetch("http://192.168.43.42:3000/api/v1/fcm", {
+			fetch("http://10.199.253.13:3000/api/v1/fcm", {
 				method: "POST", 
 				headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 				body: JSON.stringify({
