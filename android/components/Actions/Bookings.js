@@ -35,7 +35,7 @@ export class Bookings extends Component {
 			isBookingDataProvided: false
 		};
 	}
-
+/*
 	async componentWillMount() {
 
 		const email = await AsyncStorage.getItem('email')
@@ -44,7 +44,12 @@ export class Bookings extends Component {
 			this.setState({ email: email });		
 		})
 
-		fetch("http://192.168.43.42:3000/api/v1/bookings", {
+		
+	}
+*/
+	componentWillMount() {
+		
+		fetch("http://192.168.43.42:3000/api/v1/mobile_check_booking", {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 			body: JSON.stringify({
@@ -53,46 +58,47 @@ export class Bookings extends Component {
         })
         .then(responseData => responseData.json())
         .then((responseData) => {
-
 			console.log("Below is response from mobile side")
-			console.log(responseData);
+			console.log(responseData);	
 
-			responseData.date.map((dates) => {
-			    console.log(dates);
-			});
+			if ( responseData.booking == null ) {
+				console.log(" Booking from server is null")
+				AsyncStorage.setItem('date', "")
+				this.setState({date: ""})
+				AsyncStorage.setItem('time', "")
+				this.setState({time: ""})
+				AsyncStorage.setItem('description', "")
+				this.setState({description: ""})
+				AsyncStorage.setItem('carMake', "")
+				this.setState({carMake: ""})
+				AsyncStorage.setItem('carModel', "")
+				this.setState({carModel: ""})
+				AsyncStorage.setItem('isBookingPlaced', "")
+				this.setState({ isBookingPlaced: "" })
 
-			this.setState({
-				bookingDates: responseData.date,
-				bookingTimes: responseData.time
-			})
-        })
+				this.setState({isBookingDataProvided: ""})
+
+			} else {
+
+				AsyncStorage.getItem('isBookingPlaced')
+				.then((value) => this.setState({'isBookingPlaced': value}))
+				AsyncStorage.getItem('date')
+				.then((date) => this.setState({'date': date}))
+				AsyncStorage.getItem('time')
+				.then((time) => this.setState({'time': time}))			
+				AsyncStorage.getItem('description')
+				.then((description) => this.setState({'description': description}))
+				AsyncStorage.getItem('carMake')
+				.then((carMake) => this.setState({'carMake': carMake}))
+				AsyncStorage.getItem('carModel')
+				.then((carModel) => this.setState({'carModel': carModel}))
+			}
+		})    
         .catch((error) => {
           console.error(error);
         })
         .done();
-	}
-
-	componentWillMount() {
-		AsyncStorage.getItem('isBookingPlaced')
-		.then((value) => {
-			this.setState({'isBookingPlaced': value})
-			console.log('CWM isBookingPlaced: ', this.state.isBookingPlaced)
-		})
-
-		AsyncStorage.getItem('date')
-		.then((date) => this.setState({'date': date}))
-
-		AsyncStorage.getItem('time')
-		.then((time) => this.setState({'time': time}))
-		
-		AsyncStorage.getItem('description')
-		.then((description) => this.setState({'description': description}))
-
-		AsyncStorage.getItem('carMake')
-		.then((carMake) => this.setState({'carMake': carMake}))
-
-		AsyncStorage.getItem('carModel')
-		.then((carModel) => this.setState({'carModel': carModel}))
+	
 	}
 
 
@@ -180,12 +186,7 @@ export class Bookings extends Component {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 			body: JSON.stringify({
-				email: "captain@gmail.com", 
-				date: "",
-				time: "",
-				description: "",
-				carMake: "",
-				carModel: ""
+				email: "captain@gmail.com"
 			}), 
         })
         .then(() => {
