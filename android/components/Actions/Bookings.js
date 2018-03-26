@@ -32,6 +32,7 @@ export class Bookings extends Component {
 			description: "",
 			carMake: "",
 			carModel: "",
+			status: "PENDING",
 			isBookingDataProvided: false
 		};
 	}
@@ -92,7 +93,12 @@ export class Bookings extends Component {
 				.then((carMake) => this.setState({'carMake': carMake}))
 				AsyncStorage.getItem('carModel')
 				.then((carModel) => this.setState({'carModel': carModel}))
-			}
+				
+				if ( responseData.booking == "Confirmed" ) {
+					AsyncStorage.setItem('status', "CONFIRMED")
+					this.setState({status: "CONFIRMED"})
+				}
+			} 
 		})    
         .catch((error) => {
           console.error(error);
@@ -133,6 +139,7 @@ export class Bookings extends Component {
 			AsyncStorage.setItem('carModel', this.state.carModel);
 			AsyncStorage.setItem('isBookingPlaced', "true");
 			this.setState({ isBookingPlaced: true });
+			
 		
 			fetch("http://192.168.43.42:3000/api/v1/new_booking", {
 				method: "POST", 
@@ -150,7 +157,8 @@ export class Bookings extends Component {
 	        .then((responseData) => {
 				console.log("Below is response from mobile side")
 				console.log(responseData);
-				ToastAndroid.show('Booking Request Sent', ToastAndroid.LONG);	
+				ToastAndroid.show('Booking Request Sent', ToastAndroid.LONG);
+				this.setState({ status: "PENDING" });	
 	        })
 	        .catch((error) => {
 	          console.error(error);
@@ -245,8 +253,8 @@ export class Bookings extends Component {
 					<View>
 						<View style={styles.hr}/>
 						<View style={{marginTop: 20, alignSelf: 'center'}}>
-							<Text style={{fontSize: 15, color: "rgba(231,76,60,1)"}}> STATUS: 
-								<Text style={{color: "#8c8c8c", fontWeight: 'bold'}}> PENDING</Text>
+							<Text style={{fontSize: 15, color: "rgba(231,76,60,1)"}}> STATUS:  
+								<Text style={{color: "#8c8c8c"}}> {this.state.status}</Text>			
 							</Text>
 						</View> 
 						<TouchableOpacity 
