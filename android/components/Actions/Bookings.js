@@ -240,15 +240,13 @@ export class Bookings extends Component {
 				
 							
 				{!this.state.isBookingPlaced?
-					<TouchableOpacity 
-						style = {styles.buttonContainer}
-						isVisible = {false}>
-						<Text 	
-							onPress={this._newBooking} 
-							style={{color: 'rgba(231,76,60,1)', textAlign: 'center'}}>
-							Place Booking
-						</Text> 
-					</TouchableOpacity>			
+					<View style={styles.buttonContainer}>
+						<TouchableOpacity onPress={this._newBooking}>
+							<Text style={{color: 'rgba(231,76,60,1)', textAlign: 'center'}}>
+								Place Booking
+							</Text> 
+						</TouchableOpacity>			
+					</View>
 				:
 					<View>
 						<View style={styles.hr}/>
@@ -257,15 +255,13 @@ export class Bookings extends Component {
 								<Text style={{color: "#8c8c8c"}}> {this.state.status}</Text>			
 							</Text>
 						</View> 
-						<TouchableOpacity 
-							style = {styles.buttonContainer}
-							isVisible = {false}>
-							<Text 	
-								onPress={this._cancelBooking} 
-								style={{color: 'rgba(231,76,60,1)', textAlign: 'center'}}>
-								Cancel
-							</Text>
-						</TouchableOpacity>
+						<View style={styles.buttonContainer}>
+							<TouchableOpacity onPress={this._cancelBooking} >
+								<Text style={{color: 'rgba(231,76,60,1)', textAlign: 'center'}}>
+									Cancel
+								</Text>
+							</TouchableOpacity>
+						</View>
 					</View>
 				}
 				
@@ -299,10 +295,11 @@ export class Bookings extends Component {
 									returnKeyType="done" 
 									style={{borderWidth: 0}}/>
 							</View>
-
-							<TouchableHighlight style={styles.descButton} onPress={this._hideModal}>								
-								<Text style={{color: '#9b59b6', textAlign: 'center'}}>Done</Text>
-							</TouchableHighlight>
+							<View style={styles.descButton}>
+								<TouchableOpacity onPress={this._hideModal}>								
+									<Text style={{color: '#9b59b6', textAlign: 'center'}}>Done</Text>
+								</TouchableOpacity>
+							</View>
 
 						</View>
 					</View>
