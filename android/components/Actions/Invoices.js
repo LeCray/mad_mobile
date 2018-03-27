@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, Dimensions, Text, View} from 'react-native';
 import Pdf from 'react-native-pdf';
 
 
@@ -32,16 +32,17 @@ export class Invoices extends Component {
 	}
 */
 	render() {
+		const source = {uri:'https://www.tke.org/files/file/The_48_Laws_of_Power.pdf'};
 		return(  
 			<View style={styles.container}>
 				
 				<Pdf
-                    source="http://localhost:3000/uploads/invoice/attachment/14/2017-2018_Funding_Proposal.pdf"
+                    source={source}
                     onLoadComplete={(numberOfPages,filePath)=>{
-                        console.log(`number of pages: ${numberOfPages}`);
+                        console.log('number of pages: ', numberOfPages);
                     }}
                     onPageChanged={(page,numberOfPages)=>{
-                        console.log(`current page: ${page}`);
+                        console.log('current page: ', page);
                     }}
                     onError={(error)=>{
                         console.log(error);
@@ -53,14 +54,11 @@ export class Invoices extends Component {
 }
 
 const styles = StyleSheet.create({
-    container: {
-		paddingLeft: 10, 
-		paddingRight: 10, 
-        padding: 20,
-        marginTop: '40%',
+	container: {
         flex: 1,
-        flexDirection: 'column',
+        justifyContent: 'flex-start',
         alignItems: 'center',
+        marginTop: 0,
     },
 
 	buttonContainer: {
@@ -68,7 +66,10 @@ const styles = StyleSheet.create({
 		paddingVertical: 15, 
 		marginTop: 10
     },
-
+	pdf: {
+        flex:1,
+        width:Dimensions.get('window').width,
+    }
  
 
 })
