@@ -34,7 +34,19 @@ export class Invoices extends Component {
 	render() {
 		return(  
 			<View style={styles.container}>
-		
+				
+				<Pdf
+                    source="http://localhost:3000/uploads/invoice/attachment/14/2017-2018_Funding_Proposal.pdf"
+                    onLoadComplete={(numberOfPages,filePath)=>{
+                        console.log(`number of pages: ${numberOfPages}`);
+                    }}
+                    onPageChanged={(page,numberOfPages)=>{
+                        console.log(`current page: ${page}`);
+                    }}
+                    onError={(error)=>{
+                        console.log(error);
+                    }}
+                    style={styles.pdf}/>
 			</View>
 		)
 	}

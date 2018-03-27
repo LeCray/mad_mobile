@@ -94,6 +94,7 @@ def enableSeparateBuildPerCPUArchitecture = false
 def enableProguardInReleaseBuilds = false
 
 
+
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
@@ -101,7 +102,7 @@ android {
 
     defaultConfig {
         applicationId "com.mad_mobile"
-        minSdkVersion 19
+        minSdkVersion 20
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -173,5 +174,6 @@ task copyDownloadableDepsToLibs(type: Copy) {
 }
 
 apply plugin: 'com.google.gms.google-services'
+
 
 
