@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Platform, StyleSheet, Dimensions, Text, View, Modal} from 'react-native';
+import {Platform, StyleSheet, Dimensions, Text, View, Modal, TouchableOpacity} from 'react-native';
 import Pdf from 'react-native-pdf';
 
 
@@ -15,8 +15,12 @@ export class Invoices extends Component {
 		super(props);
 		this.state = {
 			email: "", 
-			invoices: [],
-			modalVisible: false
+			inv: [],
+			inv_url: [],
+			inv_date: [],
+			modalVisible: false,
+			key: "",
+			url: ""
 		};
 	}
 
@@ -30,10 +34,17 @@ export class Invoices extends Component {
 				email: "captain@gmail.com"
 			}), 
         })
+        .then(responseData => responseData.json())
         .then((responseData) => {
 			console.log('Below is respose from mobile')
-			this.setState({invoices: responseData._bodyText})
-			console.log(this.state.invoices)
+			this.setState({
+				inv_url: responseData.invoices[0], 
+				inv_date: responseData.invoices[1],
+				inv: responseData.invoices
+			})
+			console.log("Invoices: ", this.state.inv)
+			console.log("Invoice_url: ", this.state.inv_url)
+			console.log("Invoice_date: ", this.state.inv_date)
         })
         .catch((error) => {
           console.error(error);
@@ -41,15 +52,35 @@ export class Invoices extends Component {
         .done();
 	}
 
-	_showModal = () => this.setState({ modalVisible: true })
+	_showModal = (index) => {
+		this.setState({url: "http://192.168.43.42:3000" + this.state.inv_url[index]});
+		this.setState({key: index})
+		this.setState({modalVisible: true})
+		console.log("Key: ", index);
+		console.log("URL: ", this.state.url)
+
+
+		
+	}
 	_hideModal = () => this.setState({ modalVisible: false })
 
+	
+		
+
 	render() {
-		const source = {uri:'https://www.tke.org/files/file/The_48_Laws_of_Power.pdf'};
+		const source = {uri: this.state.url}
+
 		return(  
 			<View style={styles.container}>
 				
-				<Text onPress={this._showModal}> The_48_Laws_of_Power.pdf </Text>
+				
+				{this.state.inv_date.map((date, index) => 
+					<TouchableOpacity key={index} style={{padding: 10}} >
+						<Text onPress={() => this._showModal(index)}> 
+							{date.slice(0,10)} 
+						</Text>								
+					</TouchableOpacity>
+				)}
 
                 <Modal
 				animationType="slide"
@@ -57,8 +88,8 @@ export class Invoices extends Component {
 				visible = {this.state.modalVisible}
 				onRequestClose={this._hideModal}>
 					
-					<View style={{paddingTop: 50, backgroundColor: '#00000080', flex: 1}}>
-						<View  style={{backgroundColor: '#fff', flex: 1}}>
+					<View style={{flex: 1}}>
+						<View  style={{flex: 1}}>
 							<Pdf
 			                    source={source}
 			                    onLoadComplete={(numberOfPages,filePath)=>{
