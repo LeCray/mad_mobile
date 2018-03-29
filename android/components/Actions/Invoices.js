@@ -70,6 +70,8 @@ export class Invoices extends Component {
 	render() {
 		const source = {uri: this.state.url}
 
+
+
 		return(  
 			<View style={styles.container}>
 				
@@ -102,7 +104,9 @@ export class Invoices extends Component {
 			                        console.log(error);
 			                    }}
 			                    style={styles.pdf}/>
+
 						</View>
+
 					</View>
 
 		        </Modal>
@@ -125,8 +129,15 @@ const styles = StyleSheet.create({
 		marginTop: 10
     },
 	pdf: {
-        flex:1,
-        width:Dimensions.get('window').width,
+        flex: 1,
+        width: Dimensions.get('window').width,
+    },
+    btn: {
+    	height: 30,
+    	flexDirection: "row", 
+    	alignItems: "center", 
+    	justifyContent: 'center',
+    	
     }
  
 
