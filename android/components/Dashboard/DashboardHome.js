@@ -12,7 +12,7 @@ export class DashboardHome extends Component {
 		this.BookingBtn = this.BookingBtn.bind(this);
 		this.InvoicesBtn = this.InvoicesBtn.bind(this);
 		this.CsiBtn = this.CsiBtn.bind(this);
-		this.QuotesBtn = this.QuotesBtn.bind(this);
+		this.QuotationsBtn = this.QuotationsBtn.bind(this);
 
 		this.state = {
 			fcm_token: "",
@@ -42,11 +42,11 @@ export class DashboardHome extends Component {
 		});
 	}
 	
-	QuotesBtn = function () {
-		console.log('Quotes is running')
+	QuotationsBtn = function () {
+		console.log('Quotations is running')
 		this.props.navigation.dispatch({
 			type: 'Navigation/NAVIGATE',
-			routeName: 'Quotes'
+			routeName: 'Quotations'
 		});
 	}
 
@@ -116,8 +116,8 @@ export class DashboardHome extends Component {
 			</View>
 			
 			<View style={styles.buttonContainer}>
-				<TouchableOpacity onPress={this.QuotesBtn}>       
-					<Text style={{color:'rgba(231,76,60,1)', textAlign: 'center'}}>Quotes</Text>
+				<TouchableOpacity onPress={this.QuotationsBtn}>       
+					<Text style={{color:'rgba(231,76,60,1)', textAlign: 'center'}}>Quotations</Text>
 				</TouchableOpacity>
 			</View>
 
