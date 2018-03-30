@@ -86,7 +86,7 @@ export class DashboardHome extends Component {
 		FCM.getFCMToken().then(token => {
 			this.setState({ fcm_token: token });
 			console.log('getFCMToken: ', token)
-			
+/*			
 			//updating fcm token on rails server.
 			fetch("http://192.168.43.42:3000/api/v1/fcm", {
 				method: "POST", 
@@ -103,10 +103,11 @@ export class DashboardHome extends Component {
 	          console.error(error);
 	        })
 	        .done();
+*/	
 		});
 	}
-	
-  render() {
+
+  	render() {
     return(  
 		<View style={styles.container}>		
 			<View style={styles.buttonContainer}>

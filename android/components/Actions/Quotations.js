@@ -27,7 +27,7 @@ export class Quotations extends Component {
 
 	componentWillMount() {
 
-		fetch("http://10.30.46.94:3000/api/v1/get_quotations", {
+		fetch("http://10.30.241.105:3000/api/v1/get_quotations", {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 			body: JSON.stringify({
@@ -54,7 +54,7 @@ export class Quotations extends Component {
 	}
 
 	_showModal = (index) => {
-		this.setState({url: "http://10.30.46.94:3000" + this.state.quo_url[index]});
+		this.setState({url: "http://10.30.241.105:3000" + this.state.quo_url[index]});
 		this.setState({key: index})
 		this.setState({modalVisible: true})
 		console.log("Key: ", index);
@@ -103,9 +103,9 @@ export class Quotations extends Component {
 						</View>
 
 					</View>
-					<View style={{paddingLeft: 20, paddingRight: 20}}>
-						<Text>APPROVE</Text>
-						<Text style={{alignSelf: "right"}}>DISAPPROVE</Text>
+					<View style={{padding: 20, flexDirection: "row", justifyContent: "center"}}>
+						<Text style={{marginRight: 50}}>APPROVE</Text>
+						<Text >DISAPPROVE</Text>
 					</View>
 
 		        </Modal>
