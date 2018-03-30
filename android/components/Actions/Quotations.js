@@ -103,6 +103,10 @@ export class Quotations extends Component {
 						</View>
 
 					</View>
+					<View style={{paddingLeft: 20, paddingRight: 20}}>
+						<Text>APPROVE</Text>
+						<Text style={{alignSelf: "right"}}>DISAPPROVE</Text>
+					</View>
 
 		        </Modal>
 			</View>
