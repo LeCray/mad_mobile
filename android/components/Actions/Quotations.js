@@ -18,16 +18,18 @@ export class Quotations extends Component {
 			quo: [],
 			quo_url: [],
 			quo_date: [],
+			quo_id: [],
 			modalVisible: false,
 			key: "",
-			url: ""
+			url: "",
+			quo_status: "",
 		};
 	}
 
 
 	componentWillMount() {
 
-		fetch("http://10.30.241.105:3000/api/v1/get_quotations", {
+		fetch("http://192.168.43.42:3000/api/v1/get_quotations", {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 			body: JSON.stringify({
@@ -41,11 +43,11 @@ export class Quotations extends Component {
 			this.setState({
 				quo_url: responseData.quotations[0], 
 				quo_date: responseData.quotations[1],
-				quotations: responseData.Quotations
+				quo_id: responseData.quotations[2]
 			})
-			console.log("quotations: ", this.state.quotations)
 			console.log("quotation_url: ", this.state.quo_url)
 			console.log("quotation_date: ", this.state.quo_date)
+			console.log("quotation_id: ", this.state.quo_id)
         })
         .catch((error) => {
           console.error(error);
@@ -54,13 +56,41 @@ export class Quotations extends Component {
 	}
 
 	_showModal = (index) => {
-		this.setState({url: "http://10.30.241.105:3000" + this.state.quo_url[index]});
+		this.setState({url: "http://192.168.43.42:3000" + this.state.quo_url[index]});
 		this.setState({key: index})
 		this.setState({modalVisible: true})
 		console.log("Key: ", index);
 		console.log("URL: ", this.state.url)	
 	}
 	_hideModal = () => this.setState({ modalVisible: false })
+
+	
+
+
+	_updateQuoStatus = (quo_status) => {
+		//this.setState({quo_status: quo_status})
+		console.log("Key", this.state.key)
+		console.log("Quotation ID: ", this.state.quo_id[this.state.key])
+
+		fetch("http://192.168.43.42:3000/api/v1/update_quotation_status", {
+			method: "POST", 
+			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+			body: JSON.stringify({
+				email: "captain@gmail.com",
+				quo_status: quo_status,
+				quo_id: this.state.quo_id[this.state.key]
+			}), 
+        })
+        .then(() => {
+			console.log('Quotation has been: ',quo_status)
+        })
+        .catch((error) => {
+          console.error(error);
+        })
+        .done();
+
+	}
+
 
 	
 		
@@ -104,8 +134,12 @@ export class Quotations extends Component {
 
 					</View>
 					<View style={{padding: 20, flexDirection: "row", justifyContent: "center"}}>
-						<Text style={{marginRight: 50}}>APPROVE</Text>
-						<Text >DISAPPROVE</Text>
+						<TouchableOpacity  style={{marginRight: 50}}>
+							<Text onPress={() => this._updateQuoStatus("approved")}>APPROVE</Text>
+						</TouchableOpacity>
+						<TouchableOpacity >
+							<Text onPress={() => this._updateQuoStatus("disapproved")}>DISAPPROVE</Text>
+						</TouchableOpacity>
 					</View>
 
 		        </Modal>
