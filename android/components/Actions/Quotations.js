@@ -3,6 +3,7 @@ import {Platform, StyleSheet, Dimensions, Text,
 		View, ScrollView, Modal, TouchableOpacity, ToastAndroid} from 'react-native';
 import Pdf from 'react-native-pdf';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Feather from 'react-native-vector-icons/Feather';
 
 
 
@@ -24,7 +25,7 @@ export class Quotations extends Component {
 			modalVisible: false,
 			key: "",
 			url: "",
-			quo_status: "",
+			quo_status: [],
 		};
 	}
 
@@ -48,10 +49,12 @@ export class Quotations extends Component {
 				quo_id: responseData.quotations[2],
 				quo_status: responseData.quotations[3]
 			})
+/*
 			console.log("quotation_url: ", this.state.quo_url)
 			console.log("quotation_date: ", this.state.quo_date)
 			console.log("quotation_id: ", this.state.quo_id)
 			console.log("quotation_status: ", this.state.quo_status)
+*/
         })
         .catch((error) => {
           console.error(error);
@@ -76,6 +79,7 @@ export class Quotations extends Component {
 		console.log("Key", this.state.key)
 		console.log("Quotation ID: ", this.state.quo_id[this.state.key])
 
+
 		fetch("http://192.168.43.42:3000/api/v1/update_quotation_status", {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
@@ -85,8 +89,16 @@ export class Quotations extends Component {
 				quo_id: this.state.quo_id[this.state.key]
 			}), 
         })
-        .then(() => {
+        .then(responseData => responseData.json())
+        .then((responseData) => {
 			console.log('Quotation has been: ', quo_status)
+			this.setState({
+				quo_url: responseData.quotations[0], 
+				quo_date: responseData.quotations[1],
+				quo_id: responseData.quotations[2],
+				quo_status: responseData.quotations[3]
+			})
+			this._hideModal()
 			ToastAndroid.show('Quotation has been ' + quo_status, ToastAndroid.LONG)
         })
         .catch((error) => {
@@ -94,10 +106,19 @@ export class Quotations extends Component {
         })
         .done();
 
+
+
 	}
 
-
-	
+	renderIf = (status) => {
+	    if (status == "Approved") {
+			return <Feather name="check" style={styles.cardIcon} />;
+	    } else if (status == "Disapproved") {
+	        return <Feather name="x" style={styles.cardIcon} />;
+	    } else {
+	    	return <Feather name="alert-circle" style={styles.cardIcon} />
+	    }
+	}
 		
 
 	render() {
@@ -122,22 +143,23 @@ export class Quotations extends Component {
 						{this.state.quo_date.map((date, index) => 
 							<TouchableOpacity key={index}>
 								<View style={{flexDirection: "row"}}>
+									
+					                {this.renderIf(this.state.quo_status[index])}	
 
-									<Icon name="md-copy" style={styles.cardIcon} />
 									<View style={{flexDirection: "column"}}>
 										<Text>Date: {date.slice(0,10)}</Text>
 										<Text>Status: {this.state.quo_status[index]} </Text>
 									</View>
-									
 	
 									<View style={{marginLeft: 50,flex: 1}}>
+										<TouchableOpacity>
 										<Text 
 										onPress={() => this._showModal(index)}
-										style={{fontSize: 20, textAlign: "right", marginRight: 20}}> 
-											 View
-										</Text>								
+										style={{fontSize: 20, textAlign: "right", marginRight: 10}}> 
+											View
+										</Text>			
+										</TouchableOpacity>					
 									</View>
-									
 
 								</View>
 							</TouchableOpacity>
@@ -146,7 +168,7 @@ export class Quotations extends Component {
 
 	                <Modal
 					animationType="slide"
-					transparent={true}
+					transparent={false}
 					visible = {this.state.modalVisible}
 					onRequestClose={this._hideModal}>
 						
@@ -232,7 +254,7 @@ const styles = StyleSheet.create({
 		height: 40,
 		color: 'black',
 		marginRight: 20,
-		marginBottom: 4
+		marginTop: 4
 	},
 	hr: {
 		borderBottomColor: '#d3d3d3',
