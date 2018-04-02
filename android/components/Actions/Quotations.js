@@ -45,11 +45,13 @@ export class Quotations extends Component {
 			this.setState({
 				quo_url: responseData.quotations[0], 
 				quo_date: responseData.quotations[1],
-				quo_id: responseData.quotations[2]
+				quo_id: responseData.quotations[2],
+				quo_status: responseDate.quotations[3]
 			})
 			console.log("quotation_url: ", this.state.quo_url)
 			console.log("quotation_date: ", this.state.quo_date)
 			console.log("quotation_id: ", this.state.quo_id)
+			console.log("quotation_status: ", this.state.quo_status)
         })
         .catch((error) => {
           console.error(error);
@@ -121,9 +123,17 @@ export class Quotations extends Component {
 							<TouchableOpacity key={index}>
 								<View style={{flexDirection: "row"}}>
 									<Icon name="md-copy" style={styles.cardIcon} />
-									<Text onPress={() => this._showModal(index)} style={{fontSize: 17}}> 
-										{date.slice(0,10)} 
-									</Text>								
+									<View style={{flexDirection: "column"}}>
+										<Text>Date: {date.slice(0,10)}</Text>
+										<Text>Status: {this.state.quo_status[index]} </Text>
+									</View>
+									<View style={{marginLeft: 50, fontSize: 20}}>
+										<Text 
+										onPress={() => this._showModal(index)}
+										style={{fontSize: 20}}> 
+											 View
+										</Text>								
+									</View>
 								</View>
 							</TouchableOpacity>
 						)}
@@ -174,7 +184,7 @@ const styles = StyleSheet.create({
 	container: {
         flex: 1,
         justifyContent: 'flex-start',
-        padding: 30
+        padding: 20
     },
     header: {
     	backgroundColor: "white",
@@ -216,7 +226,7 @@ const styles = StyleSheet.create({
 		fontSize: 25,
 		height: 40,
 		color: 'black',
-		marginRight: 10,
+		marginRight: 20,
 		marginBottom: 4
 	},
 	hr: {
