@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import {Platform, StyleSheet, Dimensions, Text, View, Modal, TouchableOpacity} from 'react-native';
+import {Platform, StyleSheet, Dimensions, Text, 
+		View, ScrollView, Modal, TouchableOpacity, ToastAndroid} from 'react-native';
 import Pdf from 'react-native-pdf';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 
 
@@ -8,7 +10,7 @@ import Pdf from 'react-native-pdf';
 export class Quotations extends Component {
 
 	static navigationOptions = {
-		title: 'Quotations'
+		title: 'Back'
 	}
 
 	constructor(props) {
@@ -82,7 +84,8 @@ export class Quotations extends Component {
 			}), 
         })
         .then(() => {
-			console.log('Quotation has been: ',quo_status)
+			console.log('Quotation has been: ', quo_status)
+			ToastAndroid.show('Quotation has been ' + quo_status, ToastAndroid.LONG)
         })
         .catch((error) => {
           console.error(error);
@@ -99,51 +102,70 @@ export class Quotations extends Component {
 		const source = {uri: this.state.url}
 
 		return(  
-			<View style={styles.container}>
-				
-				{this.state.quo_date.map((date, index) => 
-					<TouchableOpacity key={index} style={{padding: 10}} >
-						<Text onPress={() => this._showModal(index)}> 
-							{date.slice(0,10)} 
-						</Text>								
-					</TouchableOpacity>
-				)}
+			<ScrollView>
+				<View style={styles.container}>
 
-                <Modal
-				animationType="slide"
-				transparent={true}
-				visible = {this.state.modalVisible}
-				onRequestClose={this._hideModal}>
+					<View style={styles.header}>
+						<View style={{flexDirection: "row"}}>
+							<Icon name="md-ribbon" style={styles.headerIcon}/>
+							<Text style={{fontSize: 30}}>Quotations</Text>
+						</View>
+						<Text>Approve or Disapprove proposed quotations</Text>
+					</View>
 					
-					<View style={{flex: 1}}>
-						<View  style={{flex: 1}}>
-							<Pdf
-			                    source={source}
-			                    onLoadComplete={(numberOfPages,filePath)=>{
-			                        console.log('number of pages: ', numberOfPages);
-			                    }}
-			                    onPageChanged={(page,numberOfPages)=>{
-			                        console.log('current page: ', page);
-			                    }}
-			                    onError={(error)=>{
-			                        console.log(error);
-			                    }}
-			                    style={styles.pdf}/>
+					<View style={styles.quoCard}>
+						<Text>Select quotation by date uploaded</Text>
+						<View style={styles.hr}/>
+
+						{this.state.quo_date.map((date, index) => 
+							<TouchableOpacity key={index}>
+								<View style={{flexDirection: "row"}}>
+									<Icon name="md-copy" style={styles.cardIcon} />
+									<Text onPress={() => this._showModal(index)} style={{fontSize: 17}}> 
+										{date.slice(0,10)} 
+									</Text>								
+								</View>
+							</TouchableOpacity>
+						)}
+					</View>
+
+	                <Modal
+					animationType="slide"
+					transparent={true}
+					visible = {this.state.modalVisible}
+					onRequestClose={this._hideModal}>
+						
+						<View style={{flex: 1}}>
+							<View  style={{flex: 1}}>
+								<Pdf
+				                    source={source}
+				                    onLoadComplete={(numberOfPages,filePath)=>{
+				                        console.log('number of pages: ', numberOfPages);
+				                    }}
+				                    onPageChanged={(page,numberOfPages)=>{
+				                        console.log('current page: ', page);
+				                    }}
+				                    onError={(error)=>{
+				                        console.log(error);
+				                    }}
+				                    style={styles.pdf}/>
+
+							</View>
 
 						</View>
+						<View style={{padding: 20, flexDirection: "row", justifyContent: "center"}}>
+							<TouchableOpacity  >
+								<Text onPress={() => this._updateQuoStatus("approved")}>APPROVE</Text>
+							</TouchableOpacity>
+							<TouchableOpacity style={{marginLeft: 50}}>
+								<Text onPress={() => this._updateQuoStatus("disapproved")}>DISAPPROVE</Text>
+							</TouchableOpacity>
+						</View>
 
-					</View>
-					<View style={{padding: 20, flexDirection: "row", justifyContent: "center"}}>
-						<TouchableOpacity  style={{marginRight: 50}}>
-							<Text onPress={() => this._updateQuoStatus("approved")}>APPROVE</Text>
-						</TouchableOpacity>
-						<TouchableOpacity >
-							<Text onPress={() => this._updateQuoStatus("disapproved")}>DISAPPROVE</Text>
-						</TouchableOpacity>
-					</View>
+			        </Modal>
 
-		        </Modal>
-			</View>
+			    </View>
+			</ScrollView>
 		)
 	}
 }
@@ -152,8 +174,19 @@ const styles = StyleSheet.create({
 	container: {
         flex: 1,
         justifyContent: 'flex-start',
-        alignItems: 'center',
-        marginTop: 0,
+        padding: 30
+    },
+    header: {
+    	backgroundColor: "white",
+    	borderRadius: 4,
+    	padding: 10,
+    	height: "45%",
+    	padding: 20
+    },
+    quoCard: {
+    	backgroundColor: "white",
+    	marginTop: 10,
+    	padding: 20	
     },
 
 	buttonContainer: {
@@ -171,7 +204,29 @@ const styles = StyleSheet.create({
     	alignItems: "center", 
     	justifyContent: 'center',
     	
-    }
+    },
+	headerIcon: {
+		fontSize: 30,
+		height: 40,
+		color: 'black',
+		marginRight: 10,
+		marginTop: 6
+	},
+	cardIcon: {
+		fontSize: 25,
+		height: 40,
+		color: 'black',
+		marginRight: 10,
+		marginBottom: 4
+	},
+	hr: {
+		borderBottomColor: '#d3d3d3',
+		borderBottomWidth: 1,
+		marginTop: 10,
+		marginBottom: 20,
+		width: '100%',
+		alignSelf: 'center'
+    },
  
 
 })
