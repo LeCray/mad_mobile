@@ -46,7 +46,7 @@ export class Quotations extends Component {
 				quo_url: responseData.quotations[0], 
 				quo_date: responseData.quotations[1],
 				quo_id: responseData.quotations[2],
-				quo_status: responseDate.quotations[3]
+				quo_status: responseData.quotations[3]
 			})
 			console.log("quotation_url: ", this.state.quo_url)
 			console.log("quotation_date: ", this.state.quo_date)
@@ -122,18 +122,23 @@ export class Quotations extends Component {
 						{this.state.quo_date.map((date, index) => 
 							<TouchableOpacity key={index}>
 								<View style={{flexDirection: "row"}}>
+
 									<Icon name="md-copy" style={styles.cardIcon} />
 									<View style={{flexDirection: "column"}}>
 										<Text>Date: {date.slice(0,10)}</Text>
 										<Text>Status: {this.state.quo_status[index]} </Text>
 									</View>
-									<View style={{marginLeft: 50, fontSize: 20}}>
+									
+	
+									<View style={{marginLeft: 50,flex: 1}}>
 										<Text 
 										onPress={() => this._showModal(index)}
-										style={{fontSize: 20}}> 
+										style={{fontSize: 20, textAlign: "right", marginRight: 20}}> 
 											 View
 										</Text>								
 									</View>
+									
+
 								</View>
 							</TouchableOpacity>
 						)}
