@@ -138,14 +138,14 @@ export class Quotations extends Component {
 	    if (status == "Approved") {
 			return (
 				<View style={{flexDirection: "column"}}>
-					<View style={{flexDirection: "row"}}>
-						<Feather name="check" style={styles.cardIcon} />
-						<View style={{flexDirection: "column"}}>
+					<View style={{flexDirection: "row", justifyContent: 'center'}}>
+						<Feather name="check" color="#4F8EF7" style={styles.cardIcon} />
+						<View style={{flexDirection: "column", justifyContent: 'center'}}>
 							<Text>Date: {date.slice(0,10)}</Text>
 							<Text>Status: {this.state.quo_status[index]} </Text>
 						</View>
 
-						<View style={{marginLeft: 50,flex: 1, justifyContent: "center"}}>
+						<View style={{flex: 1, justifyContent: "center"}}>
 							<TouchableOpacity>
 							<Text 
 							onPress={() => this._showModal(index)}
@@ -162,13 +162,13 @@ export class Quotations extends Component {
 	        return(
 	        	<View style={{flexDirection: "column"}}>
 		        	<View style={{flexDirection: "row"}}>
-		         		<Feather name="x" style={styles.cardIcon} />
-		         		<View style={{flexDirection: "column"}}>
+		         		<Feather name="x" style={styles.cardxIcon} />
+		         		<View style={{flexDirection: "column", justifyContent: 'center'}}>
 							<Text>Date: {date.slice(0,10)}</Text>
 							<Text>Status: {this.state.quo_status[index]} </Text>
 						</View>
 
-						<View style={{marginLeft: 50,flex: 1, justifyContent: "center"}}>
+						<View style={{flex: 1, justifyContent: "center"}}>
 							<TouchableOpacity>
 							<Text 
 							onPress={() => this._showModal(index)}
@@ -197,15 +197,17 @@ export class Quotations extends Component {
 				<View style={styles.container}>
 
 					<View style={styles.header}>
-						<View style={{flexDirection: "row"}}>
-							<Icon name="md-ribbon" style={styles.headerIcon}/>
-							<Text style={{fontSize: 30}}>Quotations</Text>
+						<View style={{flexDirection: "row"}}>	
+							<Text style={{fontSize: 30, color: "#4F8EF7"}}>Quotations</Text>
 						</View>
 						<Text>Approve or Disapprove proposed quotations</Text>
 					</View>
 					
 					<View style={styles.newQuo}>
-						<Text> New Quotation(s) </Text>
+						<View style={{flexDirection: 'row', marginBottom: -15}}>
+							<Feather name="bell" style={styles.headingIcon} />
+							<Text style={{fontSize: 18, color: "#4F8EF7"}}> New Quotation </Text>
+						</View>
 						<View style={styles.hr}/>
 
 						{this.state.quo_date.map((date, index) => 
@@ -215,15 +217,17 @@ export class Quotations extends Component {
 						)}
 					</View>
 					
-					<View style={styles.quoCard}>
-						<Text>Old Quotations</Text>
+					<View style={styles.oldQuo}>
+						<View style={{flexDirection: 'row', marginBottom: -15}}>
+							<Feather name="clock" style={styles.headingIcon} />
+							<Text style={{fontSize: 18, color: "#4F8EF7", paddingLeft: 5}}>Old Quotations</Text>
+						</View>
 						<View style={styles.hr}/>
 
 						{this.state.quo_date.map((date, index) => 
 							<TouchableOpacity key={index}>									
 					            {this.renderOldQuo(this.state.quo_status[index], date, index)}	
 							</TouchableOpacity>
-
 						)}
 					</View>
 
@@ -251,13 +255,28 @@ export class Quotations extends Component {
 							</View>
 
 						</View>
-						<View style={{padding: 20, flexDirection: "row", justifyContent: "center"}}>
-							<TouchableOpacity  >
-								<Text onPress={() => this._updateQuoStatus("approved")}>APPROVE</Text>
-							</TouchableOpacity>
-							<TouchableOpacity style={{marginLeft: 50}}>
-								<Text onPress={() => this._updateQuoStatus("disapproved")}>DISAPPROVE</Text>
-							</TouchableOpacity>
+						<View style={styles.modalHr}/>
+						<View style={{paddingTop: 10, flexDirection: "row", justifyContent: "center"}}>
+							<View style={{flexDirection: "row"}}>
+				         		<Feather name="check" style={styles.modalIcon} />
+								<TouchableOpacity  >
+									<Text 
+									onPress={() => this._updateQuoStatus("approved")}
+									style={{marginTop: 5}}>
+										APPROVE
+									</Text>
+								</TouchableOpacity>
+							</View>
+							<View style={{flexDirection: "row", marginLeft: 50}}>
+			         			<Feather name="x" style={styles.modalxIcon} />
+								<TouchableOpacity>
+									<Text 
+									onPress={() => this._updateQuoStatus("disapproved")}
+									style={{marginTop: 5}}>
+										DISAPPROVE
+									</Text>
+								</TouchableOpacity>
+							</View>
 						</View>
 
 			        </Modal>
@@ -280,18 +299,18 @@ const styles = StyleSheet.create({
     	height: "25%",
     	padding: 20
     },
-    quoCard: {
-    	backgroundColor: "white",
-    	borderRadius: 4,
-    	marginTop: 10,
-    	padding: 20,
-    	flex: 1
-    },
     newQuo: {
     	backgroundColor: "white",
     	borderRadius: 4,
     	marginTop: 10,
     	padding: 20,
+    },
+    oldQuo: {
+    	backgroundColor: "white",
+    	borderRadius: 4,
+    	marginTop: 10,
+    	padding: 20,
+    	flex: 1
     },
 	buttonContainer: {
 		backgroundColor: "#2980b6", 
@@ -314,20 +333,46 @@ const styles = StyleSheet.create({
 		height: 40,
 		color: 'black',
 		marginRight: 10,
-		marginTop: 6
+		marginTop: 6,
+		color: "#4F8EF7"
 	},
 	cardIcon: {
 		fontSize: 25,
 		height: 40,
-		color: 'black',
 		marginRight: 10,
-		marginTop: 4
+		color: "#4F8EF7",
+		paddingTop: 8
+	},
+	cardxIcon: {
+		fontSize: 25,
+		height: 40,
+		marginRight: 10,
+		color: "rgba(231,76,60,1)",
+		paddingTop: 8
+	},
+	headingIcon: {
+		fontSize: 25,
+		height: 40,
+		marginRight: 10,
+		color: "#4F8EF7",
+	},
+	modalIcon: {
+		fontSize: 25,
+		height: 40,
+		marginRight: 10,
+		color: "#4F8EF7",
+	},
+	modalxIcon: {
+		fontSize: 25,
+		height: 40,
+		marginRight: 10,
+		color: "rgba(231,76,60,1)",
 	},
 	hr: {
 		borderBottomColor: '#d3d3d3',
 		borderBottomWidth: 1,
 		marginTop: 10,
-		marginBottom: 20,
+		marginBottom: 15,
 		width: '100%',
 		alignSelf: 'center'
     },
@@ -335,6 +380,13 @@ const styles = StyleSheet.create({
 		borderBottomColor: '#d3d3d3',
 		borderBottomWidth: 1,
 		marginTop: 5,
+		marginBottom: 5,
+		width: '100%',
+		alignSelf: 'center'
+    },
+    modalHr: {
+		borderBottomColor: '#d3d3d3',
+		borderBottomWidth: 1,
 		marginBottom: 5,
 		width: '100%',
 		alignSelf: 'center'

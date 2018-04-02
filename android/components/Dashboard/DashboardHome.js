@@ -112,31 +112,31 @@ export class DashboardHome extends Component {
 		<View style={styles.container}>		
 			<View style={styles.buttonContainer}>
 				<TouchableOpacity onPress={this.BookingBtn}>       
-					<Text style={{color:'rgba(231,76,60,1)', textAlign: 'center'}}>Bookings</Text>
+					<Text style={styles.text}>Bookings</Text>
 				</TouchableOpacity>
 			</View>
 			
 			<View style={styles.buttonContainer}>
 				<TouchableOpacity onPress={this.QuotationsBtn}>       
-					<Text style={{color:'rgba(231,76,60,1)', textAlign: 'center'}}>Quotations</Text>
+					<Text style={styles.text}>Quotations</Text>
 				</TouchableOpacity>
 			</View>
 
 			<View style={styles.buttonContainer}>
 				<TouchableOpacity onPress={this.InvoicesBtn}>       
-					<Text style={{color:'rgba(231,76,60,1)', textAlign: 'center'}}>Invoices</Text>
+					<Text style={styles.text}>Invoices</Text>
 				</TouchableOpacity>
 			</View>
 			
 			<View style={styles.buttonContainer}>		
 				<TouchableOpacity onPress={this.CsiBtn}>       
-					<Text style={{color:'rgba(231,76,60,1)', textAlign: 'center'}}>CSI</Text>
+					<Text style={styles.text}>CSI</Text>
 				</TouchableOpacity>
 			</View>
 
 			<View style={styles.buttonContainer}>
 				<TouchableOpacity onPress={this.DataStreamBtn}>       
-					<Text style={{color:'rgba(231,76,60,1)', textAlign: 'center'}}>Data Stream</Text>
+					<Text style={styles.text}>Data Stream</Text>
 				</TouchableOpacity>
 			</View>
 		</View>
@@ -165,5 +165,9 @@ const styles = StyleSheet.create({
 		width: 250,
 		alignSelf: 'center'
     },
+    text: {
+    	color: '#4F8EF7', 
+    	textAlign: 'center'
+    }
 
 })

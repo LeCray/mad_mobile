@@ -30,7 +30,7 @@ export const MainScreen = StackNavigator({
 	}, {
 		navigationOptions: {
 			title: 'M.A.D',
-			headerStyle: {backgroundColor: '#E73536'},
+			headerStyle: {backgroundColor:"#4F8EF7"},
 			headerTintColor: 'white'
 		}, 
 	})
