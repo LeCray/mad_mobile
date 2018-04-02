@@ -105,20 +105,88 @@ export class Quotations extends Component {
           console.error(error);
         })
         .done();
-
-
-
 	}
 
-	renderIf = (status) => {
-	    if (status == "Approved") {
-			return <Feather name="check" style={styles.cardIcon} />;
-	    } else if (status == "Disapproved") {
-	        return <Feather name="x" style={styles.cardIcon} />;
+	renderNewQuo = (status, date, index) => {
+	    if (status == null) {
+			return (
+				<View style={{flexDirection: "row"}}>
+
+					<Feather name="alert-circle" style={styles.cardIcon} />
+		    		<View style={{flexDirection: "column"}}>
+						<Text>Date: {date.slice(0,10)}</Text>
+						<Text>Status: {this.state.quo_status[index]} </Text>
+					</View>
+
+					<View style={{marginLeft: 50,flex: 1}}>
+						<TouchableOpacity>
+						<Text 
+						onPress={() => this._showModal(index)}
+						style={{fontSize: 15, textAlign: "right", marginRight: 10}}> 
+							View
+						</Text>			
+						</TouchableOpacity>					
+					</View>
+				</View>
+			)
 	    } else {
-	    	return <Feather name="alert-circle" style={styles.cardIcon} />
+	    	return null
 	    }
 	}
+
+	renderOldQuo = (status, date, index) => {
+	    if (status == "Approved") {
+			return (
+				<View style={{flexDirection: "column"}}>
+					<View style={{flexDirection: "row"}}>
+						<Feather name="check" style={styles.cardIcon} />
+						<View style={{flexDirection: "column"}}>
+							<Text>Date: {date.slice(0,10)}</Text>
+							<Text>Status: {this.state.quo_status[index]} </Text>
+						</View>
+
+						<View style={{marginLeft: 50,flex: 1, justifyContent: "center"}}>
+							<TouchableOpacity>
+							<Text 
+							onPress={() => this._showModal(index)}
+							style={{fontSize: 15, textAlign: "right", marginRight: 10}}> 
+								View
+							</Text>			
+							</TouchableOpacity>					
+						</View>
+					</View>
+					<View style={styles.quoHr}/>
+				</View>
+			)
+	    } else if (status == "Disapproved") {
+	        return(
+	        	<View style={{flexDirection: "column"}}>
+		        	<View style={{flexDirection: "row"}}>
+		         		<Feather name="x" style={styles.cardIcon} />
+		         		<View style={{flexDirection: "column"}}>
+							<Text>Date: {date.slice(0,10)}</Text>
+							<Text>Status: {this.state.quo_status[index]} </Text>
+						</View>
+
+						<View style={{marginLeft: 50,flex: 1, justifyContent: "center"}}>
+							<TouchableOpacity>
+							<Text 
+							onPress={() => this._showModal(index)}
+							style={{fontSize: 15, textAlign: "right", marginRight: 10}}> 
+								View
+							</Text>			
+							</TouchableOpacity>					
+						</View>
+					</View>
+					<View style={styles.quoHr}/>
+				</View>
+			)
+	    } else {
+	    	return null
+	    }
+	}
+
+
 		
 
 	render() {
@@ -136,33 +204,26 @@ export class Quotations extends Component {
 						<Text>Approve or Disapprove proposed quotations</Text>
 					</View>
 					
-					<View style={styles.quoCard}>
-						<Text>Select quotation by date uploaded</Text>
+					<View style={styles.newQuo}>
+						<Text> New Quotation(s) </Text>
 						<View style={styles.hr}/>
 
 						{this.state.quo_date.map((date, index) => 
 							<TouchableOpacity key={index}>
-								<View style={{flexDirection: "row"}}>
-									
-					                {this.renderIf(this.state.quo_status[index])}	
-
-									<View style={{flexDirection: "column"}}>
-										<Text>Date: {date.slice(0,10)}</Text>
-										<Text>Status: {this.state.quo_status[index]} </Text>
-									</View>
-	
-									<View style={{marginLeft: 50,flex: 1}}>
-										<TouchableOpacity>
-										<Text 
-										onPress={() => this._showModal(index)}
-										style={{fontSize: 20, textAlign: "right", marginRight: 10}}> 
-											View
-										</Text>			
-										</TouchableOpacity>					
-									</View>
-
-								</View>
+				                {this.renderNewQuo(this.state.quo_status[index], date, index)}			
 							</TouchableOpacity>
+						)}
+					</View>
+					
+					<View style={styles.quoCard}>
+						<Text>Old Quotations</Text>
+						<View style={styles.hr}/>
+
+						{this.state.quo_date.map((date, index) => 
+							<TouchableOpacity key={index}>									
+					            {this.renderOldQuo(this.state.quo_status[index], date, index)}	
+							</TouchableOpacity>
+
 						)}
 					</View>
 
@@ -209,23 +270,29 @@ export class Quotations extends Component {
 
 const styles = StyleSheet.create({
 	container: {
-        flex: 1,
-        justifyContent: 'flex-start',
-        padding: 20
+        height: Dimensions.get('window').height,
+        padding: 20,
     },
     header: {
     	backgroundColor: "white",
     	borderRadius: 4,
     	padding: 10,
-    	height: "45%",
+    	height: "25%",
     	padding: 20
     },
     quoCard: {
     	backgroundColor: "white",
+    	borderRadius: 4,
     	marginTop: 10,
-    	padding: 20	
+    	padding: 20,
+    	flex: 1
     },
-
+    newQuo: {
+    	backgroundColor: "white",
+    	borderRadius: 4,
+    	marginTop: 10,
+    	padding: 20,
+    },
 	buttonContainer: {
 		backgroundColor: "#2980b6", 
 		paddingVertical: 15, 
@@ -253,7 +320,7 @@ const styles = StyleSheet.create({
 		fontSize: 25,
 		height: 40,
 		color: 'black',
-		marginRight: 20,
+		marginRight: 10,
 		marginTop: 4
 	},
 	hr: {
@@ -264,6 +331,14 @@ const styles = StyleSheet.create({
 		width: '100%',
 		alignSelf: 'center'
     },
+    quoHr: {
+		borderBottomColor: '#d3d3d3',
+		borderBottomWidth: 1,
+		marginTop: 5,
+		marginBottom: 5,
+		width: '100%',
+		alignSelf: 'center'
+    }
  
 
 })
