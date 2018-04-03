@@ -238,23 +238,20 @@ export class Quotations extends Component {
 					onRequestClose={this._hideModal}>
 						
 						<View style={{flex: 1}}>
-							<View  style={{flex: 1}}>
-								<Pdf
-				                    source={source}
-				                    onLoadComplete={(numberOfPages,filePath)=>{
-				                        console.log('number of pages: ', numberOfPages);
-				                    }}
-				                    onPageChanged={(page,numberOfPages)=>{
-				                        console.log('current page: ', page);
-				                    }}
-				                    onError={(error)=>{
-				                        console.log(error);
-				                    }}
-				                    style={styles.pdf}/>
-
-							</View>
-
+							<Pdf
+			                    source={source}
+			                    onLoadComplete={(numberOfPages,filePath)=>{
+			                        console.log('number of pages: ', numberOfPages);
+			                    }}
+			                    onPageChanged={(page,numberOfPages)=>{
+			                        console.log('current page: ', page);
+			                    }}
+			                    onError={(error)=>{
+			                        console.log(error);
+			                    }}
+			                    style={styles.pdf}/>
 						</View>
+						
 						<View style={styles.modalHr}/>
 						<View style={{paddingTop: 10, flexDirection: "row", justifyContent: "center"}}>
 							<View style={{flexDirection: "row"}}>

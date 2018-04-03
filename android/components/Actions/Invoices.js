@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import {Platform, StyleSheet, Dimensions, Text, View, Modal, TouchableOpacity} from 'react-native';
+import {Platform, StyleSheet, Dimensions, Text, 
+		View, Modal, TouchableOpacity, ScrollView} from 'react-native';
 import Pdf from 'react-native-pdf';
-
+import Feather from 'react-native-vector-icons/Feather';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 
 
@@ -73,25 +75,58 @@ export class Invoices extends Component {
 
 
 		return(  
-			<View style={styles.container}>
-				
-				
-				{this.state.inv_date.map((date, index) => 
-					<TouchableOpacity key={index} style={{padding: 10}} >
-						<Text onPress={() => this._showModal(index)}> 
-							{date.slice(0,10)} 
-						</Text>								
-					</TouchableOpacity>
-				)}
+			<ScrollView>
+				<View style={styles.container}>
 
-                <Modal
-				animationType="slide"
-				transparent={true}
-				visible = {this.state.modalVisible}
-				onRequestClose={this._hideModal}>
+					<View style={styles.header}>
+						<View style={{flexDirection: "row"}}>	
+							<Text style={{fontSize: 30, color: "#4F8EF7"}}>Invoices</Text>
+						</View>
+						<Text>View your recent invoices</Text>
+					</View>
+
+					<View style={styles.invoiceCard}>
+						<View style={{flexDirection: 'row', marginBottom: -15}}>
+							<Feather name="clock" style={styles.headingIcon} />
+							<Text style={{fontSize: 18, color: "#4F8EF7", paddingLeft: 5}}>Invoices</Text>
+						</View>
+						<View style={styles.invHr}/>
+
+
+
+						{this.state.inv_date.map((date, index) => 
+							<View key={index} style={{padding: 10}} >
+								<View style={{flexDirection: "row", justifyContent: 'center'}}>
+									<Feather name="file-text" color="#4F8EF7" style={styles.cardIcon} />
+									<View style={{flexDirection: "column", justifyContent: 'center'}}>
+										<Text>Date: {date.slice(0,10)}</Text>
+									</View>
+
+									<View style={{flex: 1, justifyContent: "center"}}>
+										<TouchableOpacity>
+											<Text 
+											onPress={() => this._showModal(index)}
+											style={{fontSize: 15, textAlign: "right", marginRight: 10}}> 
+												View
+											</Text>			
+										</TouchableOpacity>					
+									</View>
+								</View>
+								<View style={styles.hr}/>
+							</View>
+						)}
+					</View>
 					
-					<View style={{flex: 1}}>
-						<View  style={{flex: 1}}>
+					
+
+
+	                <Modal
+					animationType="slide"
+					transparent={true}
+					visible = {this.state.modalVisible}
+					onRequestClose={this._hideModal}>
+						
+						<View style={{flex: 1}}>		
 							<Pdf
 			                    source={source}
 			                    onLoadComplete={(numberOfPages,filePath)=>{
@@ -103,26 +138,67 @@ export class Invoices extends Component {
 			                    onError={(error)=>{
 			                        console.log(error);
 			                    }}
-			                    style={styles.pdf}/>
-
+			                    style={styles.pdf}/>		
 						</View>
-
-					</View>
-
-		        </Modal>
-			</View>
+						
+						<View style={styles.modalHr}/>
+						<View style={{paddingTop: 10, flexDirection: "row", justifyContent: "center", backgroundColor: "white"}}>
+							<View style={{flexDirection: "row"}}>
+				         		<Feather name="chevron-down" style={styles.modalIcon} />
+								<TouchableOpacity  >
+									<Text 
+									onPress={this._hideModal}
+									style={{marginTop: 5}}>
+										CLOSE
+									</Text>
+								</TouchableOpacity>
+							</View>
+						</View>
+			        </Modal>
+				</View>
+			</ScrollView>
 		)
 	}
 }
 
 const styles = StyleSheet.create({
 	container: {
-        flex: 1,
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        marginTop: 0,
+        height: Dimensions.get('window').height,
+        padding: 20,
     },
-
+	header: {
+    	backgroundColor: "white",
+    	borderRadius: 4,
+    	padding: 10,
+    	height: "25%",
+    	padding: 20
+    },
+    invoiceCard: {
+    	backgroundColor: "white",
+    	borderRadius: 4,
+    	marginTop: 10,
+    	padding: 20,
+    	flex: 1
+    },
+	headingIcon: {
+		fontSize: 25,
+		height: 40,
+		marginRight: 10,
+		color: "#4F8EF7",
+	},
+	cardIcon: {
+		fontSize: 25,
+		height: 40,
+		marginRight: 10,
+		color: "#4F8EF7",
+		paddingTop: 8
+	},
+	modalIcon: {
+		fontSize: 25,
+		height: 40,
+		marginRight: 10,
+		color: "#4F8EF7",
+	},
 	buttonContainer: {
 		backgroundColor: "#2980b6", 
 		paddingVertical: 15, 
@@ -136,8 +212,29 @@ const styles = StyleSheet.create({
     	height: 30,
     	flexDirection: "row", 
     	alignItems: "center", 
-    	justifyContent: 'center',
-    	
+    	justifyContent: 'center',	
+    },
+	invHr: {
+		borderBottomColor: '#d3d3d3',
+		borderBottomWidth: 1,
+		marginTop: 10,
+		marginBottom: 0,
+		width: '100%',
+		alignSelf: 'center'
+    },
+	hr: {
+		borderBottomColor: '#d3d3d3',
+		borderBottomWidth: 1,
+		marginTop: 10,
+		marginBottom: -10,
+		width: '100%',
+		alignSelf: 'center'
+    },
+    modalHr: {
+		borderBottomColor: '#d3d3d3',
+		borderBottomWidth: 1,
+		width: '100%',
+		alignSelf: 'center'
     }
  
 
