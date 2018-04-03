@@ -14,7 +14,7 @@ import {NewBooking} from './NewBooking';
 export class Bookings extends Component {
 
 	static navigationOptions = {
-		title: 'Bookings'
+		title: 'Back'
 	}
 	
 	constructor(props) {

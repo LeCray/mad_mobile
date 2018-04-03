@@ -44,7 +44,7 @@ const PreferenceDefaultValue = {
 export default class OBDReader extends Component {
 
   static navigationOptions = {
-    title: 'OBD Reader'
+    title: 'Back'
   }
 
   constructor(props) {

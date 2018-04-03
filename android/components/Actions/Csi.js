@@ -8,7 +8,7 @@ export class Csi extends Component {
 
 	
 	static navigationOptions = {
-		title: 'CSI'
+		title: 'Back'
 	}
 
 	render() {

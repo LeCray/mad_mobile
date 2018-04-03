@@ -1,3 +1,4 @@
+import React, { Component } from 'react';
 import { StackNavigator, DrawerNavigator } from 'react-navigation';
 import {DrawerStack} from './DrawerStack';
 //import {DataStream} from './Actions/DataStream'
@@ -9,6 +10,12 @@ import {Quotations} from './Actions/Quotations';
 import OBDReader from './Actions/OBDReader';
 import Settings from './Actions/Settings';
 import RootRouter from './RootRouter';
+import Entypo from 'react-native-vector-icons/Entypo';
+
+import {Platform, StyleSheet, Text, 
+		View, TouchableOpacity, TouchableHighlight, Button
+		} from 'react-native';
+
 
 
 export const MainScreen = StackNavigator({
@@ -28,10 +35,17 @@ export const MainScreen = StackNavigator({
 
 
 	}, {
-		navigationOptions: {
+		navigationOptions: ({ navigation }) => ({
 			title: 'M.A.D',
-			headerStyle: {backgroundColor:"#4F8EF7"},
-			headerTintColor: 'white'
-		}, 
+			headerStyle: {backgroundColor:"#2470f5"},
+			headerTintColor: 'white',
+			headerLeft: <Entypo name="menu" size={35} color="white" onPress={ () => {
+				if (navigation.state.index === 0) {
+				  navigation.navigate('DrawerOpen')
+				} else {
+				  navigation.navigate('DrawerClose')
+				}
+			}}/>
+		}), 
 	})
 

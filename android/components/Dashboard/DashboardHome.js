@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
-import {Platform, StyleSheet, Text, View, TouchableOpacity, AsyncStorage} from 'react-native';
+import {Platform, StyleSheet, Text, View, 
+		TouchableOpacity, AsyncStorage, ScrollView} from 'react-native';
 import FCM, { FCMEvent } from "react-native-fcm";
+import Feather from 'react-native-vector-icons/Feather';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+var { Dimensions } = require('react-native')
 
 
 export class DashboardHome extends Component {
@@ -109,65 +113,107 @@ export class DashboardHome extends Component {
 
   	render() {
     return(  
-		<View style={styles.container}>		
-			<View style={styles.buttonContainer}>
-				<TouchableOpacity onPress={this.BookingBtn}>       
-					<Text style={styles.text}>Bookings</Text>
-				</TouchableOpacity>
-			</View>
-			
-			<View style={styles.buttonContainer}>
-				<TouchableOpacity onPress={this.QuotationsBtn}>       
-					<Text style={styles.text}>Quotations</Text>
-				</TouchableOpacity>
-			</View>
+    	<ScrollView>
+			<View style={styles.container}>		
 
-			<View style={styles.buttonContainer}>
-				<TouchableOpacity onPress={this.InvoicesBtn}>       
-					<Text style={styles.text}>Invoices</Text>
-				</TouchableOpacity>
-			</View>
-			
-			<View style={styles.buttonContainer}>		
-				<TouchableOpacity onPress={this.CsiBtn}>       
-					<Text style={styles.text}>CSI</Text>
-				</TouchableOpacity>
-			</View>
+				<View style={styles.header}>
+					<View style={{flexDirection: "row"}}>	
+						<Text style={{fontSize: 30, color: "#4F8EF7"}}>MAD APP</Text>
+					</View>
+					<Text>Manage your account</Text>
+				</View>
 
-			<View style={styles.buttonContainer}>
-				<TouchableOpacity onPress={this.DataStreamBtn}>       
-					<Text style={styles.text}>Data Stream</Text>
-				</TouchableOpacity>
+				<View style={styles.btnsCard}>
+
+					<View style={styles.buttonContainer}>
+						<Feather name="calendar" color="#4F8EF7" style={styles.cardIcon} />      
+						<View style={{flexDirection: "column", justifyContent: 'center'}}>
+							<TouchableOpacity onPress={this.BookingBtn}>       
+								<Text style={styles.text}>Bookings</Text>
+							</TouchableOpacity>
+						</View>
+					</View>
+					
+					<View style={styles.buttonContainer}>
+						<Feather name="bell" color="#4F8EF7" style={styles.cardIcon} />      
+						<View style={{flexDirection: "column", justifyContent: 'center'}}>
+							<TouchableOpacity onPress={this.QuotationsBtn}>       
+								<Text style={styles.text}>Quotations</Text>
+							</TouchableOpacity>
+						</View>
+					</View>
+
+					<View style={styles.buttonContainer}>
+						<Feather name="file-text" color="#4F8EF7" style={styles.cardIcon} />      
+						<View style={{flexDirection: "column", justifyContent: 'center'}}>
+							<TouchableOpacity onPress={this.InvoicesBtn}> 
+								<Text style={styles.text}>Invoices</Text>
+							</TouchableOpacity>
+						</View>
+					</View>
+					
+					<View style={styles.buttonContainer}>	
+						<Feather name="shield" color="#4F8EF7" style={styles.cardIcon} />      
+						<View style={{flexDirection: "column", justifyContent: 'center'}}>	
+							<TouchableOpacity onPress={this.CsiBtn}>       
+								<Text style={styles.text}>CSI</Text>
+							</TouchableOpacity>
+						</View>
+					</View>
+
+					<View style={styles.buttonContainer}>
+						<FontAwesome name="car" color="#4F8EF7" style={styles.cardIcon} />      
+						<View style={{flexDirection: "column", justifyContent: 'center'}}>
+							<TouchableOpacity onPress={this.DataStreamBtn}>       
+								<Text style={styles.text}>Data Stream</Text>
+							</TouchableOpacity>
+						</View>
+					</View>
+				</View>
 			</View>
-		</View>
+		</ScrollView>
     )
   }
 }
 
 const styles = StyleSheet.create({
-    container: {
-		flex: 1,
-        flexDirection: 'column',
-        alignItems: 'center',
-        paddingLeft: 10, 
-        paddingRight: 10,
-        paddingTop: 30,
+	container: {
+        height: Dimensions.get('window').height,
+        padding: 20,
     },
-
+	header: {
+    	backgroundColor: "white",
+    	borderRadius: 4,
+    	padding: 10,
+    	height: "25%",
+    	padding: 20
+    },
 	buttonContainer: {
-		//backgroundColor: "#2980b6", 
-		borderTopWidth: 1,
-		borderTopColor: '#d3d3d3',
-		borderBottomWidth: 1,
-		borderBottomColor: '#d3d3d3',
+		//borderBottomWidth: 1,
+		//borderBottomColor: '#d3d3d3',
+		flexDirection: "row",
 		paddingVertical: 15, 
-		marginTop: 20,
+		marginTop: 0,
 		width: 250,
 		alignSelf: 'center'
     },
     text: {
     	color: '#4F8EF7', 
     	textAlign: 'center'
-    }
+    },
+    btnsCard: {	
+    	backgroundColor: "white",
+    	borderRadius: 4,
+    	marginTop: 10,
+    	padding: 20,
+    	flex: 1
+    },
+	cardIcon: {
+		fontSize: 25,
+		height: 40,
+		marginRight: 10,
+		color: "#4F8EF7",
+		paddingTop: 8
+	},
 
 })

@@ -10,7 +10,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 export class Invoices extends Component {
 
 	static navigationOptions = {
-		title: 'Invoices'
+		title: 'Back'
 	}
 
 	constructor(props) {
