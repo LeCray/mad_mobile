@@ -20,7 +20,17 @@ import {Platform, StyleSheet, Text,
 
 export const MainScreen = StackNavigator({
 	//Stack where hamburger is to be placed
-	Main: { screen: DrawerStack },
+	Main: { screen: DrawerStack,
+			navigationOptions: ({ navigation }) => ({
+	    	headerLeft: <Entypo name="menu" style={{marginLeft: 10}} size={35} color="white" onPress={()=>{
+						if (navigation.state.index === 0) {
+						  navigation.navigate('DrawerOpen')
+						} else {
+						  navigation.navigate('DrawerClose')
+						}
+					}}/>
+			})
+ 	},
 
 	//Screens that are accessed by DashboardHome.js
 	OBDReader: 		{ screen: OBDReader},
@@ -32,20 +42,11 @@ export const MainScreen = StackNavigator({
 
 	//New Booking Modal
 	NewBooking: { screen: NewBooking}
-
-
-	}, {
-		navigationOptions: ({ navigation }) => ({
+	}, {navigationOptions: {
 			title: 'M.A.D',
 			headerStyle: {backgroundColor:"#2470f5"},
-			headerTintColor: 'white',
-			headerLeft: <Entypo name="menu" size={35} color="white" onPress={ () => {
-				if (navigation.state.index === 0) {
-				  navigation.navigate('DrawerOpen')
-				} else {
-				  navigation.navigate('DrawerClose')
-				}
-			}}/>
-		}), 
+			headerTintColor: 'white'
+		}
 	})
+	
 

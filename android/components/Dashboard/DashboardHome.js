@@ -4,6 +4,8 @@ import {Platform, StyleSheet, Text, View,
 import FCM, { FCMEvent } from "react-native-fcm";
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Entypo from 'react-native-vector-icons/Entypo';
+import { withNavigation } from 'react-navigation';
 var { Dimensions } = require('react-native')
 
 
@@ -25,9 +27,9 @@ export class DashboardHome extends Component {
 	}
 
 	
-	static navigationOptions = {
-		drawerLabel: 'Dashboard'
-	}
+
+	
+
 
 	
 	DataStreamBtn = function () {
@@ -112,6 +114,10 @@ export class DashboardHome extends Component {
 	}
 
   	render() {
+	const {navigate} =this.props.navigation;
+
+
+
     return(  
     	<ScrollView>
 			<View style={styles.container}>		
