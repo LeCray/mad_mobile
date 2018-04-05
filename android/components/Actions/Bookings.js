@@ -123,6 +123,8 @@ export class Bookings extends Component {
 		this.setState({date: date, time: time});
 		this.setState({isBookingPlaced: ""});
 
+		this.setState({ modalVisible: true })
+
 		this.setState({isBookingDataProvided: true})
 
 		console.log('Date: ', this.state.date);	
@@ -230,20 +232,20 @@ export class Bookings extends Component {
 						</View>
 						<View style={styles.bookingsHr}/> 
 						
-						{!this.state.isBookingPlaced?
-							<View style={styles.buttonContainer}>
-								<TouchableOpacity onPress={this._newBooking}>
-									<Text style={{color: 'rgba(231,76,60,1)', textAlign: 'center'}}>
-										Place Booking
-									</Text> 
-								</TouchableOpacity>			
-							</View>
-						:
-							<View style={{marginTop: 15, alignSelf: 'center'}}>
-								<Text style={{fontSize: 15, color: "rgba(231,76,60,1)"}}> STATUS:  
-									<Text style={{color: "#8c8c8c"}}> {this.state.status}</Text>			
-								</Text>
+						{this.state.isBookingPlaced?
+							<View style={{marginTop: 15, alignSelf: 'center', flexDirection: "row"}}>
+								<Text style={{fontSize: 20, color: "rgba(231,76,60,1)"}}>STATUS: </Text>
+								<Text style={{fontSize: 20, color: "#8c8c8c"}}>{this.state.status}</Text>			
 							</View> 
+						: 
+							<View>
+								<View style={{flexDirection: "row" }}>
+									<Feather name="plus" style={styles.cardIcon} />
+									<TouchableOpacity style={{flexDirection: "column", justifyContent: "center"}} onPress={this._showDateTimePicker}>
+										<Text>NEW BOOKING</Text>
+									</TouchableOpacity>
+								</View>
+							</View>
 						}
 					</View>
 				
@@ -251,7 +253,7 @@ export class Bookings extends Component {
 					<View style={styles.bookingsCard}>
 						<View style={{flexDirection: 'row', marginBottom: -15}}>
 							<Feather name="calendar" style={styles.headingIcon} />
-							<Text style={{fontSize: 18, color: "#4F8EF7", paddingLeft: 5}}>Bookings</Text>
+							<Text style={{fontSize: 18, color: "#4F8EF7", paddingLeft: 5}}>Your Booking</Text>
 						</View>
 						<View style={styles.bookingsHr}/> 
 						
@@ -293,18 +295,31 @@ export class Bookings extends Component {
 						}
 						
 						{this.state.isBookingPlaced?
-							<View style={{marginTop: 10}}>
+							<View>
 								<View style={styles.cancelHr}/>
 								<View style={{flexDirection: "row", justifyContent: "center"}}>
 									<View style={{flexDirection: "column", justifyContent: "center"}}>
 										<Feather name="x" style={styles.cancelIcon} />
 									</View>
-									<TouchableOpacity style={{marginTop: 2}} onPress={this._cancelBooking} >
-										<Text>CANCEL BOOKING</Text>
+									<TouchableOpacity  onPress={this._cancelBooking} >
+										<Text style={{marginTop: 2}}>
+											CANCEL BOOKING
+										</Text>
 									</TouchableOpacity>
 								</View>
 							</View>
-						: null}
+						: 
+							<View style={{flexDirection: "row", justifyContent: "center", marginTop: 10}}>
+									<View style={{flexDirection: "column", justifyContent: "center"}}>
+										<Feather name="check" style={styles.placeBookingIcon} />
+									</View>
+								<TouchableOpacity onPress={this._newBooking}>
+									<Text style={{textAlign: 'center', marginTop: 2}}>
+										PLACE BOOKING
+									</Text> 
+								</TouchableOpacity>	
+							</View>									
+						}
 
 					</View>
 				
@@ -317,8 +332,12 @@ export class Bookings extends Component {
 						
 						<View style={{paddingTop: 50, backgroundColor: '#00000080', flex: 1}}>
 							<View  style={{backgroundColor: '#fff', padding: 20, flex: 1}}>
-								
-								<Text style={styles.descHeader}>Description</Text>
+								<View style={{flexDirection: "row" }}>
+									<Feather name="feather" style={styles.cardIcon} />
+									<View style={{flexDirection: "column", justifyContent: "center"}}>
+										<Text size={{fontSize: 20}}>DESCRIPTION</Text>
+									</View>
+								</View>
 								<View style={styles.descHr}/>
 								<View style={styles.descText}>
 									<TextInput
@@ -338,9 +357,12 @@ export class Bookings extends Component {
 										returnKeyType="done" 
 										style={{borderWidth: 0}}/>
 								</View>
-								<View style={styles.descButton}>
-									<TouchableOpacity onPress={this._hideModal}>								
-										<Text style={{color: '#9b59b6', textAlign: 'center'}}>Done</Text>
+								<View style={{flexDirection: "row", justifyContent: "center", marginTop: 10}}>									
+									<Feather name="check" style={styles.cardIcon} />									
+									<TouchableOpacity  onPress={this._hideModal} >
+										<Text style={{marginTop: 10}}>
+											DONE
+										</Text>
 									</TouchableOpacity>
 								</View>
 
@@ -420,6 +442,14 @@ const styles = StyleSheet.create({
 		paddingTop: 0,
 		color: "rgba(231,76,60,1)"
 	},
+	placeBookingIcon: {
+		fontSize: 25,
+		height: 40,
+		marginRight: 10,
+		color: "#4F8EF7",
+		paddingTop: 0,
+		color: "#4F8EF7"
+	},
 	bookingsHr: {
 		borderBottomColor: '#d3d3d3',
 		borderBottomWidth: 1,
@@ -449,7 +479,7 @@ const styles = StyleSheet.create({
 		borderBottomColor: '#d3d3d3',
 		borderBottomWidth: 1,
 		marginTop: 10,
-		width: '80%',
+		width: '90%',
 		alignSelf: 'center'
     },
 	cancelHr: {
@@ -457,6 +487,7 @@ const styles = StyleSheet.create({
 		borderBottomWidth: 1,
 		width: '100%',
 		alignSelf: 'center',
+		marginTop: 10,
 		marginBottom: 15
     },
 	buttonContainer: { 
