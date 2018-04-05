@@ -2,14 +2,16 @@ import React, { Component } from 'react';
 
 import {Platform, StyleSheet, Text, View, TouchableOpacity, 
 		AsyncStorage, Modal, TouchableHighlight, 
-		TextInput, KeyboardAvoidingView, ToastAndroid} from 'react-native';
+		TextInput, KeyboardAvoidingView, ToastAndroid, ScrollView} from 'react-native';
 
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Feather from 'react-native-vector-icons/Feather';
+import Entypo from 'react-native-vector-icons/Entypo';
+var { Dimensions } = require('react-native')
 
 
-import {NewBooking} from './NewBooking';
 
 export class Bookings extends Component {
 
@@ -50,7 +52,7 @@ export class Bookings extends Component {
 */
 	componentWillMount() {
 		
-		fetch("http://192.168.0.36:3000/api/v1/mobile_check_booking", {
+		fetch("http://192.168.43.42:3000/api/v1/mobile_check_booking", {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 			body: JSON.stringify({
@@ -141,7 +143,7 @@ export class Bookings extends Component {
 			this.setState({ isBookingPlaced: true });
 			
 		
-			fetch("http://192.168.0.36:3000/api/v1/new_booking", {
+			fetch("http://192.168.43.42:3000/api/v1/new_booking", {
 				method: "POST", 
 				headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 				body: JSON.stringify({
@@ -190,7 +192,7 @@ export class Bookings extends Component {
 
 		this.setState({isBookingDataProvided: ""})
 
-		fetch("http://192.168.0.36:3000/api/v1/cancel_booking", {
+		fetch("http://192.168.43.42:3000/api/v1/cancel_booking", {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 			body: JSON.stringify({
@@ -211,128 +213,192 @@ export class Bookings extends Component {
 	render() {
 	
 		return (
-			<View style={styles.container}>
-			<Text style={styles.booking}>DATE: 
-					<Text style={{fontStyle: 'italic'}}> {this.state.date}</Text>
-				</Text>
-				<View style={styles.hr}/>
-
-				<Text style={styles.booking}>TIME: 
-					<Text style={{fontStyle: 'italic'}}> {this.state.time}</Text>
-				</Text>
-				<View style={styles.hr}/>
-
-				<Text style={styles.booking}>DESCRIPTION: </Text>
-				<Text style={{fontStyle: 'italic', marginLeft: 15}}>{this.state.description}</Text>
-				<View style={styles.hr}/>
-
-				{this.state.carMake || this.state.carModel? 
-					<View>
-						<Text style={styles.carDesc}>CAR MAKE: 
-							<Text style={{fontStyle: 'italic'}}> {this.state.carMake}</Text>
-						</Text>
-						<Text style={styles.carDesc}>CAR MODEL: 
-							<Text style={{fontStyle: 'italic'}}> {this.state.carModel}</Text>
-						</Text>
-					</View> 
-					: null 
-				}
-				
-							
-				{!this.state.isBookingPlaced?
-					<View style={styles.buttonContainer}>
-						<TouchableOpacity onPress={this._newBooking}>
-							<Text style={{color: 'rgba(231,76,60,1)', textAlign: 'center'}}>
-								Place Booking
-							</Text> 
-						</TouchableOpacity>			
-					</View>
-				:
-					<View>
-						<View style={styles.hr}/>
-						<View style={{marginTop: 20, alignSelf: 'center'}}>
-							<Text style={{fontSize: 15, color: "rgba(231,76,60,1)"}}> STATUS:  
-								<Text style={{color: "#8c8c8c"}}> {this.state.status}</Text>			
-							</Text>
-						</View> 
-						<View style={styles.buttonContainer}>
-							<TouchableOpacity onPress={this._cancelBooking} >
-								<Text style={{color: 'rgba(231,76,60,1)', textAlign: 'center'}}>
-									Cancel
-								</Text>
-							</TouchableOpacity>
+			<ScrollView>
+				<View style={styles.container}>
+					<View style={styles.header}>
+						<View style={{flexDirection: "row"}}>	
+							<Text style={{fontSize: 30, color: "#4F8EF7"}}>Bookings</Text>
 						</View>
+						<Text>Place and manage your bookings</Text>
 					</View>
-				}
 				
-				
-				<Modal
-					animationType="slide"
-					transparent={true}
-					visible = {this.state.modalVisible}
-					onRequestClose={this._hideModal}>
 					
-					<View style={{paddingTop: 50, backgroundColor: '#00000080', flex: 1}}>
-						<View  style={{backgroundColor: '#fff', padding: 20, flex: 1}}>
-							
-							<Text style={styles.descHeader}>Description</Text>
-							<View style={styles.descHr}/>
-							<View style={styles.descText}>
-								<TextInput
-						        	multiline = {true}
-									numberOfLines = {2}
-									onChangeText={(text) => this.setState({description: text})}
-									placeholder = "Type problem here"
-									style={{borderWidth: 0}}/>
-								<TextInput
-									onChangeText={(text) => this.setState({carMake: text})}
-									placeholder = "Car Make e.g. BMW"
-									returnKeyType="next"
-									style={{borderWidth: 0}}/>
-								<TextInput
-									onChangeText={(text) => this.setState({carModel: text})}
-									placeholder = "Car Model e.g. M4 Coupe"
-									returnKeyType="done" 
-									style={{borderWidth: 0}}/>
-							</View>
-							<View style={styles.descButton}>
-								<TouchableOpacity onPress={this._hideModal}>								
-									<Text style={{color: '#9b59b6', textAlign: 'center'}}>Done</Text>
-								</TouchableOpacity>
-							</View>
-
+					<View style={styles.bookingsCard}>
+						<View style={{flexDirection: 'row', marginBottom: -15}}>
+							<Feather name="calendar" style={styles.headingIcon} />
+							<Text style={{fontSize: 18, color: "#4F8EF7", paddingLeft: 5}}>Bookings</Text>
 						</View>
-					</View>
+						<View style={styles.bookingsHr}/> 
+						
+						<View style={{flexDirection: "row" }}>
+							<Entypo name="bookmarks" style={styles.cardIcon} />
+							<View style={{flexDirection: "column", justifyContent: "center"}}>
+								<Text><Text style={{fontWeight: 'bold'}}>Date: </Text> {this.state.date}</Text>
+							</View>
+						</View>
+						<View style={styles.hr}/>
 
-		        </Modal>
+						<View style={{flexDirection: "row" }}>
+							<Feather name="clock" style={styles.cardIcon} />
+							<View style={{flexDirection: "column", justifyContent: "center"}}>
+								<Text><Text style={{fontWeight: 'bold'}}>Time: </Text> {this.state.time}</Text>
+							</View>
+						</View>
+						<View style={styles.hr}/>
+ <View style={{flexDirection: "row" }}>
+							<Feather name="feather" style={styles.cardIcon} />
+							<View style={{flexDirection: "column", justifyContent: "center"}}>
+								<Text><Text style={{fontWeight: 'bold'}}>Description: </Text> {this.state.description}</Text>
+							</View>
+						</View>
+						<View style={styles.hr}/>
+
+						{this.state.carMake || this.state.carModel? 
+							<View>
+								<View style={{flexDirection: "row" }}>
+									<View style={{flexDirection: "column", justifyContent: "center"}}>
+										<Entypo name="car" style={styles.cardIcon} />
+									</View>
+									<View style={{flexDirection: "column", justifyContent: "center"}}>
+										<Text><Text style={{fontWeight: 'bold'}}>Car Make: </Text> {this.state.carMake}</Text>
+										<Text><Text style={{fontWeight: 'bold'}}>Car Model: </Text> {this.state.carModel}</Text>
+									</View>
+								</View>
+							</View> 
+							: null 
+						}
+						
+									
+						{!this.state.isBookingPlaced?
+							<View style={styles.buttonContainer}>
+								<TouchableOpacity onPress={this._newBooking}>
+									<Text style={{color: 'rgba(231,76,60,1)', textAlign: 'center'}}>
+										Place Booking
+									</Text> 
+								</TouchableOpacity>			
+							</View>
+						:
+							<View>
+								<View style={styles.hr}/>
+								<View style={{marginTop: 20, alignSelf: 'center'}}>
+									<Text style={{fontSize: 15, color: "rgba(231,76,60,1)"}}> STATUS:  
+										<Text style={{color: "#8c8c8c"}}> {this.state.status}</Text>			
+									</Text>
+								</View> 
+								<View style={styles.buttonContainer}>
+									<TouchableOpacity onPress={this._cancelBooking} >
+										<Text style={{color: 'rgba(231,76,60,1)', textAlign: 'center'}}>
+											Cancel
+										</Text>
+									</TouchableOpacity>
+								</View>
+							</View>
+						}
+					</View>
+				
+				
+					<Modal
+						animationType="slide"
+						transparent={true}
+						visible = {this.state.modalVisible}
+						onRequestClose={this._hideModal}>
+						
+						<View style={{paddingTop: 50, backgroundColor: '#00000080', flex: 1}}>
+							<View  style={{backgroundColor: '#fff', padding: 20, flex: 1}}>
+								
+								<Text style={styles.descHeader}>Description</Text>
+								<View style={styles.descHr}/>
+								<View style={styles.descText}>
+									<TextInput
+							        	multiline = {true}
+										numberOfLines = {2}
+										onChangeText={(text) => this.setState({description: text})}
+										placeholder = "Type problem here"
+										style={{borderWidth: 0}}/>
+									<TextInput
+										onChangeText={(text) => this.setState({carMake: text})}
+										placeholder = "Car Make e.g. BMW"
+										returnKeyType="next"
+										style={{borderWidth: 0}}/>
+									<TextInput
+										onChangeText={(text) => this.setState({carModel: text})}
+										placeholder = "Car Model e.g. M4 Coupe"
+										returnKeyType="done" 
+										style={{borderWidth: 0}}/>
+								</View>
+								<View style={styles.descButton}>
+									<TouchableOpacity onPress={this._hideModal}>								
+										<Text style={{color: '#9b59b6', textAlign: 'center'}}>Done</Text>
+									</TouchableOpacity>
+								</View>
+
+							</View>
+						</View>
+
+			        </Modal>
 				
 
-				<DateTimePicker
-					isVisible={this.state.isDateTimePickerVisible}
-					onConfirm={this._handleDateTimePicked}
-					onCancel={this._hideDateTimePicker}
-					mode="datetime"
-		        />
-				  
-				<ActionButton buttonColor="rgba(231,76,60,1)">
-					<ActionButton.Item buttonColor='#009900' title="New Booking" onPress={this._showDateTimePicker}>
-						<Icon name="md-time" style={styles.actionButtonIcon} />
-					</ActionButton.Item>
-					<ActionButton.Item buttonColor='#9b59b6' title="Add Description" onPress={this._showModal}>
-						<Icon name="md-create" style={styles.actionButtonIcon} />
-					</ActionButton.Item>
-				</ActionButton>
-			</View>
+					<DateTimePicker
+						isVisible={this.state.isDateTimePickerVisible}
+						onConfirm={this._handleDateTimePicked}
+						onCancel={this._hideDateTimePicker}
+						mode="datetime"
+			        />
+					  
+					<ActionButton buttonColor="rgba(231,76,60,1)">
+						<ActionButton.Item buttonColor='#009900' title="New Booking" onPress={this._showDateTimePicker}>
+							<Icon name="md-time" style={styles.actionButtonIcon} />
+						</ActionButton.Item>
+						<ActionButton.Item buttonColor='#9b59b6' title="Add Description" onPress={this._showModal}>
+							<Icon name="md-create" style={styles.actionButtonIcon} />
+						</ActionButton.Item>
+					</ActionButton>
+				</View>
+			</ScrollView>
 
 		);
 	}
 }	
 
 const styles = StyleSheet.create({
-    container: {
-    	flex: 1,
-		//backgroundColor: '#f3f3f3',
+	container: {
+        height: Dimensions.get('window').height,
         padding: 20,
+    },
+	header: {
+    	backgroundColor: "white",
+    	borderRadius: 4,
+    	padding: 10,
+    	height: "25%",
+    	padding: 20
+    },
+    bookingsCard: {	
+    	backgroundColor: "white",
+    	borderRadius: 4,
+    	marginTop: 10,
+    	padding: 20,
+    	flex: 1
+    },
+	headingIcon: {
+		fontSize: 25,
+		height: 40,
+		marginRight: 10,
+		color: "#4F8EF7",
+	},
+	cardIcon: {
+		fontSize: 25,
+		height: 40,
+		marginRight: 10,
+		color: "#4F8EF7",
+		paddingTop: 8
+	},
+	bookingsHr: {
+		borderBottomColor: '#d3d3d3',
+		borderBottomWidth: 1,
+		marginTop: 10,
+		marginBottom: 5,
+		width: '100%',
+		alignSelf: 'center'
     },
 	actionButtonIcon: {
 		fontSize: 20,
@@ -346,7 +412,8 @@ const styles = StyleSheet.create({
 	hr: {
 		borderBottomColor: '#d3d3d3',
 		borderBottomWidth: 1,
-		marginTop: 10,
+		marginTop: 5,
+		marginBottom: 5,
 		width: '90%',
 		alignSelf: 'center'
     },
@@ -357,8 +424,7 @@ const styles = StyleSheet.create({
 		width: '80%',
 		alignSelf: 'center'
     },
-	buttonContainer: {
-		//backgroundColor: "#2980b6", 
+	buttonContainer: { 
 		borderTopWidth: 1,
 		borderTopColor: '#d3d3d3',
 		borderBottomWidth: 1,
