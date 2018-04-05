@@ -9,6 +9,7 @@ import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
 import Entypo from 'react-native-vector-icons/Entypo';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 var { Dimensions } = require('react-native')
 
 
@@ -221,6 +222,30 @@ export class Bookings extends Component {
 						</View>
 						<Text>Place and manage your bookings</Text>
 					</View>
+
+					<View style={styles.actionCard}>
+						<View style={{flexDirection: 'row', marginBottom: -15}}>
+							<Feather name="bell" style={styles.headingIcon} />
+							<Text style={{fontSize: 18, color: "#4F8EF7"}}> Current Booking </Text>
+						</View>
+						<View style={styles.bookingsHr}/> 
+						
+						{!this.state.isBookingPlaced?
+							<View style={styles.buttonContainer}>
+								<TouchableOpacity onPress={this._newBooking}>
+									<Text style={{color: 'rgba(231,76,60,1)', textAlign: 'center'}}>
+										Place Booking
+									</Text> 
+								</TouchableOpacity>			
+							</View>
+						:
+							<View style={{marginTop: 15, alignSelf: 'center'}}>
+								<Text style={{fontSize: 15, color: "rgba(231,76,60,1)"}}> STATUS:  
+									<Text style={{color: "#8c8c8c"}}> {this.state.status}</Text>			
+								</Text>
+							</View> 
+						}
+					</View>
 				
 					
 					<View style={styles.bookingsCard}>
@@ -245,7 +270,8 @@ export class Bookings extends Component {
 							</View>
 						</View>
 						<View style={styles.hr}/>
- <View style={{flexDirection: "row" }}>
+
+ 						<View style={{flexDirection: "row" }}>
 							<Feather name="feather" style={styles.cardIcon} />
 							<View style={{flexDirection: "column", justifyContent: "center"}}>
 								<Text><Text style={{fontWeight: 'bold'}}>Description: </Text> {this.state.description}</Text>
@@ -254,46 +280,32 @@ export class Bookings extends Component {
 						<View style={styles.hr}/>
 
 						{this.state.carMake || this.state.carModel? 
-							<View>
-								<View style={{flexDirection: "row" }}>
-									<View style={{flexDirection: "column", justifyContent: "center"}}>
-										<Entypo name="car" style={styles.cardIcon} />
-									</View>
-									<View style={{flexDirection: "column", justifyContent: "center"}}>
-										<Text><Text style={{fontWeight: 'bold'}}>Car Make: </Text> {this.state.carMake}</Text>
-										<Text><Text style={{fontWeight: 'bold'}}>Car Model: </Text> {this.state.carModel}</Text>
-									</View>
+							<View style={{flexDirection: "row", marginTop: 5, marginBottom: 5}}>
+								<View style={{flexDirection: "column", justifyContent: "center"}}>
+									<FontAwesome name="car" style={styles.cardIcon} />
+								</View>
+								<View style={{flexDirection: "column", justifyContent: "center"}}>
+									<Text><Text style={{fontWeight: 'bold'}}>Make: </Text> {this.state.carMake}</Text>
+									<Text><Text style={{fontWeight: 'bold'}}>Model: </Text> {this.state.carModel}</Text>
 								</View>
 							</View> 
 							: null 
 						}
 						
-									
-						{!this.state.isBookingPlaced?
-							<View style={styles.buttonContainer}>
-								<TouchableOpacity onPress={this._newBooking}>
-									<Text style={{color: 'rgba(231,76,60,1)', textAlign: 'center'}}>
-										Place Booking
-									</Text> 
-								</TouchableOpacity>			
-							</View>
-						:
-							<View>
-								<View style={styles.hr}/>
-								<View style={{marginTop: 20, alignSelf: 'center'}}>
-									<Text style={{fontSize: 15, color: "rgba(231,76,60,1)"}}> STATUS:  
-										<Text style={{color: "#8c8c8c"}}> {this.state.status}</Text>			
-									</Text>
-								</View> 
-								<View style={styles.buttonContainer}>
-									<TouchableOpacity onPress={this._cancelBooking} >
-										<Text style={{color: 'rgba(231,76,60,1)', textAlign: 'center'}}>
-											Cancel
-										</Text>
+						{this.state.isBookingPlaced?
+							<View style={{marginTop: 10}}>
+								<View style={styles.cancelHr}/>
+								<View style={{flexDirection: "row", justifyContent: "center"}}>
+									<View style={{flexDirection: "column", justifyContent: "center"}}>
+										<Feather name="x" style={styles.cancelIcon} />
+									</View>
+									<TouchableOpacity style={{marginTop: 2}} onPress={this._cancelBooking} >
+										<Text>CANCEL BOOKING</Text>
 									</TouchableOpacity>
 								</View>
 							</View>
-						}
+						: null}
+
 					</View>
 				
 				
@@ -362,7 +374,7 @@ export class Bookings extends Component {
 
 const styles = StyleSheet.create({
 	container: {
-        height: Dimensions.get('window').height,
+        height: Dimensions.get('window').height + 50,
         padding: 20,
     },
 	header: {
@@ -372,12 +384,20 @@ const styles = StyleSheet.create({
     	height: "25%",
     	padding: 20
     },
-    bookingsCard: {	
+    actionCard: {
     	backgroundColor: "white",
     	borderRadius: 4,
     	marginTop: 10,
     	padding: 20,
+    },
+    bookingsCard: {	
+    	backgroundColor: "white",
+    	borderRadius: 4,
+    	marginTop: 10,
+    	marginBottom: 20,
+    	padding: 20,
     	flex: 1
+    	
     },
 	headingIcon: {
 		fontSize: 25,
@@ -391,6 +411,14 @@ const styles = StyleSheet.create({
 		marginRight: 10,
 		color: "#4F8EF7",
 		paddingTop: 8
+	},
+	cancelIcon: {
+		fontSize: 25,
+		height: 40,
+		marginRight: 10,
+		color: "#4F8EF7",
+		paddingTop: 0,
+		color: "rgba(231,76,60,1)"
 	},
 	bookingsHr: {
 		borderBottomColor: '#d3d3d3',
@@ -424,11 +452,14 @@ const styles = StyleSheet.create({
 		width: '80%',
 		alignSelf: 'center'
     },
-	buttonContainer: { 
-		borderTopWidth: 1,
-		borderTopColor: '#d3d3d3',
-		borderBottomWidth: 1,
+	cancelHr: {
 		borderBottomColor: '#d3d3d3',
+		borderBottomWidth: 1,
+		width: '100%',
+		alignSelf: 'center',
+		marginBottom: 15
+    },
+	buttonContainer: { 
 		paddingVertical: 15, 
 		marginTop: 20,
 		width: 250,
