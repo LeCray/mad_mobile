@@ -53,7 +53,7 @@ export class Bookings extends Component {
 */
 	componentWillMount() {
 		
-		fetch("http://192.168.43.42:3000/api/v1/mobile_check_booking", {
+		fetch("http://10.0.0.12:3000/api/v1/mobile_check_booking", {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 			body: JSON.stringify({
@@ -146,7 +146,7 @@ export class Bookings extends Component {
 			this.setState({ isBookingPlaced: true });
 			
 		
-			fetch("http://192.168.43.42:3000/api/v1/new_booking", {
+			fetch("http://10.0.0.12:3000/api/v1/new_booking", {
 				method: "POST", 
 				headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 				body: JSON.stringify({
@@ -195,7 +195,7 @@ export class Bookings extends Component {
 
 		this.setState({isBookingDataProvided: ""})
 
-		fetch("http://192.168.43.42:3000/api/v1/cancel_booking", {
+		fetch("http://10.0.0.12:3000/api/v1/cancel_booking", {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 			body: JSON.stringify({
@@ -379,14 +379,7 @@ export class Bookings extends Component {
 						mode="datetime"
 			        />
 					  
-					<ActionButton buttonColor="rgba(231,76,60,1)">
-						<ActionButton.Item buttonColor='#009900' title="New Booking" onPress={this._showDateTimePicker}>
-							<Icon name="md-time" style={styles.actionButtonIcon} />
-						</ActionButton.Item>
-						<ActionButton.Item buttonColor='#9b59b6' title="Add Description" onPress={this._showModal}>
-							<Icon name="md-create" style={styles.actionButtonIcon} />
-						</ActionButton.Item>
-					</ActionButton>
+
 				</View>
 			</ScrollView>
 

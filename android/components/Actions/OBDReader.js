@@ -101,7 +101,7 @@ export default class OBDReader extends Component {
         FUEL_LEVEL: this.state.obd2Data.FUEL_LEVEL, 
         FUEL_CONSUMPTION_RATE: this.state.obd2Data.FUEL_CONSUMPTION_RATE, 
         THROTTLE_POS: this.state.obd2Data.THROTTLE_POS, 
-        AIR_FUEL_RATIO: this.state.obd2Data.AIR_FUEL_RATIO, 
+        AIR_FUEL_RATIO: this.state.obd2Data.AIR_FUEL_RATIO,   
         ENGINE_OIL_TEMP: this.state.obd2Data.ENGINE_OIL_TEMP,
         AIR_INTAKE_TEMP: this.state.obd2Data.AIR_INTAKE_TEMP,
         DTC_NUMBER: this.state.obd2Data.DTC_NUMBER

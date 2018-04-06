@@ -32,7 +32,7 @@ export class Quotations extends Component {
 
 	componentWillMount() {
 
-		fetch("http://192.168.43.42:3000/api/v1/get_quotations", {
+		fetch("http://10.0.0.12:3000/api/v1/get_quotations", {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 			body: JSON.stringify({
@@ -63,7 +63,7 @@ export class Quotations extends Component {
 	}
 
 	_showModal = (index) => {
-		this.setState({url: "http://192.168.43.42:3000" + this.state.quo_url[index]});
+		this.setState({url: "http://10.0.0.12 :3000" + this.state.quo_url[index]});
 		this.setState({key: index})
 		this.setState({modalVisible: true})
 		console.log("Key: ", index);
@@ -80,7 +80,7 @@ export class Quotations extends Component {
 		console.log("Quotation ID: ", this.state.quo_id[this.state.key])
 
 
-		fetch("http://192.168.43.42:3000/api/v1/update_quotation_status", {
+		fetch("http://10.0.0.12 :3000/api/v1/update_quotation_status", {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 			body: JSON.stringify({
@@ -123,7 +123,7 @@ export class Quotations extends Component {
 						<Text 
 						onPress={() => this._showModal(index)}
 						style={{fontSize: 15, textAlign: "right", marginRight: 10}}> 
-							View
+							VIEW
 						</Text>			
 						</TouchableOpacity>					
 					</View>
@@ -150,7 +150,7 @@ export class Quotations extends Component {
 							<Text 
 							onPress={() => this._showModal(index)}
 							style={{fontSize: 15, textAlign: "right", marginRight: 10}}> 
-								View
+								VIEW
 							</Text>			
 							</TouchableOpacity>					
 						</View>
@@ -173,7 +173,7 @@ export class Quotations extends Component {
 							<Text 
 							onPress={() => this._showModal(index)}
 							style={{fontSize: 15, textAlign: "right", marginRight: 10}}> 
-								View
+								VIEW
 							</Text>			
 							</TouchableOpacity>					
 						</View>
@@ -216,20 +216,22 @@ export class Quotations extends Component {
 							</TouchableOpacity>
 						)}
 					</View>
-					
-					<View style={styles.oldQuo}>
-						<View style={{flexDirection: 'row', marginBottom: -15}}>
-							<Feather name="clock" style={styles.headingIcon} />
-							<Text style={{fontSize: 18, color: "#4F8EF7", paddingLeft: 5}}>Old Quotations</Text>
-						</View>
-						<View style={styles.hr}/>
+					<ScrollView >
+						<View style={styles.oldQuo}> 
+						
+							<View style={{flexDirection: 'row', marginBottom: -15}}>
+								<Feather name="clock" style={styles.headingIcon} />
+								<Text style={{fontSize: 18, color: "#4F8EF7", paddingLeft: 5}}>Old Quotations</Text>
+							</View>
+							<View style={styles.hr}/>
 
-						{this.state.quo_date.map((date, index) => 
-							<TouchableOpacity key={index}>									
-					            {this.renderOldQuo(this.state.quo_status[index], date, index)}	
-							</TouchableOpacity>
-						)}
-					</View>
+							{this.state.quo_date.map((date, index) => 
+								<TouchableOpacity key={index}>									
+						            {this.renderOldQuo(this.state.quo_status[index], date, index)}	
+								</TouchableOpacity>
+							)}
+						</View>
+					</ScrollView>
 
 	                <Modal
 					animationType="slide"
@@ -286,7 +288,7 @@ export class Quotations extends Component {
 
 const styles = StyleSheet.create({
 	container: {
-        height: Dimensions.get('window').height,
+        height: Dimensions.get('window').height + 150,
         padding: 20,
     },
     header: {
@@ -307,7 +309,8 @@ const styles = StyleSheet.create({
     	borderRadius: 4,
     	marginTop: 10,
     	padding: 20,
-    	flex: 1
+
+    	
     },
 	buttonContainer: {
 		backgroundColor: "#2980b6", 
