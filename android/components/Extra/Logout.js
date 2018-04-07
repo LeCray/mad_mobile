@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Platform, StyleSheet, Text, View, TouchableOpacity, AsyncStorage} from 'react-native';
-
+import Feather from 'react-native-vector-icons/Feather';
 
 
 
@@ -18,7 +18,8 @@ export class Logout extends Component {
 	}
 	
 	static navigationOptions = {
-		drawerLabel: 'Logout'
+		drawerLabel: 'Logout', 
+		drawerIcon: <Feather name="user-x" size={20} color="#0844aa"/>
 	}
 
 	render() {

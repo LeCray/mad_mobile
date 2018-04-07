@@ -27,7 +27,10 @@ export class DashboardHome extends Component {
 	}
 
 	
-
+	static navigationOptions = {
+		drawerLabel: 'Home',
+		drawerIcon: <Feather name="layers" size={20} color="#0844aa"/>
+	}
 	
 
 
@@ -94,7 +97,7 @@ export class DashboardHome extends Component {
 			console.log('getFCMToken: ', token)
 		
 			//updating fcm token on rails server.
-			fetch("http://10.0.0.12:3000/api/v1/fcm", {
+			fetch("http://192.168.43.42:3000/api/v1/fcm", {
 				method: "POST", 
 				headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 				body: JSON.stringify({
@@ -133,8 +136,8 @@ export class DashboardHome extends Component {
 
 					<View style={styles.buttonContainer}>
 						<Feather name="calendar" color="#4F8EF7" style={styles.cardIcon} />      
-						<View style={{flexDirection: "column", justifyContent: 'center'}}>
-							<TouchableOpacity onPress={this.BookingBtn}>       
+						<View style={{flex: 1, flexDirection: "column", justifyContent: "center"}}>
+							<TouchableOpacity style={styles.button} onPress={this.BookingBtn}>  							
 								<Text style={styles.text}>Bookings</Text>
 							</TouchableOpacity>
 						</View>
@@ -142,8 +145,8 @@ export class DashboardHome extends Component {
 					
 					<View style={styles.buttonContainer}>
 						<Feather name="bell" color="#4F8EF7" style={styles.cardIcon} />      
-						<View style={{flexDirection: "column", justifyContent: 'center'}}>
-							<TouchableOpacity onPress={this.QuotationsBtn}>       
+						<View style={{flex: 1, flexDirection: "column", justifyContent: 'center'}}>
+							<TouchableOpacity style={styles.button} onPress={this.QuotationsBtn}>       
 								<Text style={styles.text}>Quotations</Text>
 							</TouchableOpacity>
 						</View>
@@ -151,8 +154,8 @@ export class DashboardHome extends Component {
 
 					<View style={styles.buttonContainer}>
 						<Feather name="file-text" color="#4F8EF7" style={styles.cardIcon} />      
-						<View style={{flexDirection: "column", justifyContent: 'center'}}>
-							<TouchableOpacity onPress={this.InvoicesBtn}> 
+						<View style={{flex: 1, flexDirection: "column", justifyContent: 'center'}}>
+							<TouchableOpacity style={styles.button} onPress={this.InvoicesBtn}> 
 								<Text style={styles.text}>Invoices</Text>
 							</TouchableOpacity>
 						</View>
@@ -160,8 +163,8 @@ export class DashboardHome extends Component {
 					
 					<View style={styles.buttonContainer}>	
 						<Feather name="shield" color="#4F8EF7" style={styles.cardIcon} />      
-						<View style={{flexDirection: "column", justifyContent: 'center'}}>	
-							<TouchableOpacity >       
+						<View style={{flex: 1, flexDirection: "column", justifyContent: 'center'}}>	
+							<TouchableOpacity style={styles.button}>       
 								<Text style={styles.text}>CSI</Text>
 							</TouchableOpacity>
 						</View>
@@ -169,8 +172,8 @@ export class DashboardHome extends Component {
 
 					<View style={styles.buttonContainer}>
 						<FontAwesome name="car" color="#4F8EF7" style={styles.cardIcon} />      
-						<View style={{flexDirection: "column", justifyContent: 'center'}}>
-							<TouchableOpacity onPress={this.DataStreamBtn}>       
+						<View style={{flex: 1, flexDirection: "column", justifyContent: 'center'}}>
+							<TouchableOpacity style={styles.button} onPress={this.DataStreamBtn}>       
 								<Text style={styles.text}>Data Stream</Text>
 							</TouchableOpacity>
 						</View>
@@ -203,9 +206,16 @@ const styles = StyleSheet.create({
 		width: 250,
 		alignSelf: 'center'
     },
+    button: {
+    	flexDirection: "row", 
+    	paddingTop: 10,
+    	paddingBottom: 10
+    },
     text: {
     	color: '#4F8EF7', 
-    	textAlign: 'center'
+    	textAlign: 'center',
+    	flexDirection: "column",
+    	justifyContent: "center"
     },
     btnsCard: {	
     	backgroundColor: "white",

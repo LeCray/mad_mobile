@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, Text, View, Dimensions, ScrollView} from 'react-native';
+import Feather from 'react-native-vector-icons/Feather';
 
 
 
@@ -8,35 +9,59 @@ export class Emergency extends Component {
 
 	
 	static navigationOptions = {
-		drawerLabel: 'Emergency'
+		drawerLabel: 'Emergency',
+		drawerIcon: <Feather name="alert-triangle" size={20} color="#0844aa"/>
 	}
 
 	render() {
 		return(  
-			<View style={styles.container}>
-				<Text>
-					EMERGENCY SCREEN
-				</Text>
-			</View>
+			<ScrollView>
+				<View style={styles.container}>
+
+					<View style={styles.header}>
+						<View style={{flexDirection: "row"}}>	
+							<Text style={{fontSize: 30, color: "#4F8EF7"}}>Emergency</Text>
+						</View>
+						<View style={styles.hr}/>
+						<Text>
+					
+						</Text>
+						<Text style={{marginTop: 10}}>
+					
+						</Text>
+
+					</View>
+				</View>
+			</ScrollView>
 		)
 	}
 }
 
 const styles = StyleSheet.create({
     container: {
-		paddingLeft: 10, 
-		paddingRight: 10, 
+        height: Dimensions.get('window').height,
         padding: 20,
-        marginTop: '40%',
-        flex: 1,
-        flexDirection: 'column',
-        alignItems: 'center',
+    },
+    header: {
+    	backgroundColor: "white",
+    	borderRadius: 4,
+    	padding: 10,
+    	height: "50%",
+    	padding: 20
     },
 
 	buttonContainer: {
       backgroundColor: "#2980b6", 
 	  paddingVertical: 15, 
 	  marginTop: 10
+    },
+    hr: {
+		borderBottomColor: '#d3d3d3',
+		borderBottomWidth: 1,
+		marginTop: 10,
+		marginBottom: 15,
+		width: '100%',
+		alignSelf: 'center'
     },
 
 })

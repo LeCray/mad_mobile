@@ -53,7 +53,7 @@ export class Bookings extends Component {
 */
 	componentWillMount() {
 		
-		fetch("http://10.0.0.12:3000/api/v1/mobile_check_booking", {
+		fetch("http://192.168.43.42:3000/api/v1/mobile_check_booking", {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 			body: JSON.stringify({
@@ -146,7 +146,7 @@ export class Bookings extends Component {
 			this.setState({ isBookingPlaced: true });
 			
 		
-			fetch("http://10.0.0.12:3000/api/v1/new_booking", {
+			fetch("http://192.168.43.42:3000/api/v1/new_booking", {
 				method: "POST", 
 				headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 				body: JSON.stringify({
@@ -195,7 +195,7 @@ export class Bookings extends Component {
 
 		this.setState({isBookingDataProvided: ""})
 
-		fetch("http://10.0.0.12:3000/api/v1/cancel_booking", {
+		fetch("http://192.168.43.42:3000/api/v1/cancel_booking", {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 			body: JSON.stringify({
@@ -241,9 +241,11 @@ export class Bookings extends Component {
 							<View>
 								<View style={{flexDirection: "row" }}>
 									<Feather name="plus" style={styles.cardIcon} />
-									<TouchableOpacity style={{flexDirection: "column", justifyContent: "center"}} onPress={this._showDateTimePicker}>
-										<Text>NEW BOOKING</Text>
-									</TouchableOpacity>
+									<View style={{flex: 1, flexDirection: "column", justifyContent: "center"}}>
+										<TouchableOpacity style={styles.button} onPress={this._showDateTimePicker}>
+											<Text>NEW BOOKING</Text>
+										</TouchableOpacity>
+									</View>
 								</View>
 							</View>
 						}
@@ -310,10 +312,11 @@ export class Bookings extends Component {
 							</View>
 						: 
 							<View style={{flexDirection: "row", justifyContent: "center", marginTop: 10}}>
-									<View style={{flexDirection: "column", justifyContent: "center"}}>
-										<Feather name="check" style={styles.placeBookingIcon} />
-									</View>
-								<TouchableOpacity onPress={this._newBooking}>
+								<View style={{flexDirection: "column", justifyContent: "center", paddingLeft: 70}}>
+									<Feather name="check" style={styles.placeBookingIcon} />
+								</View>
+
+								<TouchableOpacity style={{paddingRight: 70}} onPress={this._newBooking}>
 									<Text style={{textAlign: 'center', marginTop: 2}}>
 										PLACE BOOKING
 									</Text> 
@@ -488,6 +491,11 @@ const styles = StyleSheet.create({
 		marginTop: 20,
 		width: 250,
 		alignSelf: 'center'
+    },
+    button: {
+    	flexDirection: "row", 
+    	paddingTop: 10,
+    	paddingBottom: 10
     },
 	descButton: {
 		borderTopWidth: 1,

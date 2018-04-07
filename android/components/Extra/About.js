@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Platform, StyleSheet, Text, View, Dimensions, ScrollView} from 'react-native';
-
+import Feather from 'react-native-vector-icons/Feather';
 
 
 
@@ -8,7 +8,8 @@ export class About extends Component {
 
 	
 	static navigationOptions = {
-		drawerLabel: 'About'
+		drawerLabel: 'About',
+		drawerIcon: <Feather name="tag" size={20} color="#0844aa"/>
 	}
 
 	render() {
