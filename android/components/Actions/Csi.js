@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import {Platform, StyleSheet, Text, View, Dimensions} from 'react-native';
+import {Platform, StyleSheet, Text, View, Dimensions, TouchableOpacity} from 'react-native';
+import Feather from 'react-native-vector-icons/Feather';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 
 
@@ -24,21 +26,23 @@ export class Csi extends Component {
 
 	componentWillMount() {
 
-		fetch("http://192.168.0.36:3000/api/v1/get_car_status", {
+		fetch("http://10.199.61.17:3000/api/v1/get_car_status", {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 			body: JSON.stringify({
-				email: "captain@gmail.com"
+				email: "mistercryptogrid@gmail.com"
+				//email: "captain@gmail.com"
 			}), 
       })
         .then(responseData => responseData.json())
         .then((responseData) => {
 			console.log('Below is respose from mobile')
 			console.log(responseData.carsArray)
+			console.log(responseData.carsArray[1])
 			this.setState({
 				vehicleReg: responseData.carsArray[0],
-				car_make: responseData.carsArray[1],
-				car_model: responseData.carsArray[2],
+				carMake: responseData.carsArray[1],
+				carModel: responseData.carsArray[2],
 				carStatus: responseData.carsArray[3]
 			})
         })
@@ -47,6 +51,29 @@ export class Csi extends Component {
         })
         .done();
 	}
+
+	renderIf = (reg, index) => {
+		console.log("CarStatus Length: ", this.state.carStatus.length)
+		if (this.state.carStatus.length >= 1) {
+			return(
+				<View>			
+					<View style={{padding: 10}} >
+						<Text>Car Make: {this.state.carMake[index]}</Text>
+						<Text>Car Model: {this.state.carModel[index]}</Text>
+						<Text>Vehicle Reg: {this.state.vehicleReg[index]}</Text>	
+						<Text>Car Status: {this.state.carStatus[index]}</Text>
+					</View>			
+				</View>
+			)
+		} else {
+			return(
+				<View>
+					<Text>NO CARS ARE BEING WORKED ON</Text>
+				</View>
+			)
+		}
+	}
+	
 
 	render() {
 		return(  
@@ -59,12 +86,34 @@ export class Csi extends Component {
 				</View>
 
 				<View style={styles.carCard}>
-
-					{this.state.vehicleReg.map((reg, index) => 
-						<View key={index} style={{padding: 10}} >
-							<Text>Car: {reg}</Text>	
+					<View style={{flexDirection: 'row', marginBottom: -15}}>
+						<Feather name="clock" style={styles.headingIcon} />
+						<Text style={{fontSize: 18, color: "#4F8EF7", paddingLeft: 5}}>Car</Text>
+					</View>
+					<View style={styles.headingHr}/>
+					
+					
+						<View>
+							{this.state.vehicleReg.length != 0?
+								<View>
+									{this.state.vehicleReg.map((reg, index) => 																								
+							           <View key={index} style={{padding: 10}} >
+											<Text>Car Make: {this.state.carMake[index]}</Text>
+											<Text>Car Model: {this.state.carModel[index]}</Text>
+											<Text>Vehicle Reg: {this.state.vehicleReg[index]}</Text>	
+											<Text>Car Status: {this.state.carStatus[index]}</Text>
+										</View>													
+									)}
+								</View>
+							: 
+								<View>
+									<Text>NO CARS ARE BEING WORKED ON</Text>
+								</View>
+							}							
 						</View>
-					)}
+					
+
+					
 				</View>
 
 			</View>
@@ -91,6 +140,27 @@ const styles = StyleSheet.create({
     	marginTop: 10,
     	padding: 20,
     	flex: 1
+    },
+    cardIcon: {
+		fontSize: 25,
+		height: 40,
+		marginRight: 10,
+		color: "#4F8EF7",
+		paddingTop: 8
+	},
+	headingIcon: {
+		fontSize: 25,
+		height: 40,
+		marginRight: 10,
+		color: "#4F8EF7",
+	},
+	headingHr: {
+		borderBottomColor: '#d3d3d3',
+		borderBottomWidth: 1,
+		marginTop: 10,
+		marginBottom: 0,
+		width: '100%',
+		alignSelf: 'center'
     },
 	buttonContainer: {
       backgroundColor: "#2980b6", 
