@@ -14,9 +14,11 @@ export class Csi extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			email: "", 
+			email: 		"", 
 			vehicleReg: [],
-			carStatus: [], 
+			carMake: 	[],
+			carModel: 	[],
+			carStatus: 	[], 
 		};
 	}
 
@@ -35,7 +37,9 @@ export class Csi extends Component {
 			console.log(responseData.carsArray)
 			this.setState({
 				vehicleReg: responseData.carsArray[0],
-				carStatus: responseData.carsArray[1]
+				car_make: responseData.carsArray[1],
+				car_model: responseData.carsArray[2],
+				carStatus: responseData.carsArray[3]
 			})
         })
         .catch((error) => {
@@ -54,11 +58,14 @@ export class Csi extends Component {
 					<Text>Know whats happening with your car</Text>
 				</View>
 
-				{this.state.vehicleReg.map((reg, index) => 
-					<View key={index} style={{padding: 10}} >
-						<Text>{reg}</Text>	
-					</View>
-				)}
+				<View style={styles.carCard}>
+
+					{this.state.vehicleReg.map((reg, index) => 
+						<View key={index} style={{padding: 10}} >
+							<Text>Car: {reg}</Text>	
+						</View>
+					)}
+				</View>
 
 			</View>
 		)
@@ -77,6 +84,13 @@ const styles = StyleSheet.create({
     	padding: 10,
     	height: "25%",
     	padding: 20
+    },
+    carCard: {
+    	backgroundColor: "white",
+    	borderRadius: 4,
+    	marginTop: 10,
+    	padding: 20,
+    	flex: 1
     },
 	buttonContainer: {
       backgroundColor: "#2980b6", 
