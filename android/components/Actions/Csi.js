@@ -78,19 +78,27 @@ export class Csi extends Component {
 						{this.state.vehicleReg.length != 0?
 							<View>
 								{this.state.vehicleReg.map((reg, index) => 																								
-						           <View key={index} style={{flexDirection: "row", padding: 10}} >
-						           		<FontAwesome name="car" style={styles.headingIcon} />
-						           		
-						           		<View style={{flexDirection: "column", marginLeft: 5}}>
-											<Text>Car Make: {this.state.carMake[index]}</Text>
-											<Text>Car Model: {this.state.carModel[index]}</Text>
-											<Text>Vehicle Reg: {this.state.vehicleReg[index]}</Text>	
-											<View style={styles.smallHr}/>
-											<View style={{flexDirection: "row"}}>
-												<Feather name="activity" style={styles.activityIcon} />	
-												<Text style={{fontSize: 15}}>CAR STATUS: {this.state.carStatus[index]}</Text>
+						           <View key={index} style={{flexDirection: "column", marginTop: 10,padding: 10}} >
+						           		<View style={{flexDirection: "row"}}>
+							           		<FontAwesome name="car" style={styles.headingIcon} />						           		
+							           		<View style={{flex: 1, flexDirection: "column", marginLeft: 5}}>
+												<Text>Car Make: {this.state.carMake[index]}</Text>
+												<Text>Car Model: {this.state.carModel[index]}</Text>
+												<Text>Vehicle Reg: {this.state.vehicleReg[index]}</Text>	
 											</View>
 										</View>
+
+										<View style={styles.smallHr}/>
+											
+										<View style={{flexDirection: "row"}}>
+											<Feather name="activity" style={styles.activityIcon} />													
+											<Text style={{fontSize: 15}}>CAR STATUS: </Text>											
+											<View style={{flex: 1}}>
+												<Text style={{fontSize: 15, color: "#4F8EF7"}}>
+													{this.state.carStatus[index]}
+												</Text>																						
+											</View>
+										</View>										
 									</View>													
 								)}
 							</View>
@@ -144,7 +152,7 @@ const styles = StyleSheet.create({
 		color: "#4F8EF7",
 	},
 	activityIcon: {
-		fontSize: 15,
+		fontSize: 20,
 		height: 20,
 		marginRight: 5,
 		marginTop: 2,
