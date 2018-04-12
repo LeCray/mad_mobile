@@ -4,10 +4,32 @@ import {Platform, StyleSheet, Text, View, TextInput,
  import {DrawerStack} from '../Dashboard/DashboardHome';
 
 
-export default class LoginPage extends Component {
+export default class Login extends Component {
 
 	static navigationOptions = {
 		title: "Login"
+	}
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			email: '', 
+			password: '', 
+			logged_in: false
+		};
+		this._onPressButtonPOST = this._onPressButtonPOST.bind(this);
+	}
+
+	componentWillMount() {
+		AsyncStorage.getItem('email')
+		.then((value) => { 
+			if (value !== null){
+				this.props.navigation.navigate('Main');
+				console.log('Automatically validated')
+			} else if (value == null) {
+				console.log('Not Automatically Validated')
+			}
+		});
 	}
 
 	 _onPressButtonPOST = function() {
@@ -67,23 +89,9 @@ export default class LoginPage extends Component {
         .done();
     }
 
-	constructor(props) {
-		super(props);
-		this.state = {email: '', password: '', logged_in: false};
-		this._onPressButtonPOST = this._onPressButtonPOST.bind(this);
-	}
 
-	componentWillMount() {
-		AsyncStorage.getItem('email')
-		.then((value) => { 
-			if (value !== null){
-				navigation.navigate('MainScreen');
-				console.log('Automatically validated')
-			} else if (value == null) {
-				console.log('Not Automatically Validated')
-			}
-		});
-	}
+
+
 
 	render() {
 		const {navigate} = this.props.navigation

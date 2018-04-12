@@ -7,11 +7,12 @@ import {
 
 import RootRouter from './android/components/RootRouter';
 import {MainScreen} from './android/components/MainScreen';
+import LoginPage from './android/components/Login/LoginPage';
 
 class MadMobile extends Component {
   render() {
     return (
-        <MainScreen />
+        <MainScreen/>
     );
   }
 }

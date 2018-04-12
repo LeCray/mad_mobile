@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import {Platform, StyleSheet, Text, View, Dimensions, TouchableOpacity} from 'react-native';
+import {Platform, StyleSheet, Text, View, ScrollView,
+	Dimensions, TouchableOpacity} from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import Icon from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -26,15 +27,18 @@ export class Csi extends Component {
 	}
 
 	componentWillMount() {
+		AsyncStorage.getItem('email')
+		.then((value) => { 
+			this.setState({'email': value})	
+		});
 
-		fetch("http://10.199.61.17:3000/api/v1/get_car_status", {
+		fetch("http://192.168.43.42:3000/api/v1/get_car_status", {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 			body: JSON.stringify({
-				email: "mistercryptogrid@gmail.com"
-				//email: "captain@gmail.com"
+				email: this.state.email
 			}), 
-      })
+      	})
         .then(responseData => responseData.json())
         .then((responseData) => {
 			console.log('Below is respose from mobile')
@@ -56,64 +60,66 @@ export class Csi extends Component {
 
 	render() {
 		return(  
-			<View style={styles.container}>
-				<View style={styles.header}>
-					<View style={{flexDirection: "row"}}>	
-						<Text style={{fontSize: 30, color: "#4F8EF7"}}>
-							Customer Satisfaction Insurance
-						</Text>
+			<ScrollView>
+				<View style={styles.container}>
+					<View style={styles.header}>
+						<View style={{flexDirection: "row"}}>	
+							<Text style={{fontSize: 30, color: "#4F8EF7"}}>
+								Customer Satisfaction Insurance
+							</Text>
+						</View>
+						<Text>Know whats happening with your car</Text>
 					</View>
-					<Text>Know whats happening with your car</Text>
-				</View>
 
-				<View style={styles.carCard}>
-					<View style={{flexDirection: 'row', marginBottom: -15}}>
-						<Feather name="shield" style={styles.headingIcon} />
-						<Text style={{fontSize: 18, color: "#4F8EF7", paddingLeft: 5}}>Your Car</Text>
-					</View>
-					<View style={styles.headingHr}/>
-					
-					
-					<View>
-						{this.state.vehicleReg.length != 0?
-							<View>
-								{this.state.vehicleReg.map((reg, index) => 																								
-						           <View key={index} style={{flexDirection: "column", marginTop: 10,padding: 10}} >
-						           		<View style={{flexDirection: "row"}}>
-							           		<FontAwesome name="car" style={styles.headingIcon} />						           		
-							           		<View style={{flex: 1, flexDirection: "column", marginLeft: 5}}>
-												<Text>Car Make: {this.state.carMake[index]}</Text>
-												<Text>Car Model: {this.state.carModel[index]}</Text>
-												<Text>Vehicle Reg: {this.state.vehicleReg[index]}</Text>	
+					<View style={styles.carCard}>
+						<View style={{flexDirection: 'row', marginBottom: -15}}>
+							<Feather name="shield" style={styles.headingIcon} />
+							<Text style={{fontSize: 18, color: "#4F8EF7", paddingLeft: 5}}>Your Car</Text>
+						</View>
+						<View style={styles.headingHr}/>
+						
+						
+						<View>
+							{this.state.vehicleReg.length != 0?
+								<View>
+									{this.state.vehicleReg.map((reg, index) => 																								
+							           <View key={index} style={{flexDirection: "column", marginTop: 10,padding: 10}} >
+							           		<View style={{flexDirection: "row"}}>
+								           		<FontAwesome name="car" style={styles.headingIcon} />						           		
+								           		<View style={{flex: 1, flexDirection: "column", marginLeft: 5}}>
+													<Text>Car Make: {this.state.carMake[index]}</Text>
+													<Text>Car Model: {this.state.carModel[index]}</Text>
+													<Text>Vehicle Reg: {this.state.vehicleReg[index]}</Text>	
+												</View>
 											</View>
-										</View>
 
-										<View style={styles.smallHr}/>
-											
-										<View style={{flexDirection: "row"}}>
-											<Feather name="activity" style={styles.activityIcon} />													
-											<Text style={{fontSize: 15}}>CAR STATUS: </Text>											
-											<View style={{flex: 1}}>
-												<Text style={{fontSize: 15, color: "#4F8EF7"}}>
-													{this.state.carStatus[index]}
-												</Text>																						
-											</View>
-										</View>										
-									</View>													
-								)}
-							</View>
-						: 
-							<View style={{flexDirection: 'row', justifyContent: "center", marginTop: 30}}>
-								<Text>NO CARS ARE BEING WORKED ON</Text>
-							</View>
-						}							
+											<View style={styles.smallHr}/>
+												
+											<View style={{flexDirection: "row"}}>
+												<Feather name="activity" style={styles.activityIcon} />													
+												<Text style={{fontSize: 15}}>CAR STATUS: </Text>											
+												<View style={{flex: 1}}>
+													<Text style={{fontSize: 15, color: "#4F8EF7"}}>
+														{this.state.carStatus[index]}
+													</Text>																						
+												</View>
+											</View>										
+										</View>													
+									)}
+								</View>
+							: 
+								<View style={{flexDirection: 'row', justifyContent: "center", marginTop: 30}}>
+									<Text>NO CARS ARE BEING WORKED ON</Text>
+								</View>
+							}							
+						</View>
+						
+
+						
 					</View>
-					
 
-					
 				</View>
-
-			</View>
+			</ScrollView>
 		)
 	}
 }

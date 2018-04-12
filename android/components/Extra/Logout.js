@@ -4,7 +4,7 @@ import Feather from 'react-native-vector-icons/Feather';
 
 
 
-export class Logout extends Component {
+export default class Logout extends Component {
 
 	constructor(props) {
 		super(props);
