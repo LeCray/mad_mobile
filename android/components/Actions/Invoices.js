@@ -29,7 +29,7 @@ export class Invoices extends Component {
 
 	componentWillMount() {
 
-		fetch("http://192.168.43.42:3000/api/v1/get_invoices", {
+		fetch("http://mad-beta.herokuapp.com/api/v1/get_invoices", {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 			body: JSON.stringify({
@@ -55,7 +55,7 @@ export class Invoices extends Component {
 	}
 
 	_showModal = (index) => {
-		this.setState({url: "http://192.168.43.42:3000" + this.state.inv_url[index]});
+		this.setState({url: "http://mad-beta.herokuapp.com" + this.state.inv_url[index]});
 		this.setState({key: index})
 		this.setState({modalVisible: true})
 		console.log("Key: ", index);

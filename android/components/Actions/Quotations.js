@@ -32,7 +32,7 @@ export class Quotations extends Component {
 
 	componentWillMount() {
 
-		fetch("http://192.168.43.42:3000/api/v1/get_quotations", {
+		fetch("http://mad-beta.herokuapp.com/api/v1/get_quotations", {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 			body: JSON.stringify({
@@ -63,7 +63,7 @@ export class Quotations extends Component {
 	}
 
 	_showModal = (index) => {
-		this.setState({url: "http://192.168.43.42:3000" + this.state.quo_url[index]});
+		this.setState({url: "http://mad-beta.herokuapp.com" + this.state.quo_url[index]});
 		this.setState({key: index})
 		this.setState({modalVisible: true})
 		console.log("Key: ", index);
@@ -80,7 +80,7 @@ export class Quotations extends Component {
 		console.log("Quotation ID: ", this.state.quo_id[this.state.key])
 
 
-		fetch("http://192.168.43.42:3000/api/v1/update_quotation_status", {
+		fetch("http://mad-beta.herokuapp.com/api/v1/update_quotation_status", {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 			body: JSON.stringify({

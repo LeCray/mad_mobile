@@ -33,7 +33,7 @@ export default class Login extends Component {
 	}
 
 	 _login = function() {
-        fetch("http://192.168.43.42:3000/api/v1/mobile_login", {
+        fetch("http://mad-beta.herokuapp.com/api/v1/mobile_login", {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 			body: JSON.stringify({
@@ -94,7 +94,7 @@ export default class Login extends Component {
 				<View  style={styles.container}>
 					<View style={styles.header}>
 						<View style={{alignSelf: "center"}}>								
-							<Text style={{fontSize: 70, color: "#4F8EF7"}}>
+							<Text style={{fontSize: 70, color: "#4F8EF7", marginTop: 40}}>
 								MAD 
 							</Text>
 						</View>
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     	padding: 20,
     },
     inputSection: {    	    
-    	marginTop: 100  	
+    	marginTop: 80  	
     },
     input:{
 		margin: 20,

@@ -53,7 +53,7 @@ export class Bookings extends Component {
 */
 	componentWillMount() {
 		
-		fetch("http://192.168.43.42:3000/api/v1/mobile_check_booking", {
+		fetch("http://mad-beta.herokuapp.com/api/v1/mobile_check_booking", {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 			body: JSON.stringify({
@@ -146,7 +146,7 @@ export class Bookings extends Component {
 			this.setState({ isBookingPlaced: true });
 			
 		
-			fetch("http://192.168.43.42:3000/api/v1/new_booking", {
+			fetch("http://mad-beta.herokuapp.com/api/v1/new_booking", {
 				method: "POST", 
 				headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 				body: JSON.stringify({
@@ -195,7 +195,7 @@ export class Bookings extends Component {
 
 		this.setState({isBookingDataProvided: ""})
 
-		fetch("http://192.168.43.42:3000/api/v1/cancel_booking", {
+		fetch("http://mad-beta.herokuapp.com/api/v1/cancel_booking", {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 			body: JSON.stringify({
