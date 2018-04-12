@@ -13,8 +13,8 @@ export default class Logout extends Component {
 
 	logout() {
 		AsyncStorage.removeItem('email')
-		this.props.navigation.navigate('LoginPage');
-		console.log("You have benn logged out")
+		this.props.navigation.navigate('Login');
+		console.log("You have been logged out")
 	}
 	
 	static navigationOptions = {
