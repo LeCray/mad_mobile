@@ -3,7 +3,6 @@ import { StackNavigator, DrawerNavigator } from 'react-navigation';
 import {DrawerStack} from './DrawerStack';
 //import {DataStream} from './Actions/DataStream'
 import {Bookings} from './Actions/Bookings';
-import {NewBooking} from './Actions/NewBooking';
 import {Invoices} from './Actions/Invoices';
 import {Csi} from './Actions/Csi';
 import {Quotations} from './Actions/Quotations';

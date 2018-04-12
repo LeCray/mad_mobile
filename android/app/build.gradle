@@ -112,10 +112,10 @@ android {
 
     signingConfigs {
         release {
-            storeFile file(MAD_MOBILE_RELEASE_STORE_FILE)
-            storePassword MAD_MOBILE_RELEASE_STORE_PASSWORD
-            keyAlias MAD_MOBILE_RELEASE_KEY_ALIAS
-            keyPassword MAD_MOBILE_RELEASE_KEY_PASSWORD
+            storeFile file("../../release.keystore")
+            storePassword "mahele"
+            keyAlias "mad_mobile"
+            keyPassword "mahele"
         }
     }
 
