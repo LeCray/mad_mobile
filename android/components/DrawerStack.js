@@ -16,7 +16,7 @@ export const DrawerStack = DrawerNavigator ({
   DashboardHome: { screen: DashboardHome },
   About: { screen: About },
   Contact: { screen: Contact},
-  Emergency: { screen: Emergency},
+  //Emergency: { screen: Emergency},
   Logout: { screen: Logout }
  		
 })

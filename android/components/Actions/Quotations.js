@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Platform, StyleSheet, Dimensions, Text, 
-		View, ScrollView, Modal, TouchableOpacity, ToastAndroid} from 'react-native';
+		View, ScrollView, Modal, TouchableOpacity, ToastAndroid, AsyncStorage} from 'react-native';
 import Pdf from 'react-native-pdf';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
@@ -32,7 +32,7 @@ export class Quotations extends Component {
 
 	componentWillMount() {
 
-		fetch("http://mad-beta.herokuapp.com/api/v1/get_quotations", {
+		fetch("http://192.168.43.42:3000/api/v1/get_quotations", {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 			body: JSON.stringify({
@@ -63,7 +63,7 @@ export class Quotations extends Component {
 	}
 
 	_showModal = (index) => {
-		this.setState({url: "http://mad-beta.herokuapp.com" + this.state.quo_url[index]});
+		this.setState({url: "192.168.43.42:3000" + this.state.quo_url[index]});
 		this.setState({key: index})
 		this.setState({modalVisible: true})
 		console.log("Key: ", index);
@@ -80,7 +80,7 @@ export class Quotations extends Component {
 		console.log("Quotation ID: ", this.state.quo_id[this.state.key])
 
 
-		fetch("http://mad-beta.herokuapp.com/api/v1/update_quotation_status", {
+		fetch("192.168.43.42:3000/api/v1/update_quotation_status", {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 			body: JSON.stringify({

@@ -17,6 +17,7 @@ export default class Login extends Component {
 			password: '', 
 			logged_in: false
 		};
+		this._login = this._login.bind(this);
 		
 	}
 
@@ -33,7 +34,7 @@ export default class Login extends Component {
 	}
 
 	 _login = function() {
-        fetch("http://mad-beta.herokuapp.com/api/v1/mobile_login", {
+        fetch("http://192.168.43.42:3000/api/v1/mobile_login", {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 			body: JSON.stringify({
@@ -99,7 +100,7 @@ export default class Login extends Component {
 							</Text>
 						</View>
 						<Text style={{alignSelf: "center"}}>Leading the way forward</Text>
-													
+								
 						<View style={styles.inputSection}>
 							<TextInput style = {styles.input} 
 									autoCapitalize="none" 

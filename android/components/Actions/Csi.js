@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Platform, StyleSheet, Text, View, ScrollView,
-	Dimensions, TouchableOpacity} from 'react-native';
+	Dimensions, TouchableOpacity, AsyncStorage} from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import Icon from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -32,11 +32,11 @@ export class Csi extends Component {
 			this.setState({'email': value})	
 		});
 
-		fetch("http://mad-beta.herokuapp.com/api/v1/get_car_status", {
+		fetch("http://192.168.43.42:3000/api/v1/get_car_status", {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 			body: JSON.stringify({
-				email: this.state.email
+				email: "captain@gmail.com"
 			}), 
       	})
         .then(responseData => responseData.json())
@@ -97,7 +97,7 @@ export class Csi extends Component {
 												
 											<View style={{flexDirection: "row"}}>
 												<Feather name="activity" style={styles.activityIcon} />													
-												<Text style={{fontSize: 15}}>CAR STATUS: </Text>											
+												<Text style={{fontSize: 15, color: "red"}}>CAR STATUS: </Text>											
 												<View style={{flex: 1}}>
 													<Text style={{fontSize: 15, color: "#4F8EF7"}}>
 														{this.state.carStatus[index]}

@@ -40,9 +40,6 @@ export const MainScreen = StackNavigator({
 	Invoices: 		{ screen: Invoices},
 	Csi: 			{ screen: Csi},
 	Quotations: 	{ screen: Quotations},
-
-	//New Booking Modal
-	NewBooking: { screen: NewBooking}
 	}, {navigationOptions: {
 			title: 'M.A.D',
 			headerStyle: {backgroundColor:"#2470f5"},
