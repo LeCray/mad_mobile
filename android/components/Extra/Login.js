@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Platform, StyleSheet, Text, View, TextInput,
- AsyncStorage, TouchableOpacity, KeyboardAvoidingView, Dimensions, ScrollView} from 'react-native';
+ AsyncStorage, TouchableOpacity, KeyboardAvoidingView, 
+ Dimensions, ScrollView, Modal, ActivityIndicator} from 'react-native';
  import {DrawerStack} from '../Dashboard/DashboardHome';
 
 
@@ -15,9 +16,12 @@ export default class Login extends Component {
 		this.state = {
 			email: '', 
 			password: '', 
-			logged_in: false
+			logged_in: false,
+			logging_in: false,
+			modalVisible: false
 		};
 		this._login = this._login.bind(this);
+		
 		
 	}
 
@@ -33,8 +37,15 @@ export default class Login extends Component {
 		});
 	}
 
-	 _login = function() {
-        fetch("http://mad-beta.herokuapp.com/api/v1/mobile_login", {
+
+	_hideModal = () => this.setState({ modalVisible: false })
+	
+
+	 async _login() {
+	 	this.setState({'logging_in': true})
+	 	this.setState({"modalVisible": true})
+
+        await fetch("http://mad-beta.herokuapp.com/api/v1/mobile_login", {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 			body: JSON.stringify({
@@ -60,7 +71,10 @@ export default class Login extends Component {
 				.catch((error) => {
 					console.error(error);
 				})
+				
 
+				this.setState({'logging_in': false})
+				this.setState({"modalVisible": false})
 				this.props.navigation.navigate('Main');
 
 			} else if (responseData.driver_authenticated == true) {
@@ -76,7 +90,9 @@ export default class Login extends Component {
 				.catch((error) => {
 					console.error(error);
 				})
-
+				
+				this.setState({'logging_in': false})
+				this.setState({"modalVisible": false})
 				this.props.navigation.navigate('Main');
 			}
         })
@@ -125,6 +141,21 @@ export default class Login extends Component {
 							</TouchableOpacity>
 						</View> 
 					</View>
+
+
+					<Modal
+						animationType={'none'}
+						transparent={true}
+						visible = {this.state.modalVisible}
+						onRequestClose={this._hideModal}>
+						
+						<View style={styles.modalBackground}>
+							<View style={styles.activityIndicatorWrapper}>
+								<ActivityIndicator animating={this.state.logging_in} size="large" color="#0000ff" />
+							</View>
+						</View>
+			        </Modal>
+
 				</View>	
 			</KeyboardAvoidingView>
 		)
@@ -169,5 +200,21 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontWeight: '700'
     },
+	modalBackground: {
+	    flex: 1,
+	    alignItems: 'center',
+	    flexDirection: 'column',
+	    justifyContent: 'space-around',
+	    backgroundColor: '#00000040'
+	},
+	activityIndicatorWrapper: {
+	    backgroundColor: '#FFFFFF',
+	    height: 100,
+	    width: 100,
+	    borderRadius: 10,
+	    display: 'flex',
+	    alignItems: 'center',
+	    justifyContent: 'space-around'
+	}
 })
 
