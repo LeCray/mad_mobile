@@ -111,7 +111,7 @@ export default class Login extends Component {
 				<View  style={styles.container}>
 					<View style={styles.header}>
 						<View style={{alignSelf: "center"}}>								
-							<Text style={{fontSize: 70, color: "red", marginTop: 40}}>
+							<Text style={{fontSize: 70, color: "#4F8EF7", marginTop: 40}}>
 								MAD 
 							</Text>
 						</View>
@@ -151,7 +151,13 @@ export default class Login extends Component {
 						
 						<View style={styles.modalBackground}>
 							<View style={styles.activityIndicatorWrapper}>
-								<ActivityIndicator animating={this.state.logging_in} size="large" color="#0000ff" />
+								<View style={{flexDirection: "row"}}>
+									<ActivityIndicator animating={this.state.logging_in} size="large" color="#4F8EF7" />
+									<View style={{flexDirection: "column", justifyContent: "center"}}>
+										<Text style={{fontSize: 16, marginLeft: 14}}>Logging in...</Text>
+									</View>
+								</View>
+
 							</View>
 						</View>
 			        </Modal>
@@ -209,8 +215,8 @@ const styles = StyleSheet.create({
 	},
 	activityIndicatorWrapper: {
 	    backgroundColor: '#FFFFFF',
-	    height: 100,
-	    width: 100,
+	    height: 80,
+	    width: 200,
 	    borderRadius: 10,
 	    display: 'flex',
 	    alignItems: 'center',
