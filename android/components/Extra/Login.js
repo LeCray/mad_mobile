@@ -111,7 +111,7 @@ export default class Login extends Component {
 				<View  style={styles.container}>
 					<View style={styles.header}>
 						<View style={{alignSelf: "center"}}>								
-							<Text style={{fontSize: 70, color: "#4F8EF7", marginTop: 40}}>
+							<Text style={{fontSize: 70, color: "red", marginTop: 40}}>
 								MAD 
 							</Text>
 						</View>
