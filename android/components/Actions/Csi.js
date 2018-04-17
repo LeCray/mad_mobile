@@ -32,7 +32,7 @@ export class Csi extends Component {
 			this.setState({'email': value})	
 		});
 
-		fetch("http://192.168.43.42:3000/api/v1/get_car_status", {
+		fetch("http://mad-beta.herokuapp.com/api/v1/get_car_status", {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 			body: JSON.stringify({

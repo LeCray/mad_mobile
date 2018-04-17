@@ -34,7 +34,7 @@ export default class Login extends Component {
 	}
 
 	 _login = function() {
-        fetch("http://192.168.43.42:3000/api/v1/mobile_login", {
+        fetch("http://mad-beta.herokuapp.com/api/v1/mobile_login", {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 			body: JSON.stringify({
