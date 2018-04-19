@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Platform, StyleSheet, Text, View, ScrollView,
-	Dimensions, TouchableOpacity, AsyncStorage} from 'react-native';
+	Dimensions, TouchableOpacity, AsyncStorage, ImageBackground} from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import Icon from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -63,18 +63,22 @@ export class Csi extends Component {
 			<ScrollView>
 				<View style={styles.container}>
 					<View style={styles.header}>
-						<View style={{flexDirection: "row"}}>	
-							<Text style={{fontSize: 30, color: "#4F8EF7"}}>
-								Customer Satisfaction Insurance
-							</Text>
-						</View>
-						<Text>Know whats happening with your car</Text>
+						<ImageBackground style={{width: '100%', height: '100%'}} source={require('../picture_one.png')}>
+							<View style={{flexDirection: "column", padding: 20}}>	
+								<Text style={{fontSize: 30, color: "white"}}>
+									Customer Satisfaction Insurance
+								</Text>
+								<Text style={{fontSize: 20, color: "white", fontStyle: "italic"}}>
+									Know whats happening with your car
+								</Text>
+							</View>
+						</ImageBackground>
 					</View>
 
 					<View style={styles.carCard}>
-						<View style={{flexDirection: 'row', marginBottom: -15}}>
-							<Feather name="shield" style={styles.headingIcon} />
-							<Text style={{fontSize: 18, color: "#4F8EF7", paddingLeft: 5}}>Your Car</Text>
+						<View style={{flexDirection: 'row', marginBottom: 10}}>
+							{/*<Feather name="shield" style={styles.headingIcon} />*/}
+							<Text style={{fontSize: 18, color: "#47969e", paddingLeft: 5}}>Your Car</Text>
 						</View>
 						<View style={styles.headingHr}/>
 						
@@ -132,10 +136,8 @@ const styles = StyleSheet.create({
     },
     header: {
     	backgroundColor: "white",
-    	borderRadius: 4,
-    	padding: 10,
-    	height: "25%",
-    	padding: 20
+    	borderRadius: 4,    	
+    	height: "25%",    	
     },
     carCard: {
     	backgroundColor: "white",

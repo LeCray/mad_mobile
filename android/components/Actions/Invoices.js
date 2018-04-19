@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Platform, StyleSheet, Dimensions, Text, 
-		View, Modal, TouchableOpacity, ScrollView, AsyncStorage} from 'react-native';
+		View, Modal, TouchableOpacity, ScrollView, AsyncStorage, ImageBackground} from 'react-native';
 import Pdf from 'react-native-pdf';
 import Feather from 'react-native-vector-icons/Feather';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -79,16 +79,20 @@ export class Invoices extends Component {
 				<View style={styles.container}>
 
 					<View style={styles.header}>
-						<View style={{flexDirection: "row"}}>	
-							<Text style={{fontSize: 30, color: "#4F8EF7"}}>Invoices</Text>
-						</View>
-						<Text>View your recent invoices</Text>
+						<ImageBackground style={{width: '100%', height: '100%'}} source={require('../picture_one.png')}>
+							<View style={{flexDirection: "column", padding: 20}}>	
+								<Text style={{fontSize: 30, color: "white"}}>Invoices</Text>
+								<Text style={{fontSize: 20, color: "white", fontStyle: "italic"}}>
+									View your recent invoices
+								</Text>
+							</View>
+						</ImageBackground>
 					</View>
 
 					<View style={styles.invoiceCard}>
-						<View style={{flexDirection: 'row', marginBottom: -15}}>
-							<Feather name="clock" style={styles.headingIcon} />
-							<Text style={{fontSize: 18, color: "#4F8EF7", paddingLeft: 5}}>Invoices</Text>
+						<View style={{flexDirection: 'row', marginBottom: 10}}>
+							{/*<Feather name="clock" style={styles.headingIcon} />*/}
+							<Text style={{fontSize: 18, color: "#47969e", paddingLeft: 5}}>Invoices</Text>
 						</View>
 						<View style={styles.invHr}/>
 
@@ -163,15 +167,13 @@ export class Invoices extends Component {
 
 const styles = StyleSheet.create({
 	container: {
-        height: Dimensions.get('window').height,
+        height: Dimensions.get('window').height + 150,
         padding: 20,
     },
 	header: {
     	backgroundColor: "white",
-    	borderRadius: 4,
-    	padding: 10,
+    	borderRadius: 4,    	
     	height: "25%",
-    	padding: 20
     },
     invoiceCard: {
     	backgroundColor: "white",

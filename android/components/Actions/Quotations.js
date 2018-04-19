@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Platform, StyleSheet, Dimensions, Text, 
-		View, ScrollView, Modal, TouchableOpacity, ToastAndroid, AsyncStorage} from 'react-native';
+		View, ScrollView, Modal, TouchableOpacity, ToastAndroid, AsyncStorage, ImageBackground} from 'react-native';
 import Pdf from 'react-native-pdf';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
@@ -197,16 +197,20 @@ export class Quotations extends Component {
 				<View style={styles.container}>
 
 					<View style={styles.header}>
-						<View style={{flexDirection: "row"}}>	
-							<Text style={{fontSize: 30, color: "#4F8EF7"}}>Quotations</Text>
-						</View>
-						<Text>Approve or Disapprove proposed quotations</Text>
+						<ImageBackground style={{width: '100%', height: '100%'}} source={require('../picture_one.png')}>
+							<View style={{flexDirection: "column", padding: 20}}>		
+								<Text style={{fontSize: 30, color: "white"}}>Quotations</Text>
+								<Text style={{fontSize: 20, color: "white", fontStyle: "italic"}}>
+									Approve or Disapprove proposed quotations
+								</Text>
+							</View>
+						</ImageBackground>
 					</View>
 					
 					<View style={styles.newQuo}>
-						<View style={{flexDirection: 'row', marginBottom: -15}}>
-							<Feather name="bell" style={styles.headingIcon} />
-							<Text style={{fontSize: 18, color: "#4F8EF7"}}> New Quotation </Text>
+						<View style={{flexDirection: 'row', marginBottom: 10}}>
+							{/*<Feather name="bell" style={styles.headingIcon} />*/}
+							<Text style={{fontSize: 18, color: "#47969e"}}> New Quotation </Text>
 						</View>
 						<View style={styles.hr}/>
 
@@ -219,9 +223,9 @@ export class Quotations extends Component {
 					<ScrollView >
 						<View style={styles.oldQuo}> 
 						
-							<View style={{flexDirection: 'row', marginBottom: -15}}>
-								<Feather name="clock" style={styles.headingIcon} />
-								<Text style={{fontSize: 18, color: "#4F8EF7", paddingLeft: 5}}>Old Quotations</Text>
+							<View style={{flexDirection: 'row', marginBottom: 10}}>
+								{/*<Feather name="clock" style={styles.headingIcon} />*/}
+								<Text style={{fontSize: 18, color: "#47969e", paddingLeft: 5}}>Old Quotations</Text>
 							</View>
 							<View style={styles.hr}/>
 
@@ -294,9 +298,7 @@ const styles = StyleSheet.create({
     header: {
     	backgroundColor: "white",
     	borderRadius: 4,
-    	padding: 10,
     	height: "25%",
-    	padding: 20
     },
     newQuo: {
     	backgroundColor: "white",

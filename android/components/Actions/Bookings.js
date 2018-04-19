@@ -228,9 +228,9 @@ export class Bookings extends Component {
 					</View>
 
 					<View style={styles.actionCard}>
-						<View style={{flexDirection: 'row', marginBottom: -15}}>
-							<Feather name="bell" style={styles.headingIcon} />
-							<Text style={{fontSize: 18, color: "#51A8B1"}}> Current Booking </Text>
+						<View style={{flexDirection: 'row', marginBottom: 10}}>
+							{/*<Feather name="bell" style={styles.headingIcon} />*/}
+							<Text style={{fontSize: 18, color: "#47969e"}}> Current Booking </Text>
 						</View>
 						<View style={styles.bookingsHr}/> 
 						
@@ -255,9 +255,9 @@ export class Bookings extends Component {
 				
 					
 					<View style={styles.bookingsCard}>
-						<View style={{flexDirection: 'row', marginBottom: -15}}>
-							<Feather name="calendar" style={styles.headingIcon} />
-							<Text style={{fontSize: 18, color: "#51A8B1", paddingLeft: 5}}>Your Booking</Text>
+						<View style={{flexDirection: 'row', marginBottom: 10}}>
+							{/*<Feather name="calendar" style={styles.headingIcon} />*/}
+							<Text style={{fontSize: 18, color: "#47969e", paddingLeft: 5}}>Your Booking</Text>
 						</View>
 						<View style={styles.bookingsHr}/> 
 						
@@ -394,7 +394,7 @@ export class Bookings extends Component {
 
 const styles = StyleSheet.create({
 	container: {
-        height: Dimensions.get('window').height + 50,
+        height: Dimensions.get('window').height + 150,
         padding: 20,
     },
 	header: {
@@ -422,13 +422,13 @@ const styles = StyleSheet.create({
 		fontSize: 25,
 		height: 40,
 		marginRight: 10,
-		color: "#51A8B1",
+		color: "#666666",
 	},
 	cardIcon: {
 		fontSize: 25,
 		height: 40,
 		marginRight: 10,
-		color: "#51A8B1",
+		color: "#47969e",
 		paddingTop: 8
 	},
 	cancelIcon: {
