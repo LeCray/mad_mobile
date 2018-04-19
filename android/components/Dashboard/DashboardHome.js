@@ -141,10 +141,10 @@ export class DashboardHome extends Component {
 				<View style={styles.btnsCard}>
 
 					<View style={styles.buttonContainer}>
-						<Feather name="calendar" color="#4F8EF7" style={styles.cardIcon} />      
+						<Feather name="calendar" color="#51A8B1" style={styles.cardIcon} />      
 						<View style={{flex: 1, flexDirection: "column", justifyContent: "center"}}>
 							<TouchableOpacity style={styles.button} onPress={this.BookingBtn}>  							
-								<Text style={styles.text}>Bookings</Text>
+								<Text style={styles.text}>BOOKINGS</Text>
 							</TouchableOpacity>
 						</View>
 					</View>
@@ -153,7 +153,7 @@ export class DashboardHome extends Component {
 						<Feather name="bell" color="#4F8EF7" style={styles.cardIcon} />      
 						<View style={{flex: 1, flexDirection: "column", justifyContent: 'center'}}>
 							<TouchableOpacity style={styles.button} onPress={this.QuotationsBtn}>       
-								<Text style={styles.text}>Quotations</Text>
+								<Text style={styles.text}>QUOTATIONS</Text>
 							</TouchableOpacity>
 						</View>
 					</View>
@@ -162,7 +162,7 @@ export class DashboardHome extends Component {
 						<Feather name="file-text" color="#4F8EF7" style={styles.cardIcon} />      
 						<View style={{flex: 1, flexDirection: "column", justifyContent: 'center'}}>
 							<TouchableOpacity style={styles.button} onPress={this.InvoicesBtn}> 
-								<Text style={styles.text}>Invoices</Text>
+								<Text style={styles.text}>INVOICES</Text>
 							</TouchableOpacity>
 						</View>
 					</View>
@@ -180,7 +180,7 @@ export class DashboardHome extends Component {
 						<FontAwesome name="car" color="#4F8EF7" style={styles.cardIcon} />      
 						<View style={{flex: 1, flexDirection: "column", justifyContent: 'center'}}>
 							<TouchableOpacity style={styles.button} onPress={this.DataStreamBtn}>       
-								<Text style={styles.text}>Data Stream</Text>
+								<Text style={styles.text}>DATA STREAM</Text>
 							</TouchableOpacity>
 						</View>
 					</View>
@@ -203,8 +203,6 @@ const styles = StyleSheet.create({
     	padding: 30   	        
     },
 	buttonContainer: {
-		//borderBottomWidth: 1,
-		//borderBottomColor: '#d3d3d3',
 		flexDirection: "row",
 		paddingVertical: 15, 
 		marginTop: 0,
@@ -217,7 +215,7 @@ const styles = StyleSheet.create({
     	paddingBottom: 10
     },
     text: {
-    	color: '#4F8EF7', 
+    	color: '#6E6E6E', 
     	textAlign: 'center',
     	flexDirection: "column",
     	justifyContent: "center"
@@ -233,13 +231,14 @@ const styles = StyleSheet.create({
 		fontSize: 25,
 		height: 40,
 		marginRight: 10,
-		color: "#4F8EF7",
+		color: "#51A8B1",
 		paddingTop: 8
 	},
 	logo: {
+		marginTop: -10,
 		flexDirection: "row", 
 		justifyContent: "center", 
-		height: "85%", 		 				
+		height: "90%", 		 				
 	}
 
 })

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import {Platform, StyleSheet, Text, View, TouchableOpacity, 
 		AsyncStorage, Modal, TouchableHighlight, 
-		TextInput, KeyboardAvoidingView, ToastAndroid, ScrollView} from 'react-native';
+		TextInput, KeyboardAvoidingView, ToastAndroid, ScrollView, ImageBackground} from 'react-native';
 
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import ActionButton from 'react-native-action-button';
@@ -219,16 +219,18 @@ export class Bookings extends Component {
 			<ScrollView>
 				<View style={styles.container}>
 					<View style={styles.header}>
-						<View style={{flexDirection: "row"}}>	
-							<Text style={{fontSize: 30, color: "#4F8EF7"}}>Bookings</Text>
-						</View>
-						<Text>Place and manage your bookings</Text>
+						<ImageBackground style={{width: '100%', height: '100%'}} source={require('../picture_one.png')}>
+							<View style={{flexDirection: "column", padding: 20}}>	
+								<Text style={{fontSize: 30, color: "white"}}>BOOKINGS</Text>
+								<Text style={{fontSize: 20, color: "white", fontStyle: "italic"}}>Place and manage your bookings</Text>
+							</View>
+						</ImageBackground>
 					</View>
 
 					<View style={styles.actionCard}>
 						<View style={{flexDirection: 'row', marginBottom: -15}}>
 							<Feather name="bell" style={styles.headingIcon} />
-							<Text style={{fontSize: 18, color: "#4F8EF7"}}> Current Booking </Text>
+							<Text style={{fontSize: 18, color: "#51A8B1"}}> Current Booking </Text>
 						</View>
 						<View style={styles.bookingsHr}/> 
 						
@@ -255,7 +257,7 @@ export class Bookings extends Component {
 					<View style={styles.bookingsCard}>
 						<View style={{flexDirection: 'row', marginBottom: -15}}>
 							<Feather name="calendar" style={styles.headingIcon} />
-							<Text style={{fontSize: 18, color: "#4F8EF7", paddingLeft: 5}}>Your Booking</Text>
+							<Text style={{fontSize: 18, color: "#51A8B1", paddingLeft: 5}}>Your Booking</Text>
 						</View>
 						<View style={styles.bookingsHr}/> 
 						
@@ -397,10 +399,9 @@ const styles = StyleSheet.create({
     },
 	header: {
     	backgroundColor: "white",
-    	borderRadius: 4,
-    	padding: 10,
+    	borderRadius: 10,
     	height: "25%",
-    	padding: 20
+    	
     },
     actionCard: {
     	backgroundColor: "white",
@@ -421,20 +422,20 @@ const styles = StyleSheet.create({
 		fontSize: 25,
 		height: 40,
 		marginRight: 10,
-		color: "#4F8EF7",
+		color: "#51A8B1",
 	},
 	cardIcon: {
 		fontSize: 25,
 		height: 40,
 		marginRight: 10,
-		color: "#4F8EF7",
+		color: "#51A8B1",
 		paddingTop: 8
 	},
 	cancelIcon: {
 		fontSize: 25,
 		height: 40,
 		marginRight: 10,
-		color: "#4F8EF7",
+		color: "#51A8B1",
 		paddingTop: 0,
 		color: "rgba(231,76,60,1)"
 	},

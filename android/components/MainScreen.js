@@ -42,7 +42,7 @@ export const MainScreen = StackNavigator({
 	Quotations: 	{ screen: Quotations},
 	}, {navigationOptions: {
 			title: 'M.A.D',
-			headerStyle: {backgroundColor:"#2470f5"},
+			headerStyle: {backgroundColor:"#51A8B1"},
 			headerTintColor: 'white',			
 		}
 	})
