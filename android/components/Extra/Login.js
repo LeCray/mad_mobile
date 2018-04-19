@@ -117,7 +117,7 @@ export default class Login extends Component {
 							    width: "80%",
 							    height: "80%"
 							  }}
-							  source={require('../mad_logo.png')}
+							  source={require('../../app/src/main/res/mad_logo.png')}
 							/>									
 						</View>
 						<Text style={{alignSelf: "center", fontStyle: "italic", fontSize: 17}}>Leading The Way Forward!!</Text>

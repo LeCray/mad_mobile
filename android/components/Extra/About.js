@@ -52,7 +52,7 @@ export class About extends Component {
 							<Image
 							onLoad={this._endLoad}
 							style={{width: "80%", height: "80%"}}								  								    							    							 
-							source={require('../bobby.png')}/>								
+							source={require('../../app/src/main/res/bobby.png')}/>								
 						</View>
 
 						<Text style={{textAlign: "center", fontWeight: "bold", fontSize: 15}}>Bobby Mahele </Text>

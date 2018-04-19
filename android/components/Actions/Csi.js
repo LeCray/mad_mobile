@@ -75,7 +75,7 @@ export class Csi extends Component {
 						<ImageBackground 
 						style={{width: '100%', height: '100%'}} 
 						onLoad={this._endLoad}
-						source={require('../csi_picture.png')}>
+						source={require('../../app/src/main/res/csi_picture.png')}>
 						
 							<View style={{flexDirection: "column", padding: 20}}>	
 								<Text style={{fontSize: 30, color: "white"}}>

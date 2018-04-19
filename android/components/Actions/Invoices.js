@@ -88,7 +88,7 @@ export class Invoices extends Component {
 						<ImageBackground 
 						style={{width: '100%', height: '100%'}} 
 						onLoad={this._endLoad}
-						source={require('../invoice_picture.png')}>
+						source={require('../../app/src/main/res/invoice_picture.png')}>
 
 							<View style={{flexDirection: "column", padding: 20}}>	
 								<Text style={{fontSize: 30, color: "white"}}>Invoices</Text>

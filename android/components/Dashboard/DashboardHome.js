@@ -140,7 +140,7 @@ export class DashboardHome extends Component {
 						<Image
 						  style={{width: "80%", height: "100%"}}
 						  onLoad={this._endLoad}							    					  							   						 
-						  source={require('../mad_logo.png')}
+						  source={require('../../app/src/main/res/mad_logo.png')}
 						/>									
 					</View>
 					<Text style={{alignSelf: "center", fontSize: 17, marginTop: 10}}>Manage Your Account</Text>

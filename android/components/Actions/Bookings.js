@@ -232,7 +232,7 @@ export class Bookings extends Component {
 						<ImageBackground 
 						onLoad={this._endLoad} 
 						style={{width: '100%', height: '100%'}} 
-						source={require('../picture_one.png')}>
+						source={require('../../app/src/main/res/picture_one.png')}>
 
 							<View style={{flexDirection: "column", padding: 20}}>	
 								<Text style={{fontSize: 30, color: "white"}}>BOOKINGS</Text>

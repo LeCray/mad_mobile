@@ -30,7 +30,7 @@ export class Contact extends Component {
 								<View style={{height: 60, width: 60, marginBottom: 0, flexDirection: "row", justifyContent: "center"}}>
 									<Image
 									style={{width: "80%", height: "80%"}}								  								    							    							 
-									source={require('../email_pic.png')}/>								
+									source={require('../../app/src/main/res/email_pic.png')}/>								
 								</View>
 								<View style={{flex: 1, flexDirection: "column", marginLeft: 10}}>
 									<Text style={{fontWeight: "bold", fontSize: 15}}>
@@ -47,7 +47,7 @@ export class Contact extends Component {
 								<View style={{height: 60, width: 60, marginBottom: 0, flexDirection: "row", justifyContent: "center"}}>
 									<Image
 									style={{width: "80%", height: "80%"}}								  								    							    							 
-									source={require('../call_pic.png')}/>								
+									source={require('../../app/src/main/res/call_pic.png')}/>								
 								</View>
 								<View style={{flex: 1, flexDirection: "column", marginLeft: 10}}>
 									<Text style={{fontWeight: "bold", fontSize: 15}}>
@@ -64,7 +64,7 @@ export class Contact extends Component {
 								<View style={{height: 60, width: 60, marginBottom: 0, flexDirection: "row", justifyContent: "center"}}>
 									<Image
 									style={{width: "80%", height: "80%"}}								  								    							    							 
-									source={require('../fax_pic.png')}/>								
+									source={require('../../app/src/main/res/fax_pic.png')}/>								
 								</View>
 								<View style={{flex: 1, flexDirection: "column", marginLeft: 10}}>
 									<Text style={{fontWeight: "bold", fontSize: 15}}>
@@ -81,7 +81,7 @@ export class Contact extends Component {
 								<View style={{height: 60, width: 60, marginBottom: 0, flexDirection: "row", justifyContent: "center"}}>
 									<Image
 									style={{width: "80%", height: "80%"}}								  								    							    							 
-									source={require('../visit_pic.png')}/>								
+									source={require('../../app/src/main/res/visit_pic.png')}/>								
 								</View>
 								<View style={{flex: 1, flexDirection: "column", marginLeft: 10}}>
 									<Text style={{fontWeight: "bold", fontSize: 15}}>
