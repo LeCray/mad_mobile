@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 
 import {Platform, StyleSheet, Text, View, TouchableOpacity, 
 		AsyncStorage, Modal, TouchableHighlight, 
-		TextInput, KeyboardAvoidingView, ToastAndroid, ScrollView, ImageBackground} from 'react-native';
+		TextInput, KeyboardAvoidingView, ToastAndroid, 
+		ScrollView, ImageBackground, ActivityIndicator} from 'react-native';
 
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import ActionButton from 'react-native-action-button';
@@ -37,6 +38,8 @@ export class Bookings extends Component {
 			carModel: "",
 			status: "PENDING",
 			isBookingDataProvided: false,
+			loading: true,
+			loadingModalVisible: true
 		};
 	}
 /*
@@ -213,13 +216,20 @@ export class Bookings extends Component {
 	}
 
 
+	_endLoad = () => {
+		this.setState({loading: false})	
+		this.setState({loadingModalVisible: false})
+	}
+	_hideLoadingModal = () => this.setState({ loadingModalVisible: false })
+
+
 	render() {
 	
 		return (
 			<ScrollView>
 				<View style={styles.container}>
 					<View style={styles.header}>
-						<ImageBackground style={{width: '100%', height: '100%'}} source={require('../picture_one.png')}>
+						<ImageBackground onLoad={this._endLoad} style={{width: '100%', height: '100%'}} source={require('../picture_one.png')}>
 							<View style={{flexDirection: "column", padding: 20}}>	
 								<Text style={{fontSize: 30, color: "white"}}>BOOKINGS</Text>
 								<Text style={{fontSize: 20, color: "white", fontStyle: "italic"}}>Place and manage your bookings</Text>
@@ -383,6 +393,22 @@ export class Bookings extends Component {
 						onCancel={this._hideDateTimePicker}
 						mode="datetime"
 			        />
+
+			        <Modal
+						animationType={'none'}
+						transparent={true}
+						visible = {this.state.loadingModalVisible}
+						onRequestClose={this._hideLoadingModal}>
+						
+						<View style={styles.modalBackground}>
+							<View style={styles.activityIndicatorWrapper}>
+								<View style={{flexDirection: "row"}}>
+									<ActivityIndicator animating={this.state.loading} size="large" color="#666666" />					
+								</View>
+
+							</View>
+						</View>
+			        </Modal>
 					  
 
 				</View>
@@ -520,6 +546,22 @@ const styles = StyleSheet.create({
     },
     carDesc: {
 		marginTop: 10,
-    }
+    },
+	modalBackground: {
+	    flex: 1,
+	    alignItems: 'center',
+	    flexDirection: 'column',
+	    justifyContent: 'space-around',
+	    backgroundColor: '#00000040'
+	},
+	activityIndicatorWrapper: {
+	    backgroundColor: '#FFFFFF',
+	    height: 80,
+	    width: 200,
+	    borderRadius: 10,
+	    display: 'flex',
+	    alignItems: 'center',
+	    justifyContent: 'space-around'
+	}
 
 })
