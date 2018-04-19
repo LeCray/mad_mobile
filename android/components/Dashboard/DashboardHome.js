@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Platform, StyleSheet, Text, View, 
-		TouchableOpacity, AsyncStorage, ScrollView} from 'react-native';
+		TouchableOpacity, AsyncStorage, ScrollView, Image} from 'react-native';
 import FCM, { FCMEvent } from "react-native-fcm";
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -126,10 +126,16 @@ export class DashboardHome extends Component {
 			<View style={styles.container}>		
 
 				<View style={styles.header}>
-					<View style={{flexDirection: "row"}}>	
-						<Text style={{fontSize: 30, color: "#4F8EF7"}}>MAD APP</Text>
+					<View style={styles.logo}>							
+						<Image
+						  style={{							  	
+						    width: "80%",
+						    height: "100%"
+						  }}
+						  source={require('../mad_logo.png')}
+						/>									
 					</View>
-					<Text>Manage your account</Text>
+					<Text style={{alignSelf: "center", fontStyle: "italic", fontSize: 17, marginTop: 10}}>Manage Your Account</Text>
 				</View>
 
 				<View style={styles.btnsCard}>
@@ -191,11 +197,10 @@ const styles = StyleSheet.create({
         padding: 20,
     },
 	header: {
+		height: "35%",
     	backgroundColor: "white",
-    	borderRadius: 4,
-    	padding: 10,
-    	height: "25%",
-    	padding: 20
+    	borderRadius: 4, 
+    	padding: 30   	        
     },
 	buttonContainer: {
 		//borderBottomWidth: 1,
@@ -231,5 +236,10 @@ const styles = StyleSheet.create({
 		color: "#4F8EF7",
 		paddingTop: 8
 	},
+	logo: {
+		flexDirection: "row", 
+		justifyContent: "center", 
+		height: "85%", 		 				
+	}
 
 })

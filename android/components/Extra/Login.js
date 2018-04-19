@@ -110,19 +110,17 @@ export default class Login extends Component {
 			   <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={-150} style={{flex: 1}}>			
 				<View  style={styles.container}>
 					<View style={styles.header}>
-						<View style={{flexDirection: "row", justifyContent: "center", height: "35%", marginTop: "20%", marginBottom: -20}}>							
+						<View style={styles.image}>							
 							<Image
 							  style={{	
 							  	marginTop: 20,
 							    width: "80%",
 							    height: "80%"
 							  }}
-							  source={require('./mad_logo.png')}
-							/>		
-
-							
+							  source={require('../mad_logo.png')}
+							/>									
 						</View>
-						<Text style={{alignSelf: "center", fontStyle: "italic", fontSize: 17}}>Leading the way forward!!</Text>
+						<Text style={{alignSelf: "center", fontStyle: "italic", fontSize: 17}}>Leading The Way Forward!!</Text>
 								
 						<View style={styles.inputSection}>
 							<TextInput style = {styles.input} 
@@ -228,6 +226,13 @@ const styles = StyleSheet.create({
 	    display: 'flex',
 	    alignItems: 'center',
 	    justifyContent: 'space-around'
+	},
+	image: {
+		flexDirection: "row", 
+		justifyContent: "center", 
+		height: "35%", 
+		marginTop: "20%", 
+		marginBottom: -20
 	}
 })
 
