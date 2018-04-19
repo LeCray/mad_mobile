@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Platform, StyleSheet, Text, View, 
-		TouchableOpacity, AsyncStorage, ScrollView, Image} from 'react-native';
+		TouchableOpacity, AsyncStorage, ScrollView, 
+		Image, Modal, ActivityIndicator} from 'react-native';
 import FCM, { FCMEvent } from "react-native-fcm";
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -22,7 +23,9 @@ export class DashboardHome extends Component {
 
 		this.state = {
 			fcm_token: "",
-			email: ""
+			email: "",
+			loading: true,
+			loadingModalVisible: true
 		};
 	}
 
@@ -116,6 +119,13 @@ export class DashboardHome extends Component {
 		});
 	}
 
+	_endLoad = () => {
+		this.setState({loading: false})	
+		this.setState({loadingModalVisible: false})
+	}
+	_hideLoadingModal = () => this.setState({ loadingModalVisible: false })
+
+
   	render() {
 	const {navigate} =this.props.navigation;
 
@@ -128,10 +138,8 @@ export class DashboardHome extends Component {
 				<View style={styles.header}>
 					<View style={styles.logo}>							
 						<Image
-						  style={{							  	
-						    width: "80%",
-						    height: "100%"
-						  }}
+						  style={{width: "80%", height: "100%"}}
+						  onLoad={this._endLoad}							    					  							   						 
 						  source={require('../mad_logo.png')}
 						/>									
 					</View>
@@ -185,6 +193,22 @@ export class DashboardHome extends Component {
 						</View>
 					</View>
 				</View>
+
+				<Modal
+					animationType={'none'}
+					transparent={true}
+					visible = {this.state.loadingModalVisible}
+					onRequestClose={this._hideLoadingModal}>
+					
+					<View style={styles.modalBackground}>
+						<View style={styles.activityIndicatorWrapper}>
+							<View style={{flexDirection: "row"}}>
+								<ActivityIndicator animating={this.state.loading} size="large" color="#666666" />					
+							</View>
+
+						</View>
+					</View>
+		        </Modal>
 			</View>
 		</ScrollView>
     )
@@ -239,6 +263,22 @@ const styles = StyleSheet.create({
 		flexDirection: "row", 
 		justifyContent: "center", 
 		height: "90%", 		 				
+	},
+	modalBackground: {
+	    flex: 1,
+	    alignItems: 'center',
+	    flexDirection: 'column',
+	    justifyContent: 'space-around',
+	    backgroundColor: '#00000040'
+	},
+	activityIndicatorWrapper: {
+	    backgroundColor: '#FFFFFF',
+	    height: 80,
+	    width: 200,
+	    borderRadius: 10,
+	    display: 'flex',
+	    alignItems: 'center',
+	    justifyContent: 'space-around'
 	}
 
 })
