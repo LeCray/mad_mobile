@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Platform, StyleSheet, Text, View, TextInput,
  AsyncStorage, TouchableOpacity, KeyboardAvoidingView, 
- Dimensions, ScrollView, Modal, ActivityIndicator} from 'react-native';
+ Dimensions, ScrollView, Modal, ActivityIndicator, Image} from 'react-native';
  import {DrawerStack} from '../Dashboard/DashboardHome';
 
 
@@ -110,12 +110,19 @@ export default class Login extends Component {
 			   <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={-150} style={{flex: 1}}>			
 				<View  style={styles.container}>
 					<View style={styles.header}>
-						<View style={{alignSelf: "center"}}>								
-							<Text style={{fontSize: 70, color: "#4F8EF7", marginTop: 40}}>
-								MAD 
-							</Text>
+						<View style={{flexDirection: "row", justifyContent: "center", height: "35%", marginTop: "20%", marginBottom: -20}}>							
+							<Image
+							  style={{	
+							  	marginTop: 20,
+							    width: "80%",
+							    height: "80%"
+							  }}
+							  source={require('./mad_logo.png')}
+							/>		
+
+							
 						</View>
-						<Text style={{alignSelf: "center"}}>Leading the way forward</Text>
+						<Text style={{alignSelf: "center", fontStyle: "italic", fontSize: 17}}>Leading the way forward!!</Text>
 								
 						<View style={styles.inputSection}>
 							<TextInput style = {styles.input} 
@@ -179,7 +186,7 @@ const styles = StyleSheet.create({
     	padding: 20,
     },
     inputSection: {    	    
-    	marginTop: 80  	
+    	marginTop: 20  	
     },
     input:{
 		margin: 20,
