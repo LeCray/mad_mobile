@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Platform, StyleSheet, Dimensions, Text, 
-		View, Modal, TouchableOpacity, ScrollView, AsyncStorage, ImageBackground} from 'react-native';
+		View, Modal, TouchableOpacity, ScrollView, 
+		AsyncStorage, ImageBackground, ActivityIndicator} from 'react-native';
 import Pdf from 'react-native-pdf';
 import Feather from 'react-native-vector-icons/Feather';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -22,7 +23,9 @@ export class Invoices extends Component {
 			inv_date: [],
 			modalVisible: false,
 			key: "",
-			url: ""
+			url: "",
+			loading: true,
+			loadingModalVisible: true
 		};
 	}
 
@@ -59,16 +62,19 @@ export class Invoices extends Component {
 		this.setState({key: index})
 		this.setState({modalVisible: true})
 		console.log("Key: ", index);
-		console.log("URL: ", this.state.url)
-
-
-		
+		console.log("URL: ", this.state.url)		
 	}
 	_hideModal = () => this.setState({ modalVisible: false })
 
+
+	_endLoad = () => {
+		this.setState({loading: false})	
+		this.setState({loadingModalVisible: false})
+	}
+	_hideLoadingModal = () => this.setState({ loadingModalVisible: false })
+
 	
 		
-
 	render() {
 		const source = {uri: this.state.url}
 
@@ -79,13 +85,18 @@ export class Invoices extends Component {
 				<View style={styles.container}>
 
 					<View style={styles.header}>
-						<ImageBackground style={{width: '100%', height: '100%'}} source={require('../invoice_picture.png')}>
+						<ImageBackground 
+						style={{width: '100%', height: '100%'}} 
+						onLoad={this._endLoad}
+						source={require('../invoice_picture.png')}>
+
 							<View style={{flexDirection: "column", padding: 20}}>	
 								<Text style={{fontSize: 30, color: "white"}}>Invoices</Text>
 								<Text style={{fontSize: 20, color: "white", fontStyle: "italic"}}>
 									View your recent invoices
 								</Text>
 							</View>
+
 						</ImageBackground>
 					</View>
 
@@ -156,6 +167,22 @@ export class Invoices extends Component {
 										CLOSE
 									</Text>
 								</TouchableOpacity>
+							</View>
+						</View>
+			        </Modal>
+
+			        <Modal
+					animationType={'none'}
+					transparent={true}
+					visible = {this.state.loadingModalVisible}
+					onRequestClose={this._hideLoadingModal}>
+					
+						<View style={styles.modalBackground}>
+							<View style={styles.activityIndicatorWrapper}>
+								<View style={{flexDirection: "row"}}>
+									<ActivityIndicator animating={this.state.loading} size="large" color="#666666" />					
+								</View>
+
 							</View>
 						</View>
 			        </Modal>
@@ -237,7 +264,23 @@ const styles = StyleSheet.create({
 		borderBottomWidth: 1,
 		width: '100%',
 		alignSelf: 'center'
-    }
+    },
+	modalBackground: {
+	    flex: 1,
+	    alignItems: 'center',
+	    flexDirection: 'column',
+	    justifyContent: 'space-around',
+	    backgroundColor: '#00000040'
+	},
+	activityIndicatorWrapper: {
+	    backgroundColor: '#FFFFFF',
+	    height: 80,
+	    width: 200,
+	    borderRadius: 10,
+	    display: 'flex',
+	    alignItems: 'center',
+	    justifyContent: 'space-around'
+	}
  
 
 })

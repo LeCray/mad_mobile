@@ -143,7 +143,7 @@ export class DashboardHome extends Component {
 						  source={require('../mad_logo.png')}
 						/>									
 					</View>
-					<Text style={{alignSelf: "center", fontStyle: "italic", fontSize: 17, marginTop: 10}}>Manage Your Account</Text>
+					<Text style={{alignSelf: "center", fontSize: 17, marginTop: 10}}>Manage Your Account</Text>
 				</View>
 
 				<View style={styles.btnsCard}>

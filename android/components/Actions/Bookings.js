@@ -229,7 +229,11 @@ export class Bookings extends Component {
 			<ScrollView>
 				<View style={styles.container}>
 					<View style={styles.header}>
-						<ImageBackground onLoad={this._endLoad} style={{width: '100%', height: '100%'}} source={require('../picture_one.png')}>
+						<ImageBackground 
+						onLoad={this._endLoad} 
+						style={{width: '100%', height: '100%'}} 
+						source={require('../picture_one.png')}>
+						
 							<View style={{flexDirection: "column", padding: 20}}>	
 								<Text style={{fontSize: 30, color: "white"}}>BOOKINGS</Text>
 								<Text style={{fontSize: 20, color: "white", fontStyle: "italic"}}>Place and manage your bookings</Text>

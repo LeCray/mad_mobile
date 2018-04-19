@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Platform, StyleSheet, Text, View, ScrollView,
-	Dimensions, TouchableOpacity, AsyncStorage, ImageBackground} from 'react-native';
+	Dimensions, TouchableOpacity, AsyncStorage, 
+	ImageBackground, Modal, ActivityIndicator} from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import Icon from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -23,6 +24,8 @@ export class Csi extends Component {
 			carMake: 	[],
 			carModel: 	[],
 			carStatus: 	[], 
+			loading: true,
+			loadingModalVisible: true
 		};
 	}
 
@@ -56,6 +59,12 @@ export class Csi extends Component {
         })
         .done();
 	}
+
+	_endLoad = () => {
+		this.setState({loading: false})	
+		this.setState({loadingModalVisible: false})
+	}
+	_hideLoadingModal = () => this.setState({ loadingModalVisible: false })
 	
 
 	render() {
@@ -63,7 +72,11 @@ export class Csi extends Component {
 			<ScrollView>
 				<View style={styles.container}>
 					<View style={styles.header}>
-						<ImageBackground style={{width: '100%', height: '100%'}} source={require('../csi_picture.png')}>
+						<ImageBackground 
+						style={{width: '100%', height: '100%'}} 
+						onLoad={this._endLoad}
+						source={require('../csi_picture.png')}>
+						
 							<View style={{flexDirection: "column", padding: 20}}>	
 								<Text style={{fontSize: 30, color: "white"}}>
 									Customer Satisfaction Insurance
@@ -121,6 +134,22 @@ export class Csi extends Component {
 
 						
 					</View>
+
+					<Modal
+					animationType={'none'}
+					transparent={true}
+					visible = {this.state.loadingModalVisible}
+					onRequestClose={this._hideLoadingModal}>
+					
+						<View style={styles.modalBackground}>
+							<View style={styles.activityIndicatorWrapper}>
+								<View style={{flexDirection: "row"}}>
+									<ActivityIndicator animating={this.state.loading} size="large" color="#666666" />					
+								</View>
+
+							</View>
+						</View>
+			        </Modal>
 
 				</View>
 			</ScrollView>
@@ -195,5 +224,21 @@ const styles = StyleSheet.create({
 	  paddingVertical: 15, 
 	  marginTop: 10
     },
+	modalBackground: {
+	    flex: 1,
+	    alignItems: 'center',
+	    flexDirection: 'column',
+	    justifyContent: 'space-around',
+	    backgroundColor: '#00000040'
+	},
+	activityIndicatorWrapper: {
+	    backgroundColor: '#FFFFFF',
+	    height: 80,
+	    width: 200,
+	    borderRadius: 10,
+	    display: 'flex',
+	    alignItems: 'center',
+	    justifyContent: 'space-around'
+	}
 
 })
