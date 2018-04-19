@@ -197,7 +197,7 @@ export class Quotations extends Component {
 				<View style={styles.container}>
 
 					<View style={styles.header}>
-						<ImageBackground style={{width: '100%', height: '100%'}} source={require('../picture_one.png')}>
+						<ImageBackground style={{width: '100%', height: '100%'}} source={require('../quotation_picture.png')}>
 							<View style={{flexDirection: "column", padding: 20}}>		
 								<Text style={{fontSize: 30, color: "white"}}>Quotations</Text>
 								<Text style={{fontSize: 20, color: "white", fontStyle: "italic"}}>

@@ -307,8 +307,8 @@ export default class OBDReader extends Component {
       <MenuContext style={{flex: 1}}>
       <View style={{flex: 1}}> 
         <NavigationBar
-          style={{backgroundColor: "#ffe6e6"}}
-         //tintColor={Color.WHITE}
+          style={{backgroundColor: "#666666"}}
+          tintColor="white"
           
           rightButton={
             <Menu onSelect={this.runMenu.bind(this)}>
@@ -318,6 +318,7 @@ export default class OBDReader extends Component {
                   padding: 10, 
                   alignSelf: 'center', 
                   fontSize: 20, 
+                  color: "white"
                   }} >Menu</Text>
               </MenuTrigger>
               <MenuOptions>
@@ -390,8 +391,9 @@ export default class OBDReader extends Component {
 
 const styles = StyleSheet.create({
   bodyContainer: {
-    padding: 5,
-    flex: .9
+    backgroundColor: "white",
+    padding: 20,
+    flex: 1
   },
   menuOptionText: {
     fontSize: 18,

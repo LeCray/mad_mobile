@@ -63,7 +63,7 @@ export class Csi extends Component {
 			<ScrollView>
 				<View style={styles.container}>
 					<View style={styles.header}>
-						<ImageBackground style={{width: '100%', height: '100%'}} source={require('../picture_one.png')}>
+						<ImageBackground style={{width: '100%', height: '100%'}} source={require('../csi_picture.png')}>
 							<View style={{flexDirection: "column", padding: 20}}>	
 								<Text style={{fontSize: 30, color: "white"}}>
 									Customer Satisfaction Insurance

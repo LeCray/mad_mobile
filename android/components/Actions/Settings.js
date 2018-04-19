@@ -70,7 +70,7 @@ export default class Settings extends Component {
 
   render() {
     return(
-      <View> 
+      <View  style={{backgroundColor: "white", flex: 1}}> 
         <NavigationBar
           style={{flex: 0.1, backgroundColor: Color.BG_NAVIBAR}}
           tintColor={Color.WHITE}
@@ -80,9 +80,9 @@ export default class Settings extends Component {
           <View style={styles.rowContainer}>
             <Category text='Bluetooth'/>
             <CheckBoxPreference
-              title='Enable Mock up mode'
-              summaryOff='Disable Mockup mode'
-              summaryOn='Enable Mockup mode'
+              title='Mock up mode'
+              summaryOff='Mockup Mode Disabled'
+              summaryOn='Mockup Mode Enabled'
               prefKey={Constant.KEY_ENABLE_MOCKUP} />
           </View>
           <View style={styles.rowContainer}>
