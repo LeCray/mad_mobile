@@ -58,7 +58,7 @@ export class Invoices extends Component {
 	}
 
 	_showModal = (index) => {
-		this.setState({url: "10.203.61.15" + this.state.inv_url[index]});
+		this.setState({url: "http://mad-beta.herokuapp.com" + this.state.inv_url[index]});
 		this.setState({key: index})
 		this.setState({modalVisible: true})
 		console.log("Key: ", index);
@@ -121,8 +121,8 @@ export class Invoices extends Component {
 										<TouchableOpacity>
 											<Text 
 											onPress={() => this._showModal(index)}
-											style={{fontSize: 15, textAlign: "right", marginRight: 10}}> 
-												View
+											style={{fontSize: 15, textAlign: "right", marginRight: 10, fontWeight: "bold"}}> 
+												VIEW
 											</Text>			
 										</TouchableOpacity>					
 									</View>
@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
 		fontSize: 25,
 		height: 40,
 		marginRight: 10,
-		color: "#4F8EF7",
+		color: "#51A8B1",
 		paddingTop: 8
 	},
 	modalIcon: {

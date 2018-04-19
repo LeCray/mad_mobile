@@ -10,7 +10,7 @@ export class About extends Component {
 	
 	static navigationOptions = {
 		drawerLabel: 'About',
-		drawerIcon: <Feather name="tag" size={20} color="#0844aa"/>
+		drawerIcon: <Feather name="tag" size={20} color="#51A8B1"/>
 	}
 
 

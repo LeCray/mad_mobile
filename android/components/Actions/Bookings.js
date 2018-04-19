@@ -233,7 +233,7 @@ export class Bookings extends Component {
 						onLoad={this._endLoad} 
 						style={{width: '100%', height: '100%'}} 
 						source={require('../picture_one.png')}>
-						
+
 							<View style={{flexDirection: "column", padding: 20}}>	
 								<Text style={{fontSize: 30, color: "white"}}>BOOKINGS</Text>
 								<Text style={{fontSize: 20, color: "white", fontStyle: "italic"}}>Place and manage your bookings</Text>
@@ -259,7 +259,7 @@ export class Bookings extends Component {
 									<Feather name="plus" style={styles.cardIcon} />
 									<View style={{flex: 1, flexDirection: "column", justifyContent: "center"}}>
 										<TouchableOpacity style={styles.button} onPress={this._showDateTimePicker}>
-											<Text>NEW BOOKING</Text>
+											<Text style={{fontWeight: "bold"}}>NEW BOOKING</Text>
 										</TouchableOpacity>
 									</View>
 								</View>
@@ -320,7 +320,7 @@ export class Bookings extends Component {
 										<Feather name="x" style={styles.cancelIcon} />
 									</View>
 									<TouchableOpacity  onPress={this._cancelBooking} >
-										<Text style={{marginTop: 2}}>
+										<Text style={{marginTop: 2, fontWeight: "bold"}}>
 											CANCEL BOOKING
 										</Text>
 									</TouchableOpacity>
@@ -333,7 +333,7 @@ export class Bookings extends Component {
 								</View>
 
 								<TouchableOpacity style={{paddingRight: 70}} onPress={this._newBooking}>
-									<Text style={{textAlign: 'center', marginTop: 2}}>
+									<Text style={{textAlign: 'center', marginTop: 2, fontWeight: "bold"}}>
 										PLACE BOOKING
 									</Text> 
 								</TouchableOpacity>	
@@ -354,7 +354,7 @@ export class Bookings extends Component {
 								<View style={{flexDirection: "row" }}>
 									<Feather name="feather" style={styles.cardIcon} />
 									<View style={{flexDirection: "column", justifyContent: "center"}}>
-										<Text size={{fontSize: 20}}>DESCRIPTION</Text>
+										<Text size={{fontSize: 25}}>DESCRIPTION</Text>
 									</View>
 								</View>
 								<View style={styles.descHr}/>
@@ -363,7 +363,7 @@ export class Bookings extends Component {
 							        	multiline = {true}
 										numberOfLines = {2}
 										onChangeText={(text) => this.setState({description: text})}
-										placeholder = "Type problem here"
+										placeholder = "Type problem here"										
 										style={{borderWidth: 0}}/>
 									<TextInput
 										onChangeText={(text) => this.setState({carMake: text})}
@@ -379,7 +379,7 @@ export class Bookings extends Component {
 								<View style={{flexDirection: "row", justifyContent: "center", marginTop: 10}}>									
 									<Feather name="check" style={styles.cardIcon} />									
 									<TouchableOpacity  onPress={this._hideModal} >
-										<Text style={{marginTop: 10}}>
+										<Text style={{marginTop: 10, fontWeight: "bold"}}>
 											DONE
 										</Text>
 									</TouchableOpacity>

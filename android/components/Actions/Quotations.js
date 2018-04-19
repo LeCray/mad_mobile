@@ -66,7 +66,7 @@ export class Quotations extends Component {
 	}
 
 	_showModal = (index) => {
-		this.setState({url: "10.203.61.15" + this.state.quo_url[index]});
+		this.setState({url: "http://mad-beta.herokuapp.com" + this.state.quo_url[index]});
 		this.setState({key: index})
 		this.setState({modalVisible: true})
 		console.log("Key: ", index);
@@ -89,7 +89,7 @@ export class Quotations extends Component {
 		console.log("Quotation ID: ", this.state.quo_id[this.state.key])
 
 
-		fetch("10.203.61.15/api/v1/update_quotation_status", {
+		fetch("http://mad-beta.herokuapp.com/api/v1/update_quotation_status", {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 			body: JSON.stringify({
@@ -131,7 +131,7 @@ export class Quotations extends Component {
 						<TouchableOpacity>
 						<Text 
 						onPress={() => this._showModal(index)}
-						style={{fontSize: 15, textAlign: "right", marginRight: 10}}> 
+						style={{fontSize: 15, textAlign: "right", marginRight: 10, fontWeight: "bold"}}> 
 							VIEW
 						</Text>			
 						</TouchableOpacity>					
@@ -210,7 +210,7 @@ export class Quotations extends Component {
 						onLoad={this._endLoad}
 						style={{width: '100%', height: '100%'}} 
 						source={require('../quotation_picture.png')}>
-						
+
 							<View style={{flexDirection: "column", padding: 20}}>		
 								<Text style={{fontSize: 30, color: "white"}}>Quotations</Text>
 								<Text style={{fontSize: 20, color: "white", fontStyle: "italic"}}>
@@ -370,7 +370,7 @@ const styles = StyleSheet.create({
 		fontSize: 25,
 		height: 40,
 		marginRight: 10,
-		color: "#4F8EF7",
+		color: "#51A8B1",
 		paddingTop: 8
 	},
 	cardxIcon: {

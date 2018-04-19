@@ -32,7 +32,7 @@ export class DashboardHome extends Component {
 	
 	static navigationOptions = {
 		drawerLabel: 'Home',
-		drawerIcon: <Feather name="layers" size={20} color="#0844aa"/>
+		drawerIcon: <Feather name="layers" size={20} color="#51A8B1"/>
 	}
 	
 
@@ -242,7 +242,8 @@ const styles = StyleSheet.create({
     	color: '#6E6E6E', 
     	textAlign: 'center',
     	flexDirection: "column",
-    	justifyContent: "center"
+    	justifyContent: "center",
+    	fontWeight: "bold"
     },
     btnsCard: {	
     	backgroundColor: "white",

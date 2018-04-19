@@ -19,7 +19,7 @@ export default class Logout extends Component {
 	
 	static navigationOptions = {
 		drawerLabel: 'Logout', 
-		drawerIcon: <Feather name="user-x" size={20} color="#0844aa"/>
+		drawerIcon: <Feather name="user-x" size={20} color="red"/>
 	}
 
 	render() {

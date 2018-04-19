@@ -14,8 +14,8 @@ import Entypo from 'react-native-vector-icons/Entypo';
 export const DrawerStack = DrawerNavigator ({
 
   DashboardHome: { screen: DashboardHome },
-  About: { screen: About },
   Contact: { screen: Contact},
+  About: { screen: About },
   //Emergency: { screen: Emergency},
   Logout: { screen: Logout }
  		

@@ -116,7 +116,7 @@ export class Csi extends Component {
 												<Feather name="activity" style={styles.activityIcon} />													
 												<Text style={{fontSize: 15, color: "red"}}>CAR STATUS: </Text>											
 												<View style={{flex: 1}}>
-													<Text style={{fontSize: 15, color: "#4F8EF7"}}>
+													<Text style={{fontSize: 15, color: "#47969e"}}>
 														{this.state.carStatus[index]}
 													</Text>																						
 												</View>
@@ -179,21 +179,21 @@ const styles = StyleSheet.create({
 		fontSize: 25,
 		height: 40,
 		marginRight: 10,
-		color: "#4F8EF7",
+		color: "#47969e",
 		paddingTop: 8
 	},
 	headingIcon: {
 		fontSize: 25,
 		height: 40,
 		marginRight: 10,
-		color: "#4F8EF7",
+		color: "#47969e",
 	},
 	activityIcon: {
 		fontSize: 20,
 		height: 20,
 		marginRight: 5,
 		marginTop: 2,
-		color: "#4F8EF7",
+		color: "#47969e",
 	},
 	headingHr: {
 		borderBottomColor: '#d3d3d3',

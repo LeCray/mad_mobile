@@ -10,7 +10,7 @@ export class Contact extends Component {
 	
 	static navigationOptions = {
 		drawerLabel: 'Contact',
-		drawerIcon: <Feather name="phone" size={20} color="#0844aa"/>
+		drawerIcon: <Feather name="phone" size={20} color="#51A8B1"/>
 	}
 
 	render() {
