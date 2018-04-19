@@ -15,7 +15,7 @@
       android:name=".MainApplication"
       android:allowBackup="true"
       android:label="@string/app_name"
-      android:icon="@mipmap/mad_logo"
+      android:icon="@mipmap/mad_logo_min"
       android:theme="@style/AppTheme">
 
       <meta-data android:name="com.google.firebase.messaging.default_notification_icon" android:resource="@mipmap/ic_notif"/>
