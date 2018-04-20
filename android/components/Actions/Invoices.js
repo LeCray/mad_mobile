@@ -137,7 +137,7 @@ export class Invoices extends Component {
 
 	                <Modal
 					animationType="slide"
-					transparent={true}
+					transparent={false}
 					visible = {this.state.modalVisible}
 					onRequestClose={this._hideModal}>
 						
