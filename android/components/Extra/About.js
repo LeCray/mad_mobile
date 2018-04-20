@@ -47,15 +47,32 @@ export class About extends Component {
 							Financial Management, Production Manangement, Personal Development, 
 							Conflict Resolution, Emotional Intelligence & many more.. 
 						</Text>
-						
-						<View style={{height: "50%", marginTop: 20, marginBottom: -50, flexDirection: "row", justifyContent: "center"}}>
+						<View style={styles.smallHr}/>
+						<Text style={{textAlign: "center"}}>
+							Mr Mahele is also a member of both the Brics Youth Forum and Brics Entrepeneurship Forum.{"\n"}
+							He has represented South Africa in Russia, China and India on Global Trade and the importance
+							of SME's in GDP contribution as well as skills development.
+						</Text>
+						<View style={styles.smallHr}/>
+						<Text style={{textAlign: "center"}}>
+							He has been awarded an Honarary Diploma fom Samara State University of Economics, Russia 
+							by the Rector Gabiibulla R. Khasaev. {"\n"}
+							He holds a secondary Honarary Diploma from UFA, Russia on Small Businesses of the SCO and Brics Regions -
+							awarded by the President of the CCI RB, Azat Fazlyev
+						</Text>
+						<View style={styles.smallHr}/>
+						<Text style={{textAlign: "center"}}>
+							Furthermore, he has also recently been elected as a committee member of the RMI (Retail Motor Industry. SA)
+						</Text>
+
+						<View style={{height: 300, marginTop: 20, marginBottom: 10, flexDirection: "row", justifyContent: "center"}}>
 							<Image
 							onLoad={this._endLoad}
-							style={{width: "80%", height: "80%"}}								  								    							    							 
+							style={{width: 200, height: 300}}								  								    							    							 
 							source={require('../../app/src/main/res/bobby.png')}/>								
 						</View>
 
-						<Text style={{textAlign: "center", fontWeight: "bold", fontSize: 15}}>Bobby Mahele </Text>
+						<Text style={{textAlign: "center", fontWeight: "bold", fontSize: 15}}>Bobby Johannes Mahele </Text>
 						<Text style={{textAlign: "center"}}>Owner</Text>
 							
 					</View>
@@ -83,16 +100,16 @@ export class About extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        height: Dimensions.get('window').height+100,
+        height: Dimensions.get('window').height+300,
         padding: 20,
     },
     header: {
     	flex: 1,
     	backgroundColor: "white",
     	borderRadius: 4,
-    	padding: 10,
-    	
-    	padding: 20
+    	paddingTop: 20,    	
+    	paddingLeft: 30,
+    	paddingRight: 30
     },
 
 	buttonContainer: {
@@ -123,6 +140,14 @@ const styles = StyleSheet.create({
 	    display: 'flex',
 	    alignItems: 'center',
 	    justifyContent: 'space-around'
-	}
+	},
+    smallHr: {
+		borderBottomColor: '#d3d3d3',
+		borderBottomWidth: 1,
+		marginTop: 5,
+		marginBottom: 5,
+		width: '80%',
+		alignSelf: "center"
+    }
 
 })
