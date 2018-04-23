@@ -138,12 +138,13 @@ export class DashboardHome extends Component {
 				<View style={styles.header}>
 					<View style={styles.logo}>							
 						<Image
-						  style={{width: "90%", height: "100%", marginLeft: 10}}
+						  style={{width: "80%", height: "80%", marginLeft: 10}}
 						  onLoad={this._endLoad}							    					  							   						 
 						  source={require('../../app/src/main/res/mad_logo.png')}
 						/>									
 					</View>
-					<Text style={{alignSelf: "center", fontSize: 17, marginTop: 10}}>Manage Your Account</Text>
+					<Text style={{alignSelf: "center", fontSize: 15, marginTop: -30}}>A Subsidary of Mahele Group Global</Text>
+					<Text style={{alignSelf: "center", fontSize: 17, marginTop: 20, fontWeight: "bold"}}>Manage Your Account</Text>
 				</View>
 
 				<View style={styles.btnsCard}>
@@ -221,7 +222,7 @@ const styles = StyleSheet.create({
         padding: 20,
     },
 	header: {
-		height: "35%",
+		height: "40%",
     	backgroundColor: "white",
     	borderRadius: 4, 
     	padding: 30, 
