@@ -7,6 +7,7 @@ import {Invoices} from './Actions/Invoices';
 import {Csi} from './Actions/Csi';
 import {Quotations} from './Actions/Quotations';
 import Login from './Extra/Login';
+import SignUp from './Extra/SignUp';
 import OBDReader from './Actions/OBDReader';
 import Settings from './Actions/Settings';
 import RootRouter from './RootRouter';
@@ -21,6 +22,7 @@ import {Platform, StyleSheet, Text,
 export const MainScreen = StackNavigator({
 	//Stack where hamburger is to be placed
 	Login: { screen: Login },
+	SignUp: { screen: SignUp },
 	Main: { screen: DrawerStack,
 			navigationOptions: ({ navigation }) => ({
 	    	headerLeft: <Entypo name="menu" style={{marginLeft: 10}} size={35} color="white" onPress={()=>{

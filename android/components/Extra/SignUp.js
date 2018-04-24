@@ -5,7 +5,7 @@ import {Platform, StyleSheet, Text, View, TextInput,
  import {DrawerStack} from '../Dashboard/DashboardHome';
 
 
-export default class Login extends Component {
+export default class SignUp extends Component {
 
 	static navigationOptions = {
 		header: null
@@ -14,41 +14,39 @@ export default class Login extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			email: '', 
+			email: '',
+			first_name: '',
+			last_name: '',
+			tel: '', 
 			password: '', 
-			logged_in: false,
-			logging_in: false,
+			signed_up: false,
+			signing_up: false,
 			modalVisible: false
 		};
-		this._login = this._login.bind(this);
 		this._signUp = this._signUp.bind(this);
-					
+		
+		
 	}
 
 	componentWillMount() {
-		AsyncStorage.getItem('email')
-		.then((value) => { 
-			if (value !== null){
-				this.props.navigation.navigate('Main');
-				console.log('Automatically validated')
-			} else if (value == null) {
-				console.log('Not Automatically Validated')
-			}
-		});
+		
 	}
 
 
 	_hideModal = () => this.setState({ modalVisible: false })
 	
 
-	 async _login() {
-	 	this.setState({'logging_in': true})
+	 async _signUp() {
+	 	this.setState({'signing_up': true})
 	 	this.setState({"modalVisible": true})
 
-        await fetch("http://mad-beta.herokuapp.com/api/v1/mobile_login", {
+        await fetch("http://mad-beta.herokuapp.com/api/v1/sign_up", {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 			body: JSON.stringify({
+				first_name: this.state.first_name,
+				last_name: this.state.last_name,
+				tel: this.state.tel,
 				email: this.state.email, 
 				password: this.state.password
 			}), 
@@ -57,7 +55,7 @@ export default class Login extends Component {
         .then(response => response.json())
         .then((responseData) => {
 			console.log(responseData);
-			
+/*			
 			if (responseData.admin_authenticated == true){
 				//ADMIN THINGS
 				console.log("You're logged in as ADMIN");			
@@ -95,27 +93,23 @@ export default class Login extends Component {
 				this.setState({"modalVisible": false})
 				this.props.navigation.navigate('Main');
 			}
-        })
+*/  	 })
         .catch((error) => {
           console.error(error);
         })
         .done();
     }
 
-	_signUp() {
-		this.props.navigation.navigate('SignUp')
-	}
-    
-
 
 	render() {
-		//const {navigate} = this.props.navigation
+		const {navigate} = this.props.navigation
 
 		return(  
 			   <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={-150} style={{flex: 1}}>			
 				<View  style={styles.container}>
 					<View style={styles.header}>
-						<View style={styles.image}>							
+						<Text style={{textAlign: "center", marginTop: 70, fontSize: 30}}> SIGN UP </Text>
+						{/*<View style={styles.image}>							
 							<Image
 							  style={{	
 							  	marginTop: 20,
@@ -123,11 +117,32 @@ export default class Login extends Component {
 							    height: "80%"
 							  }}
 							  source={require('../../app/src/main/res/mad_logo.png')}
-							/>									
+							/>								
 						</View>
 						<Text style={{alignSelf: "center", fontStyle: "italic", fontSize: 17}}>Leading The Way Forward!!</Text>
+						*/}	
 								
 						<View style={styles.inputSection}>
+							<TextInput style = {styles.input} 
+									autoCapitalize="none" 
+									onSubmitEditing={() => this.passwordInput.focus()} 
+									autoCorrect={false} 
+									keyboardType='email-address' 
+									returnKeyType="next" 
+									placeholder='First Name:' 
+									placeholderTextColor='black'
+									onChangeText={(first_name) => this.setState({first_name})} />
+
+							<TextInput style = {styles.input} 
+									autoCapitalize="none" 
+									onSubmitEditing={() => this.passwordInput.focus()} 
+									autoCorrect={false} 
+									keyboardType='email-address' 
+									returnKeyType="next" 
+									placeholder='Last Name:' 
+									placeholderTextColor='black'
+									onChangeText={(last_name) => this.setState({last_name})} />
+
 							<TextInput style = {styles.input} 
 									autoCapitalize="none" 
 									onSubmitEditing={() => this.passwordInput.focus()} 
@@ -138,6 +153,16 @@ export default class Login extends Component {
 									placeholderTextColor='black'
 									onChangeText={(email) => this.setState({email})} />
 
+							<TextInput style = {styles.input} 
+									autoCapitalize="none" 
+									onSubmitEditing={() => this.passwordInput.focus()} 
+									autoCorrect={false} 
+									keyboardType='email-address' 
+									returnKeyType="next" 
+									placeholder='Cell Number:' 
+									placeholderTextColor='black'
+									onChangeText={(tel) => this.setState({tel})} />
+
 							<TextInput style = {styles.input}   
 									returnKeyType="go" 
 									ref={(input)=> this.passwordInput = input} 
@@ -146,9 +171,6 @@ export default class Login extends Component {
 									secureTextEntry
 									onChangeText={(password) => this.setState({password})} />
 
-							<TouchableOpacity style={styles.buttonContainer} onPress={this._login} >      
-									<Text style={styles.buttonText}>LOGIN</Text>
-							</TouchableOpacity>
 							<TouchableOpacity style={styles.buttonContainer} onPress={this._signUp} >      
 									<Text style={styles.buttonText}>SIGN UP</Text>
 							</TouchableOpacity>
@@ -238,7 +260,7 @@ const styles = StyleSheet.create({
 	image: {
 		flexDirection: "row", 
 		justifyContent: "center", 
-		height: "30%", 
+		height: "10%", 
 		marginTop: "20%", 
 		marginBottom: -10, 
 		paddingLeft: 15,
