@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import {Platform, StyleSheet, Text, View, TextInput,
  AsyncStorage, TouchableOpacity, KeyboardAvoidingView, 
- Dimensions, ScrollView, Modal, ActivityIndicator, Image} from 'react-native';
+ Dimensions, ScrollView, Modal, ActivityIndicator, Image, findNodeHandle} from 'react-native';
  import {DrawerStack} from '../Dashboard/DashboardHome';
+ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 
 export default class SignUp extends Component {
@@ -26,6 +27,7 @@ export default class SignUp extends Component {
 			offset: 0,
 		};
 		this._signUp = this._signUp.bind(this);
+		this._scrollToInput = this._scrollToInput.bind(this);
 		
 		
 	}
@@ -65,6 +67,11 @@ export default class SignUp extends Component {
         .done();
     }
 
+    _scrollToInput = (reactNode: any) => {
+	  // Add a 'scroll' ref to your ScrollView
+	  this.scroll.props.scrollToFocusedInput(reactNode)
+	}
+
 
 	render() {
 		const {navigate} = this.props.navigation
@@ -72,7 +79,7 @@ export default class SignUp extends Component {
 		
 
 		return(  
-			   <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={this.state.offset} style={{flex: 1}}>			
+			   <KeyboardAwareScrollView innerRef={ref => {this.scroll = ref}}>
 				<View  style={styles.container}>
 					<View style={styles.header}>
 
@@ -87,10 +94,13 @@ export default class SignUp extends Component {
 								
 						<View style={styles.inputSection}>
 							
-								<TextInput style = {styles.input} 
-									//onPress={this.setState({offset: -150})}
+							<TextInput style = {styles.input} 
+									onFocus={(event: Event) => {
+										this._scrollToInput(findNodeHandle(event.target))
+									}} 
+									blurOnSubmit={ false }
 									autoCapitalize="none" 
-									onSubmitEditing={() => this.passwordInput.focus()} 
+									onSubmitEditing={() => this.last_nameInput.focus()} 
 									autoCorrect={false} 
 									keyboardType='email-address' 
 									returnKeyType="next" 
@@ -99,9 +109,13 @@ export default class SignUp extends Component {
 									onChangeText={(first_name) => this.setState({first_name})} />
 							
 							<TextInput style = {styles.input} 
-									//onPress={this.setState({offset: -150})}
+									onFocus={(event: Event) => {
+										this._scrollToInput(findNodeHandle(event.target))
+									}} 
+									blurOnSubmit={ false }
 									autoCapitalize="none" 
-									onSubmitEditing={() => this.passwordInput.focus()} 
+									onSubmitEditing={() => this.emailInput.focus()} 
+									ref={(input)=> this.last_nameInput = input} 
 									autoCorrect={false} 
 									keyboardType='email-address' 
 									returnKeyType="next" 
@@ -111,9 +125,13 @@ export default class SignUp extends Component {
 							
 							
 								<TextInput style = {styles.input} 
-									//onPress={this.setState({offset: -100})}
+									onFocus={(event: Event) => {
+										this._scrollToInput(findNodeHandle(event.target))
+									}} 
+									blurOnSubmit={ false }
 									autoCapitalize="none" 
-									onSubmitEditing={() => this.passwordInput.focus()} 
+									onSubmitEditing={() => this.telInput.focus()} 
+									ref={(input)=> this.emailInput = input} 
 									autoCorrect={false} 
 									keyboardType='email-address' 
 									returnKeyType="next" 
@@ -123,8 +141,13 @@ export default class SignUp extends Component {
 							
 
 							<TextInput style = {styles.input} 
+									onFocus={(event: Event) => {
+										this._scrollToInput(findNodeHandle(event.target))
+									}} 
+									blurOnSubmit={ false }
 									autoCapitalize="none" 
 									onSubmitEditing={() => this.passwordInput.focus()} 
+									ref={(input)=> this.telInput = input} 
 									autoCorrect={false} 
 									keyboardType='email-address' 
 									returnKeyType="next" 
@@ -133,7 +156,13 @@ export default class SignUp extends Component {
 									onChangeText={(tel) => this.setState({tel})} />
 
 							<TextInput style = {styles.input}   
-									returnKeyType="go" 
+									onFocus={(event: Event) => {
+										this._scrollToInput(findNodeHandle(event.target))
+									}} 
+									blurOnSubmit={ false }
+									autoCapitalize="none"
+									returnKeyType="next" 
+									onSubmitEditing={() => this.confirm_passwordInput.focus()} 
 									ref={(input)=> this.passwordInput = input} 
 									placeholder='Password:' 
 									placeholderTextColor='black' 
@@ -141,8 +170,12 @@ export default class SignUp extends Component {
 									onChangeText={(password) => this.setState({password})} />
 
 							<TextInput style = {styles.input}   
+									onFocus={(event: Event) => {
+										this._scrollToInput(findNodeHandle(event.target))
+									}} 
+									autoCapitalize="none"
 									returnKeyType="go" 
-									ref={(input)=> this.passwordInput = input} 
+									ref={(input)=> this.confirm_passwordInput = input} 
 									placeholder='Confirm Password:' 
 									placeholderTextColor='black' 
 									secureTextEntry
@@ -175,7 +208,7 @@ export default class SignUp extends Component {
 			        </Modal>
 
 				</View>	
-			</KeyboardAvoidingView>
+			</KeyboardAwareScrollView>
 		)
 	}
 }
