@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import {Platform, StyleSheet, Text, View, TextInput,
  AsyncStorage, TouchableOpacity, KeyboardAvoidingView, 
- Dimensions, ScrollView, Modal, ActivityIndicator, Image} from 'react-native';
+ Dimensions, ScrollView, Modal, ActivityIndicator, Image, findNodeHandle} from 'react-native';
  import {DrawerStack} from '../Dashboard/DashboardHome';
+ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 
 export default class Login extends Component {
@@ -105,6 +106,11 @@ export default class Login extends Component {
 	_signUp() {
 		this.props.navigation.navigate('SignUp')
 	}
+
+	_scrollToInput = (reactNode: any) => {
+	  // Add a 'scroll' ref to your ScrollView
+	  this.scroll.props.scrollToFocusedInput(reactNode)
+	}
     
 
 
@@ -112,7 +118,7 @@ export default class Login extends Component {
 		//const {navigate} = this.props.navigation
 
 		return(  
-			   <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={-150} style={{flex: 1}}>			
+			   <KeyboardAwareScrollView innerRef={ref => {this.scroll = ref}}>		
 				<View  style={styles.container}>
 					<View style={styles.header}>
 						<View style={styles.image}>							
@@ -129,8 +135,12 @@ export default class Login extends Component {
 								
 						<View style={styles.inputSection}>
 							<TextInput style = {styles.input} 
+									onFocus={(event: Event) => {
+										this._scrollToInput(findNodeHandle(event.target))
+									}} 
 									autoCapitalize="none" 
 									onSubmitEditing={() => this.passwordInput.focus()} 
+									blurOnSubmit={ false }
 									autoCorrect={false} 
 									keyboardType='email-address' 
 									returnKeyType="next" 
@@ -138,9 +148,14 @@ export default class Login extends Component {
 									placeholderTextColor='black'
 									onChangeText={(email) => this.setState({email})} />
 
-							<TextInput style = {styles.input}   
+							<TextInput style = {styles.input} 
+									onFocus={(event: Event) => {
+										this._scrollToInput(findNodeHandle(event.target))
+									}}   
+									autoCapitalize="none" 
 									returnKeyType="go" 
 									ref={(input)=> this.passwordInput = input} 
+									onSubmitEditing={this._login} 
 									placeholder='Password:' 
 									placeholderTextColor='black' 
 									secureTextEntry
@@ -176,7 +191,7 @@ export default class Login extends Component {
 			        </Modal>
 
 				</View>	
-			</KeyboardAvoidingView>
+			</KeyboardAwareScrollView>
 		)
 	}
 }

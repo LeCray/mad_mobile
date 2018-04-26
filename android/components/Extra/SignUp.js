@@ -23,11 +23,10 @@ export default class SignUp extends Component {
 			password_confirm: '',
 			signed_up: false,
 			signing_up: false,
-			modalVisible: false,
-			offset: 0,
+			modalVisible: false,			
 		};
 		this._signUp = this._signUp.bind(this);
-		this._scrollToInput = this._scrollToInput.bind(this);
+		
 		
 		
 	}
@@ -175,6 +174,7 @@ export default class SignUp extends Component {
 									}} 
 									autoCapitalize="none"
 									returnKeyType="go" 
+									onSubmitEditing={this._signUp} 
 									ref={(input)=> this.confirm_passwordInput = input} 
 									placeholder='Confirm Password:' 
 									placeholderTextColor='black' 
