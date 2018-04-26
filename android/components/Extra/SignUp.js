@@ -19,9 +19,11 @@ export default class SignUp extends Component {
 			last_name: '',
 			tel: '', 
 			password: '', 
+			password_confirm: '',
 			signed_up: false,
 			signing_up: false,
-			modalVisible: false
+			modalVisible: false,
+			offset: 0,
 		};
 		this._signUp = this._signUp.bind(this);
 		
@@ -40,7 +42,7 @@ export default class SignUp extends Component {
 	 	this.setState({'signing_up': true})
 	 	this.setState({"modalVisible": true})
 
-        await fetch("http://mad-beta.herokuapp.com/api/v1/sign_up", {
+        await fetch("http://10.0.1.218/api/v1/sign_up", {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 			body: JSON.stringify({
@@ -48,52 +50,15 @@ export default class SignUp extends Component {
 				last_name: this.state.last_name,
 				tel: this.state.tel,
 				email: this.state.email, 
-				password: this.state.password
+				password: this.state.password,
+				password_confirm: this.state.password_confirm
 			}), 
 
         })
         .then(response => response.json())
         .then((responseData) => {
 			console.log(responseData);
-/*			
-			if (responseData.admin_authenticated == true){
-				//ADMIN THINGS
-				console.log("You're logged in as ADMIN");			
-				AsyncStorage.setItem('email', responseData.email)
-			
-				AsyncStorage.getItem('email')
-				.then((value) => {
-					this.setState({'email': value})
-					console.log("Async has stored user email: ", value)
-				})
-				.catch((error) => {
-					console.error(error);
-				})
-				
-
-				this.setState({'logging_in': false})
-				this.setState({"modalVisible": false})
-				this.props.navigation.navigate('Main');
-
-			} else if (responseData.driver_authenticated == true) {
-				//DRIVER THINGS
-				console.log("You're logged in as DRIVER")
-				AsyncStorage.setItem('email', responseData.email)
-			
-				AsyncStorage.getItem('email')
-				.then((value) => {
-					this.setState({'email': value})
-					console.log("Async has stored user email: ", value)
-				})
-				.catch((error) => {
-					console.error(error);
-				})
-				
-				this.setState({'logging_in': false})
-				this.setState({"modalVisible": false})
-				this.props.navigation.navigate('Main');
-			}
-*/  	 })
+	  	})
         .catch((error) => {
           console.error(error);
         })
@@ -104,26 +69,26 @@ export default class SignUp extends Component {
 	render() {
 		const {navigate} = this.props.navigation
 
+		
+
 		return(  
-			   <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={-150} style={{flex: 1}}>			
+			   <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={this.state.offset} style={{flex: 1}}>			
 				<View  style={styles.container}>
 					<View style={styles.header}>
-						<Text style={{textAlign: "center", marginTop: 70, fontSize: 30}}> SIGN UP </Text>
-						{/*<View style={styles.image}>							
+
+						<View style={{flexDirection: "row", paddingLeft: 25}}>												
 							<Image
-							  style={{	
-							  	marginTop: 20,
-							    width: "80%",
-							    height: "80%"
-							  }}
-							  source={require('../../app/src/main/res/mad_logo.png')}
+							  style={{width: 60, height: 60, marginTop: -20}}							    							    							  
+							  source={require('../../app/src/main/res/mad_logo_min.png')}
 							/>								
-						</View>
-						<Text style={{alignSelf: "center", fontStyle: "italic", fontSize: 17}}>Leading The Way Forward!!</Text>
-						*/}	
+							<Text style={{marginTop: 3, marginLeft: 10, fontSize: 20}}> SIGN UP </Text>
+						</View>						
+						
 								
 						<View style={styles.inputSection}>
-							<TextInput style = {styles.input} 
+							
+								<TextInput style = {styles.input} 
+									//onPress={this.setState({offset: -150})}
 									autoCapitalize="none" 
 									onSubmitEditing={() => this.passwordInput.focus()} 
 									autoCorrect={false} 
@@ -132,8 +97,9 @@ export default class SignUp extends Component {
 									placeholder='First Name:' 
 									placeholderTextColor='black'
 									onChangeText={(first_name) => this.setState({first_name})} />
-
+							
 							<TextInput style = {styles.input} 
+									//onPress={this.setState({offset: -150})}
 									autoCapitalize="none" 
 									onSubmitEditing={() => this.passwordInput.focus()} 
 									autoCorrect={false} 
@@ -142,8 +108,10 @@ export default class SignUp extends Component {
 									placeholder='Last Name:' 
 									placeholderTextColor='black'
 									onChangeText={(last_name) => this.setState({last_name})} />
-
-							<TextInput style = {styles.input} 
+							
+							
+								<TextInput style = {styles.input} 
+									//onPress={this.setState({offset: -100})}
 									autoCapitalize="none" 
 									onSubmitEditing={() => this.passwordInput.focus()} 
 									autoCorrect={false} 
@@ -152,6 +120,7 @@ export default class SignUp extends Component {
 									placeholder='Email:' 
 									placeholderTextColor='black'
 									onChangeText={(email) => this.setState({email})} />
+							
 
 							<TextInput style = {styles.input} 
 									autoCapitalize="none" 
@@ -171,6 +140,14 @@ export default class SignUp extends Component {
 									secureTextEntry
 									onChangeText={(password) => this.setState({password})} />
 
+							<TextInput style = {styles.input}   
+									returnKeyType="go" 
+									ref={(input)=> this.passwordInput = input} 
+									placeholder='Confirm Password:' 
+									placeholderTextColor='black' 
+									secureTextEntry
+									onChangeText={(passwordConfirm) => this.setState({passwordConfirm})} />
+
 							<TouchableOpacity style={styles.buttonContainer} onPress={this._signUp} >      
 									<Text style={styles.buttonText}>SIGN UP</Text>
 							</TouchableOpacity>
@@ -187,9 +164,9 @@ export default class SignUp extends Component {
 						<View style={styles.modalBackground}>
 							<View style={styles.activityIndicatorWrapper}>
 								<View style={{flexDirection: "row"}}>
-									<ActivityIndicator animating={this.state.logging_in} size="large" color="#666666" />
+									<ActivityIndicator animating={this.state.signing_up} size="large" color="#666666" />
 									<View style={{flexDirection: "column", justifyContent: "center"}}>
-										<Text style={{fontSize: 16, marginLeft: 14}}>Logging in...</Text>
+										<Text style={{fontSize: 16, marginLeft: 14}}>Signing Up...</Text>
 									</View>
 								</View>
 
@@ -214,15 +191,15 @@ const styles = StyleSheet.create({
     	padding: 20,
     },
     inputSection: {    	    
-    	marginTop: 20  	
+    	marginTop: 10  	
     },
     input:{
 		margin: 20,
 		marginBottom: 0,
 		height: 50,
 		paddingHorizontal: 10,
-		borderRadius: 4,
-		borderWidth: 1,
+		
+		
 		fontSize: 16,
     },
     hr: {
@@ -259,12 +236,7 @@ const styles = StyleSheet.create({
 	},
 	image: {
 		flexDirection: "row", 
-		justifyContent: "center", 
-		height: "10%", 
-		marginTop: "20%", 
-		marginBottom: -10, 
-		paddingLeft: 15,
-		
+		justifyContent: "center", 									
 	}
 })
 

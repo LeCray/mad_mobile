@@ -199,8 +199,6 @@ const styles = StyleSheet.create({
 		marginBottom: 0,
 		height: 50,
 		paddingHorizontal: 10,
-		borderRadius: 4,
-		borderWidth: 1,
 		fontSize: 16,
     },
     hr: {
