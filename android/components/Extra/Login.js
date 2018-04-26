@@ -4,6 +4,7 @@ import {Platform, StyleSheet, Text, View, TextInput,
  Dimensions, ScrollView, Modal, ActivityIndicator, Image, findNodeHandle} from 'react-native';
  import {DrawerStack} from '../Dashboard/DashboardHome';
  import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+ import Feather from 'react-native-vector-icons/Feather';
 
 
 export default class Login extends Component {
@@ -19,7 +20,8 @@ export default class Login extends Component {
 			password: '', 
 			logged_in: false,
 			logging_in: false,
-			modalVisible: false
+			modalVisible: false,
+			invalidModalVisible: false
 		};
 		this._login = this._login.bind(this);
 		this._signUp = this._signUp.bind(this);
@@ -40,6 +42,7 @@ export default class Login extends Component {
 
 
 	_hideModal = () => this.setState({ modalVisible: false })
+	_hideInvalidModal = () => this.setState({ invalidModalVisible: false })
 	
 
 	 async _login() {
@@ -95,6 +98,12 @@ export default class Login extends Component {
 				this.setState({'logging_in': false})
 				this.setState({"modalVisible": false})
 				this.props.navigation.navigate('Main');
+			} else {
+				console.log("Invalid User")
+				this.setState({invalidModalVisible: true})
+
+				this.setState({'logging_in': false})
+				this.setState({"modalVisible": false})
 			}
         })
         .catch((error) => {
@@ -190,6 +199,25 @@ export default class Login extends Component {
 						</View>
 			        </Modal>
 
+			        <Modal
+						animationType={'none'}
+						transparent={true}
+						visible = {this.state.invalidModalVisible}
+						onRequestClose={this._hideInvalidModal}>
+						
+						<View style={styles.modalBackground}>
+							<View style={styles.activityIndicatorWrapper}>
+								<View style={{flexDirection: "row"}}>
+									<Feather name="x" style={styles.modalxIcon} />
+									<View style={{flexDirection: "column", justifyContent: "center"}}>
+										<Text style={{fontSize: 16, marginLeft: 14}}>Invalid</Text>
+									</View>
+								</View>
+
+							</View>
+						</View>
+			        </Modal>
+
 				</View>	
 			</KeyboardAwareScrollView>
 		)
@@ -254,8 +282,11 @@ const styles = StyleSheet.create({
 		height: "30%", 
 		marginTop: "20%", 
 		marginBottom: -10, 
-		paddingLeft: 15,
-		
-	}
+		paddingLeft: 15,		
+	},
+	modalxIcon: {
+		fontSize: 25,				
+		color: "rgba(231,76,60,1)",
+	},
 })
 
