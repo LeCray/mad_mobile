@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {Platform, StyleSheet, Text, View, TextInput,
  AsyncStorage, TouchableOpacity, KeyboardAvoidingView, 
- Dimensions, ScrollView, Modal, ActivityIndicator, Image, findNodeHandle} from 'react-native';
+ Dimensions, ScrollView, Modal, ActivityIndicator, Image, 
+ findNodeHandle, BackHandler} from 'react-native';
  import {DrawerStack} from '../Dashboard/DashboardHome';
  import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
  import Feather from 'react-native-vector-icons/Feather';
@@ -12,6 +13,18 @@ export default class Login extends Component {
 	static navigationOptions = {
 		header: null
 	}
+
+	componentDidMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+    }
+
+    handleBackButton() {        
+        return true;
+    }
 
 	constructor(props) {
 		super(props);
@@ -163,19 +176,28 @@ export default class Login extends Component {
 									}}   
 									autoCapitalize="none" 
 									returnKeyType="go" 
-									ref={(input)=> this.passwordInput = input} 
 									onSubmitEditing={this._login} 
+									blurOnSubmit={ true }
+									ref={(input)=> this.passwordInput = input} 
 									placeholder='Password:' 
 									placeholderTextColor='black' 
 									secureTextEntry
 									onChangeText={(password) => this.setState({password})} />
 
-							<TouchableOpacity style={styles.buttonContainer} onPress={this._login} >      
-									<Text style={styles.buttonText}>LOGIN</Text>
-							</TouchableOpacity>
-							<TouchableOpacity style={styles.buttonContainer} onPress={this._signUp} >      
-									<Text style={styles.buttonText}>SIGN UP</Text>
-							</TouchableOpacity>
+								<View style={{flexDirection: "row", justifyContent: "center"}}>
+									<View style={styles.loginInbuttonContainer}>
+										<TouchableOpacity onPress={this._login} >      
+												<Text style={styles.loginInText}>LOGIN</Text>
+										</TouchableOpacity>
+									</View>
+								</View>
+								<View style={{flexDirection: "row", justifyContent: "center"}}>
+									<View style={styles.signUpButtonContainer}>
+										<TouchableOpacity onPress={this._signUp} >      
+												<Text style={styles.signUpText}>SIGN UP</Text>
+										</TouchableOpacity>
+									</View>
+								</View>
 						</View> 
 					</View>
 
@@ -227,12 +249,14 @@ export default class Login extends Component {
 const styles = StyleSheet.create({
     container: {
         height: Dimensions.get('window').height,
+        borderWidth: 1
     },
     header: {
     	flex: 1,
     	backgroundColor: "white",
     	borderRadius: 4,
     	padding: 20,
+    	borderWidth: 1
     },
     inputSection: {    	    
     	marginTop: 20  	
@@ -252,11 +276,28 @@ const styles = StyleSheet.create({
 		width: '100%',
 		alignSelf: 'center'
     },
-    buttonContainer:{
-    	marginTop: 20,
+    loginInbuttonContainer:{
+    	borderWidth: 1,    	   	
+    	borderRadius: 5,
+    	padding: 10,
+    	marginTop: 30,
+    	width: "50%"
     },
-    buttonText:{
-        color: "black",
+    signUpButtonContainer:{
+    	borderWidth: 1,    	   	
+    	borderRadius: 5,
+    	padding: 10,
+    	marginTop: 10,
+    	width: "50%" 	
+    },    
+    loginInText:{
+        color: "#47969e",
+        textAlign: 'center',
+        fontWeight: '700'
+    },
+    signUpText: {
+    	textAlign: 'center',
+		color: "black",
         textAlign: 'center',
         fontWeight: '700'
     },

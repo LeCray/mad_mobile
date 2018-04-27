@@ -138,7 +138,7 @@ export class DashboardHome extends Component {
 				<View style={styles.header}>
 					<View style={styles.logo}>							
 						<Image
-						  style={{width: "80%", height: "80%", marginLeft: 10}}
+						  style={{width: "80%", height: "70%", marginLeft: 10}}
 						  onLoad={this._endLoad}							    					  							   						 
 						  source={require('../../app/src/main/res/mad_logo.png')}
 						/>									
@@ -218,7 +218,7 @@ export class DashboardHome extends Component {
 
 const styles = StyleSheet.create({
 	container: {
-        height: Dimensions.get('window').height,
+        height: Dimensions.get('window').height + 50,
         padding: 20,
     },
 	header: {
