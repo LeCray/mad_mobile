@@ -24,6 +24,8 @@ export class DashboardHome extends Component {
 		this.state = {
 			fcm_token: "",
 			email: "",
+			firstName: "",
+			lastName: "",
 			loading: true,
 			loadingModalVisible: true
 		};

@@ -45,8 +45,10 @@ export default class Login extends Component {
 		AsyncStorage.getItem('email')
 		.then((value) => { 
 			if (value !== null){
-				this.props.navigation.navigate('Main');
+				this.setState({"modalVisible": true, 'logging_in': true})
+				setTimeout(() => {this.props.navigation.navigate('Main')}, 2000);
 				console.log('Automatically validated')
+				setTimeout(() => {this.setState({"modalVisible": false, 'logging_in': false})}, 2000)
 			} else if (value == null) {
 				console.log('Not Automatically Validated')
 			}

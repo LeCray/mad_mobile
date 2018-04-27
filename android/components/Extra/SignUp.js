@@ -80,7 +80,7 @@ export default class SignUp extends Component {
 					AsyncStorage.setItem('email', this.state.email)
 				
 					setTimeout(() => {this.props.navigation.navigate('Main')}, 4000);
-					setTimeout(() => {this.setState({"loggingInModalVisible": false, 'logging_in': false})}, 4001)
+					setTimeout(() => {this.setState({"loggingInModalVisible": false, 'logging_in': false})}, 5000)
 				}
 		  	})
 	        .catch((error) => {
