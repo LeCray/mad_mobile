@@ -33,13 +33,17 @@ export class Quotations extends Component {
 	}
 
 
-	componentWillMount() {
+	async componentWillMount() {
+		await AsyncStorage.getItem('email')
+		.then((value) => { 
+			this.setState({'email': value})	
+		});
 
 		fetch("http://mad-beta.herokuapp.com/api/v1/get_quotations", {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 			body: JSON.stringify({
-				email: "captain@gmail.com"
+				email: this.state.email
 			}), 
         })
         .then(responseData => responseData.json())
@@ -52,17 +56,14 @@ export class Quotations extends Component {
 				quo_id: responseData.quotations[2],
 				quo_status: responseData.quotations[3]
 			})
-/*
-			console.log("quotation_url: ", this.state.quo_url)
-			console.log("quotation_date: ", this.state.quo_date)
-			console.log("quotation_id: ", this.state.quo_id)
-			console.log("quotation_status: ", this.state.quo_status)
-*/
         })
+        .then(this._endLoad)
         .catch((error) => {
           console.error(error);
         })
         .done();
+
+
 	}
 
 	_showModal = (index) => {
@@ -93,7 +94,7 @@ export class Quotations extends Component {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 			body: JSON.stringify({
-				email: "captain@gmail.com",
+				email: this.state.email,
 				quo_status: quo_status,
 				quo_id: this.state.quo_id[this.state.key]
 			}), 
@@ -201,126 +202,120 @@ export class Quotations extends Component {
 	render() {
 		const source = {uri: this.state.url}
 
-		return(  
-			<ScrollView>
-				<View style={styles.container}>
+		return(  									
+			<View style={styles.container}>
+				<View style={styles.header}>
+					<ImageBackground 						
+					style={{width: '100%', height: '100%'}} 
+					source={require('../../app/src/main/res/quotation_picture.png')}>
 
-					<View style={styles.header}>
-						<ImageBackground 
-						onLoad={this._endLoad}
-						style={{width: '100%', height: '100%'}} 
-						source={require('../../app/src/main/res/quotation_picture.png')}>
-
-							<View style={{flexDirection: "column", padding: 20}}>		
-								<Text style={{fontSize: 30, color: "white"}}>Quotations</Text>
-								<Text style={{fontSize: 20, color: "white", fontStyle: "italic"}}>
-									Approve or Disapprove proposed quotations
-								</Text>
-							</View>
-						</ImageBackground>
-					</View>
-					
-					<View style={styles.newQuo}>
-						<View style={{flexDirection: 'row', marginBottom: 10}}>
-							{/*<Feather name="bell" style={styles.headingIcon} />*/}
-							<Text style={{fontSize: 18, color: "#47969e"}}> New Quotation </Text>
+						<View style={{flexDirection: "column", padding: 20}}>		
+							<Text style={{fontSize: 30, color: "white"}}>Quotations</Text>
+							<Text style={{fontSize: 20, color: "white", fontStyle: "italic"}}>
+								Approve or Disapprove proposed quotations
+							</Text>
 						</View>
-						<View style={styles.hr}/>
-
+					</ImageBackground>
+				</View>
+				
+				<View style={styles.newQuo}>						
+					<View style={{flexDirection: 'row', marginBottom: 10}}>
+						{/*<Feather name="bell" style={styles.headingIcon} />*/}
+						<Text style={{fontSize: 18, color: "#47969e"}}> New Quotations </Text>
+					</View>
+					<View style={styles.hr}/>
+					<ScrollView>
 						{this.state.quo_date.map((date, index) => 
-							<TouchableOpacity key={index}>
+							<TouchableOpacity key={index} style={{marginTop: 1}}>
 				                {this.renderNewQuo(this.state.quo_status[index], date, index)}			
 							</TouchableOpacity>
 						)}
-					</View>
-					<ScrollView >
-						<View style={styles.oldQuo}> 
-						
-							<View style={{flexDirection: 'row', marginBottom: 10}}>
-								{/*<Feather name="clock" style={styles.headingIcon} />*/}
-								<Text style={{fontSize: 18, color: "#47969e", paddingLeft: 5}}>Old Quotations</Text>
-							</View>
-							<View style={styles.hr}/>
-
-							{this.state.quo_date.map((date, index) => 
-								<TouchableOpacity key={index}>									
-						            {this.renderOldQuo(this.state.quo_status[index], date, index)}	
-								</TouchableOpacity>
-							)}
-						</View>
 					</ScrollView>
+				</View>
+				<View style={styles.oldQuo}> 												
+					<View style={{flexDirection: 'row', marginBottom: 10}}>
+						{/*<Feather name="clock" style={styles.headingIcon} />*/}
+						<Text style={{fontSize: 18, color: "#47969e", paddingLeft: 5}}>Old Quotations</Text>
+					</View>
+					<View style={styles.hr}/>
+					<ScrollView>
+						{this.state.quo_date.map((date, index) => 
+							<TouchableOpacity key={index}>									
+					            {this.renderOldQuo(this.state.quo_status[index], date, index)}	
+							</TouchableOpacity>
+						)}
+					</ScrollView>
+				</View>
 
-	                <Modal
-					animationType="slide"
-					transparent={false}
-					visible = {this.state.modalVisible}
-					onRequestClose={this._hideModal}>
-						
-						<View style={{flex: 1}}>
-							<Pdf
-			                    source={source}
-			                    onLoadComplete={(numberOfPages,filePath)=>{
-			                        console.log('number of pages: ', numberOfPages);
-			                    }}
-			                    onPageChanged={(page,numberOfPages)=>{
-			                        console.log('current page: ', page);
-			                    }}
-			                    onError={(error)=>{
-			                        console.log(error);
-			                    }}
-			                    style={styles.pdf}/>
-						</View>
-						
-						<View style={styles.modalHr}/>
-						<View style={{paddingTop: 10, flexDirection: "row", justifyContent: "center"}}>
-							<View style={{flexDirection: "row"}}>
-				         		<Feather name="check" style={styles.modalIcon} />
-								<TouchableOpacity  >
-									<Text 
-									onPress={() => this._updateQuoStatus("approved")}
-									style={{marginTop: 5}}>
-										APPROVE
-									</Text>
-								</TouchableOpacity>
-							</View>
-							<View style={{flexDirection: "row", marginLeft: 50}}>
-			         			<Feather name="x" style={styles.modalxIcon} />
-								<TouchableOpacity>
-									<Text 
-									onPress={() => this._updateQuoStatus("disapproved")}
-									style={{marginTop: 5}}>
-										DISAPPROVE
-									</Text>
-								</TouchableOpacity>
-							</View>
-						</View>
-			        </Modal>
-
-			        <Modal
-					animationType={'none'}
-					transparent={true}
-					visible = {this.state.loadingModalVisible}
-					onRequestClose={this._hideLoadingModal}>
+                <Modal
+				animationType="slide"
+				transparent={false}
+				visible = {this.state.modalVisible}
+				onRequestClose={this._hideModal}>
 					
-						<View style={styles.modalBackground}>
-							<View style={styles.activityIndicatorWrapper}>
-								<View style={{flexDirection: "row"}}>
-									<ActivityIndicator animating={this.state.loading} size="large" color="#666666" />					
-								</View>
-
-							</View>
+					<View style={{flex: 1}}>
+						<Pdf
+		                    source={source}
+		                    onLoadComplete={(numberOfPages,filePath)=>{
+		                        console.log('number of pages: ', numberOfPages);
+		                    }}
+		                    onPageChanged={(page,numberOfPages)=>{
+		                        console.log('current page: ', page);
+		                    }}
+		                    onError={(error)=>{
+		                        console.log(error);
+		                    }}
+		                    style={styles.pdf}/>
+					</View>
+					
+					<View style={styles.modalHr}/>
+					<View style={{paddingTop: 10, flexDirection: "row", justifyContent: "center"}}>
+						<View style={{flexDirection: "row"}}>
+			         		<Feather name="check" style={styles.modalIcon} />
+							<TouchableOpacity  >
+								<Text 
+								onPress={() => this._updateQuoStatus("approved")}
+								style={{marginTop: 5}}>
+									APPROVE
+								</Text>
+							</TouchableOpacity>
 						</View>
-			        </Modal>
+						<View style={{flexDirection: "row", marginLeft: 50}}>
+		         			<Feather name="x" style={styles.modalxIcon} />
+							<TouchableOpacity>
+								<Text 
+								onPress={() => this._updateQuoStatus("disapproved")}
+								style={{marginTop: 5}}>
+									DISAPPROVE
+								</Text>
+							</TouchableOpacity>
+						</View>
+					</View>
+		        </Modal>
 
-			    </View>
-			</ScrollView>
+		        <Modal
+				animationType={'none'}
+				transparent={true}
+				visible = {this.state.loadingModalVisible}
+				onRequestClose={this._hideLoadingModal}>
+				
+					<View style={styles.modalBackground}>
+						<View style={styles.activityIndicatorWrapper}>
+							<View style={{flexDirection: "row"}}>
+								<ActivityIndicator animating={this.state.loading} size="large" color="#666666" />					
+							</View>
+
+						</View>
+					</View>
+		        </Modal>
+		    </View>							
 		)
 	}
 }
 
 const styles = StyleSheet.create({
 	container: {
-        height: Dimensions.get('window').height + 150,
+        flex: 1,
         padding: 20,
     },
     header: {
@@ -333,14 +328,15 @@ const styles = StyleSheet.create({
     	borderRadius: 4,
     	marginTop: 10,
     	padding: 20,
+    	paddingBottom: 5,
+    	flex: .7  	
     },
     oldQuo: {
     	backgroundColor: "white",
     	borderRadius: 4,
     	marginTop: 10,
-    	padding: 20,
-
-    	
+    	padding: 20,  
+    	flex: 1	
     },
 	buttonContainer: {
 		backgroundColor: "#2980b6", 
@@ -402,7 +398,7 @@ const styles = StyleSheet.create({
 		borderBottomColor: '#d3d3d3',
 		borderBottomWidth: 1,
 		marginTop: 10,
-		marginBottom: 15,
+		marginBottom: 0,
 		width: '100%',
 		alignSelf: 'center'
     },

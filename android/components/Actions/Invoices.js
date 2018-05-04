@@ -30,8 +30,8 @@ export class Invoices extends Component {
 	}
 
 
-	componentWillMount() {
-		AsyncStorage.getItem('email')
+	async componentWillMount() {
+		await AsyncStorage.getItem('email')
 		.then((value) => { 
 			this.setState({'email': value})	
 		});
@@ -55,6 +55,7 @@ export class Invoices extends Component {
 			console.log("Invoice_url: ", this.state.inv_url)
 			console.log("Invoice_date: ", this.state.inv_date)
         })
+        .then(this._endLoad)
         .catch((error) => {
           console.error(error);
         })
@@ -85,13 +86,12 @@ export class Invoices extends Component {
 
 
 		return(  
-			<ScrollView>
-				<View style={styles.container}>
+			<View style={styles.container}>
+				
 
 					<View style={styles.header}>
 						<ImageBackground 
-						style={{width: '100%', height: '100%'}} 
-						onLoad={this._endLoad}
+						style={{width: '100%', height: '100%'}} 						
 						source={require('../../app/src/main/res/invoice_picture.png')}>
 
 							<View style={{flexDirection: "column", padding: 20}}>	
@@ -110,6 +110,7 @@ export class Invoices extends Component {
 							<Text style={{fontSize: 18, color: "#47969e", paddingLeft: 5}}>Invoices</Text>
 						</View>
 						<View style={styles.invHr}/>
+						<ScrollView>
 
 
 
@@ -134,6 +135,7 @@ export class Invoices extends Component {
 								<View style={styles.hr}/>
 							</View>
 						)}
+						</ScrollView>
 					</View>
 					
 					
@@ -191,26 +193,25 @@ export class Invoices extends Component {
 						</View>
 			        </Modal>
 				</View>
-			</ScrollView>
 		)
 	}
 }
 
 const styles = StyleSheet.create({
 	container: {
-        height: Dimensions.get('window').height + 150,
+        flex: 1,
         padding: 20,
     },
 	header: {
     	backgroundColor: "white",
     	borderRadius: 4,    	
-    	height: "25%",
+    	height: "30%",
     },
     invoiceCard: {
     	backgroundColor: "white",
     	borderRadius: 4,
     	marginTop: 10,
-    	padding: 20,
+    	padding: 20,  
     	flex: 1
     },
 	headingIcon: {

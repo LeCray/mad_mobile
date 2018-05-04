@@ -29,8 +29,8 @@ export class Csi extends Component {
 		};
 	}
 
-	componentWillMount() {
-		AsyncStorage.getItem('email')
+	async componentWillMount() {
+		await AsyncStorage.getItem('email')
 		.then((value) => { 
 			this.setState({'email': value})	
 		});
@@ -54,6 +54,7 @@ export class Csi extends Component {
 				carStatus: responseData.carsArray[3]
 			})
         })
+        .then(this._endLoad)
         .catch((error) => {
           console.error(error);
         })
@@ -68,91 +69,83 @@ export class Csi extends Component {
 	
 
 	render() {
-		return(  
-			<ScrollView>
-				<View style={styles.container}>
-					<View style={styles.header}>
-						<ImageBackground 
-						style={{width: '100%', height: '100%'}} 
-						onLoad={this._endLoad}
-						source={require('../../app/src/main/res/csi_picture.png')}>
-						
-							<View style={{flexDirection: "column", padding: 20}}>	
-								<Text style={{fontSize: 30, color: "white"}}>
-									Customer Satisfaction Insurance
-								</Text>
-								<Text style={{fontSize: 20, color: "white", fontStyle: "italic"}}>
-									Know whats happening with your car
-								</Text>
-							</View>
-						</ImageBackground>
-					</View>
-
-					<View style={styles.carCard}>
-						<View style={{flexDirection: 'row', marginBottom: 10}}>
-							{/*<Feather name="shield" style={styles.headingIcon} />*/}
-							<Text style={{fontSize: 18, color: "#47969e", paddingLeft: 5}}>Your Car</Text>
-						</View>
-						<View style={styles.headingHr}/>
-						
-						
-						<View>
-							{this.state.vehicleReg.length != 0?
-								<View>
-									{this.state.vehicleReg.map((reg, index) => 																								
-							           <View key={index} style={{flexDirection: "column", marginTop: 10,padding: 10}} >
-							           		<View style={{flexDirection: "row"}}>
-								           		<FontAwesome name="car" style={styles.headingIcon} />						           		
-								           		<View style={{flex: 1, flexDirection: "column", marginLeft: 5}}>
-													<Text>Car Make: {this.state.carMake[index]}</Text>
-													<Text>Car Model: {this.state.carModel[index]}</Text>
-													<Text>Vehicle Reg: {this.state.vehicleReg[index]}</Text>	
-												</View>
-											</View>
-
-											<View style={styles.smallHr}/>
-												
-											<View style={{flexDirection: "row"}}>
-												<Feather name="activity" style={styles.activityIcon} />													
-												<Text style={{fontSize: 15, color: "red"}}>CAR STATUS: </Text>											
-												<View style={{flex: 1}}>
-													<Text style={{fontSize: 15, color: "#47969e"}}>
-														{this.state.carStatus[index]}
-													</Text>																						
-												</View>
-											</View>										
-										</View>													
-									)}
-								</View>
-							: 
-								<View style={{flexDirection: 'row', justifyContent: "center", marginTop: 30}}>
-									<Text>NO CARS ARE BEING WORKED ON</Text>
-								</View>
-							}							
-						</View>
-						
-
-						
-					</View>
-
-					<Modal
-					animationType={'none'}
-					transparent={true}
-					visible = {this.state.loadingModalVisible}
-					onRequestClose={this._hideLoadingModal}>
+		return(  			
+			<View style={styles.container}>
+				<View style={styles.header}>
+					<ImageBackground 
+					style={{width: '100%', height: '100%'}} 						
+					source={require('../../app/src/main/res/csi_picture.png')}>
 					
-						<View style={styles.modalBackground}>
-							<View style={styles.activityIndicatorWrapper}>
-								<View style={{flexDirection: "row"}}>
-									<ActivityIndicator animating={this.state.loading} size="large" color="#666666" />					
-								</View>
-
-							</View>
+						<View style={{flexDirection: "column", padding: 20}}>	
+							<Text style={{fontSize: 30, color: "white"}}>
+								Customer Satisfaction Insurance
+							</Text>
+							<Text style={{fontSize: 20, color: "white", fontStyle: "italic"}}>
+								Know whats happening with your car
+							</Text>
 						</View>
-			        </Modal>
-
+					</ImageBackground>
 				</View>
-			</ScrollView>
+
+				<View style={styles.carCard}>
+					<View style={{flexDirection: 'row', marginBottom: 10}}>
+						{/*<Feather name="shield" style={styles.headingIcon} />*/}
+						<Text style={{fontSize: 18, color: "#47969e", paddingLeft: 5}}>Your Car</Text>
+					</View>
+					<View style={styles.headingHr}/>
+					<ScrollView>											
+						{this.state.vehicleReg.length != 0?
+							<View>
+								{this.state.vehicleReg.map((reg, index) => 																								
+						           <View key={index} style={{flexDirection: "column", marginTop: 10,padding: 10}} >
+						           		<View style={{flexDirection: "row"}}>
+							           		<FontAwesome name="car" style={styles.headingIcon} />						           		
+							           		<View style={{flex: 1, flexDirection: "column", marginLeft: 5}}>
+												<Text>Car Make: {this.state.carMake[index]}</Text>
+												<Text>Car Model: {this.state.carModel[index]}</Text>
+												<Text>Vehicle Reg: {this.state.vehicleReg[index]}</Text>	
+											</View>
+										</View>
+
+										<View style={styles.smallHr}/>
+											
+										<View style={{flexDirection: "row"}}>
+											<Feather name="activity" style={styles.activityIcon} />													
+											<Text style={{fontSize: 15, color: "red"}}>CAR STATUS: </Text>											
+											<View style={{flex: 1}}>
+												<Text style={{fontSize: 15, color: "#47969e"}}>
+													{this.state.carStatus[index]}
+												</Text>																						
+											</View>
+										</View>										
+									</View>													
+								)}
+							</View>
+						: 
+							<View style={{flexDirection: 'row', justifyContent: "center", marginTop: 30}}>
+								<Text>NO CARS ARE BEING WORKED ON</Text>
+							</View>
+						}													
+					</ScrollView>									
+				</View>
+
+				<Modal
+				animationType={'none'}
+				transparent={true}
+				visible = {this.state.loadingModalVisible}
+				onRequestClose={this._hideLoadingModal}>
+				
+					<View style={styles.modalBackground}>
+						<View style={styles.activityIndicatorWrapper}>
+							<View style={{flexDirection: "row"}}>
+								<ActivityIndicator animating={this.state.loading} size="large" color="#666666" />					
+							</View>
+
+						</View>
+					</View>
+		        </Modal>
+
+			</View>		
 		)
 	}
 }
@@ -160,13 +153,13 @@ export class Csi extends Component {
 
 const styles = StyleSheet.create({
 	container: {
-        height: Dimensions.get('window').height + 150,
+        flex: 1,
         padding: 20,
     },
     header: {
     	backgroundColor: "white",
     	borderRadius: 4,    	
-    	height: "25%",    	
+    	height: "30%",    	
     },
     carCard: {
     	backgroundColor: "white",
