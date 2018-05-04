@@ -39,16 +39,12 @@ export class Bookings extends Component {
 			status: "PENDING",
 			isBookingDataProvided: false,
 			loading: true,
-			loadingModalVisible: true
+			loadingModalVisible: true,
+			cancelModalVisible: false,
 		};
 	}
 
-	 componentWillMount() {
-
-		
-
-		
-	}
+	
 
 	async componentWillMount() {
 
@@ -129,6 +125,7 @@ export class Bookings extends Component {
 		this.setState({isBookingPlaced: ""});
 
 		this.setState({ modalVisible: true })
+		this.problemInput.focus()		
 
 		this.setState({isBookingDataProvided: true})
 
@@ -183,7 +180,14 @@ export class Bookings extends Component {
 		console.log('Booking Handled');
 	}
 
+
+	_cancelConfirm = () => {
+		this.setState({cancelModalVisible: true})
+	}
+
 	_cancelBooking = () => {
+		this.setState({ cancelModalVisible: false })
+
 		AsyncStorage.setItem('date', "")
 		this.setState({date: ""})
 		AsyncStorage.setItem('time', "")
@@ -204,7 +208,7 @@ export class Bookings extends Component {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 			body: JSON.stringify({
-				email: "captain@gmail.com"
+				email: this.state.email
 			}), 
         })
         .then(() => {
@@ -223,6 +227,8 @@ export class Bookings extends Component {
 		this.setState({loadingModalVisible: false})
 	}
 	_hideLoadingModal = () => this.setState({ loadingModalVisible: false })
+
+	_hideCancelModal = () => this.setState({ cancelModalVisible: false })
 
 
 	render() {
@@ -321,7 +327,7 @@ export class Bookings extends Component {
 									<View style={{flexDirection: "column", justifyContent: "center"}}>
 										<Feather name="x" style={styles.cancelIcon} />
 									</View>
-									<TouchableOpacity  onPress={this._cancelBooking} >
+									<TouchableOpacity  onPress={this._cancelConfirm} >
 										<Text style={{marginTop: 2, fontWeight: "bold"}}>
 											CANCEL BOOKING
 										</Text>
@@ -344,7 +350,7 @@ export class Bookings extends Component {
 
 					</View>
 				
-				
+					{/*DESCRIPTION MODAL*/}
 					<Modal
 						animationType="slide"
 						transparent={true}
@@ -361,35 +367,80 @@ export class Bookings extends Component {
 								</View>
 								<View style={styles.descHr}/>
 								<View style={styles.descText}>
+
+									{/* PROBLEM */}
 									<TextInput
 							        	multiline = {true}
 										numberOfLines = {2}
 										onChangeText={(text) => this.setState({description: text})}
-										placeholder = "Type problem here"										
+										placeholder = "Type problem here"	
+										ref={(input)=> this.problemInput = input} 
+										blurOnSubmit={ false }																				
 										style={{borderWidth: 0}}/>
+
+									{/* CAR MAKE */}
 									<TextInput
 										onChangeText={(text) => this.setState({carMake: text})}
 										placeholder = "Car Make e.g. BMW"
+										ref={(input)=> this.makeInput = input} 
 										returnKeyType="next"
+										onSubmitEditing={() => this.modelInput.focus()} 	
+										blurOnSubmit={ false }
 										style={{borderWidth: 0}}/>
+
+									{/* CAR MODEL */}
 									<TextInput
 										onChangeText={(text) => this.setState({carModel: text})}
 										placeholder = "Car Model e.g. M4 Coupe"
+										ref={(input)=> this.modelInput = input} 
 										returnKeyType="done" 
+										onSubmitEditing={this._hideModal}
 										style={{borderWidth: 0}}/>
 								</View>
+
 								<View style={{flexDirection: "row", justifyContent: "center", marginTop: 10}}>									
-									<Feather name="check" style={styles.cardIcon} />									
-									<TouchableOpacity  onPress={this._hideModal} >
-										<Text style={{marginTop: 10, fontWeight: "bold"}}>
-											DONE
+									{/*<Feather name="check" style={styles.cardIcon} />*/}									
+									<TouchableOpacity  onPress={this._hideModal} style={{width: "100%", padding: 10}}>
+										<Text style={{fontWeight: "bold", alignSelf: "center"}}>
+											PROCEED TO PLACE BOOKING
 										</Text>
 									</TouchableOpacity>
 								</View>
 
 							</View>
 						</View>
+			        </Modal>
 
+					{/*CANCEL MODAL*/}
+			        <Modal
+						animationType={'none'}
+						transparent={true}
+						visible = {this.state.cancelModalVisible}
+						onRequestClose={this._hideCancelModal}>
+						
+						<View style={styles.modalBackground}>
+							<View style={styles.cancelModalVisible}>
+								
+									<Text style={{fontSize: 20, marginTop: "10%"}}>ARE YOU SURE?</Text>
+									<View style={styles.bookingsHr} />
+									
+									<TouchableOpacity  onPress={this._cancelBooking} >
+										<Text style={{marginTop: 20, fontWeight: "bold", borderWidth: 1, color: "red", borderRadius: 3, padding: 10}}>
+											YES, CANCEL MY BOOKING
+										</Text>
+									</TouchableOpacity>
+
+									<TouchableOpacity onPress={this._hideCancelModal} style={{marginTop: 15, width: "100%", padding: 5}}>
+										<Text style={{fontWeight: "bold", alignSelf: "center"}}> 
+											DON'T CANCEL 
+										</Text>
+									</TouchableOpacity>
+																	
+								</View>
+							</View>
+
+							
+						
 			        </Modal>
 				
 
@@ -400,6 +451,7 @@ export class Bookings extends Component {
 						mode="datetime"
 			        />
 
+					{/*LOADING MODAL*/}
 			        <Modal
 						animationType={'none'}
 						transparent={true}
@@ -568,6 +620,15 @@ const styles = StyleSheet.create({
 	    display: 'flex',
 	    alignItems: 'center',
 	    justifyContent: 'space-around'
+	},
+	cancelModalVisible: {
+	    backgroundColor: '#FFFFFF',
+	    height: 180,
+	    width: 250,
+	    borderRadius: 10,
+	    display: 'flex',
+	    alignItems: 'center',
+	    
 	}
 
 })

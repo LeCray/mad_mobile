@@ -90,6 +90,10 @@ export default class SignUp extends Component {
 	    }
     }
 
+    componentDidMount() {
+    	this.first_nameInput.focus()
+    }
+
     
 	render() {
 		const {navigate} = this.props.navigation
@@ -116,6 +120,7 @@ export default class SignUp extends Component {
 								blurOnSubmit={ false }
 								autoCapitalize="sentences" 
 								onSubmitEditing={() => this.last_nameInput.focus()} 
+								ref={(input)=> this.first_nameInput = input} 
 								autoCorrect={false} 
 								keyboardType='email-address' 
 								returnKeyType="next" 
