@@ -380,10 +380,12 @@ export default class OBDReader extends Component {
                 <View style={styles.modalBackground}>
                     <View style={styles.obdModal}>
                         <View style={{flex: 1}}>
-                            <Text style={{fontSize: 17, fontWeight: "bold"}}>CONNECT TO OBD DEVICE</Text>
-                            <View style={styles.modalHr} />
+                            <Text style={{fontSize: 17, fontWeight: "bold", marginBottom: 10}}>CONNECT TO OBD DEVICE</Text>
+                            <View style={styles.modal2Hr} />
                             
-                            <Text>
+                            <ScrollView>
+                            
+                            <Text style={{marginTop: 10}}>
                                 You have to enable Bluetooth and select 
                                 the Mahele Auto Doctor OBD device in the Settings menu.
                             </Text>
@@ -404,14 +406,15 @@ export default class OBDReader extends Component {
                                 source={require('../../app/src/main/res/obd_image2.jpg')}/>                                
                             </View>
 
-                            <Text style={{marginTop: 10}}>
+                            <Text style={{marginTop: 10, marginBottom: 10}}>
                                 Our contact information can be accessed from the Drawer Menu
                                 in "Contact"
                             </Text>
-                            <View style={styles.modalHr} />
+                        </ScrollView>
+                            <View style={styles.modal2Hr} />
                             
-                            <TouchableOpacity onPress={this._hideObdModal} style={{padding: 5, width: "100%", marginTop: 5}}>
-                                <Text style={{textAlign: "right", color: "#47969e"}}>
+                            <TouchableOpacity onPress={this._hideObdModal} style={{padding: 5, width: "100%", marginTop: 10}}>
+                                <Text style={{textAlign: "right", fontWeight: "bold", color: "#47969e"}}>
                                     OKAY
                                 </Text>
                             </TouchableOpacity>
@@ -444,7 +447,7 @@ const styles = StyleSheet.create({
     },
     obdModal: {
         backgroundColor: '#FFFFFF',
-        height: 520,
+        height: 450,
         width: 290,
         borderRadius: 5,
         display: 'flex',
@@ -462,6 +465,14 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         marginTop: 10,
         marginBottom: 5,
+        width: '100%',
+        alignSelf: 'center'
+    },
+    modal2Hr: {
+        borderBottomColor: '#d3d3d3',
+        borderBottomWidth: 1,
+        marginTop: 0,
+        marginBottom: 0,
         width: '100%',
         alignSelf: 'center'
     }
