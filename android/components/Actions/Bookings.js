@@ -437,10 +437,7 @@ export class Bookings extends Component {
 									</TouchableOpacity>
 																	
 								</View>
-							</View>
-
-							
-						
+							</View>													
 			        </Modal>
 				
 

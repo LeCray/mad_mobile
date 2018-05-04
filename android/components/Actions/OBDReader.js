@@ -14,7 +14,8 @@ import {
   Dimensions,
   DeviceEventEmitter,
   ScrollView,
-  AsyncStorage
+  AsyncStorage,
+  Modal
 } from 'react-native';
 import StreamChannel from './StreamChannel'
 
@@ -38,7 +39,7 @@ const Constant = require('../utils/Constant');
 
 const PreferenceDefaultValue = {
   enable_bluetooth_preference: false,
-  enable_mockup_preference: true,
+  enable_mockup_preference: false,
 };
 
 export default class OBDReader extends Component {
@@ -52,7 +53,7 @@ export default class OBDReader extends Component {
     SharedPreference.init(PreferenceDefaultValue);
 
     this.state = {
-      email: "captain@gmail.com",
+      email: "",
       direction: '-',
       speed: '0km/h',
       rpm: '0RPM',
@@ -62,10 +63,12 @@ export default class OBDReader extends Component {
       gpsState: '-',
       btStatus : '-',
       btDeviceList: [],
-      btSelectedDeviceAddress: '00:1D:A5:00:2C:74',
+      //btSelectedDeviceAddress: '00:1D:A5:00:2C:74',
+      btSelectedDeviceAddress: '',
       obdStatus: 'disconnected',
       debug : '-',
-      obd2Data : { } 
+      obd2Data : { },
+      obdModalVisible: false 
     };
 
     this.sensorOrientation = this.sensorOrientation.bind(this);
@@ -163,16 +166,15 @@ export default class OBDReader extends Component {
     }
   }
 
-/*
+
   async componentWillMount() {
     const email = await AsyncStorage.getItem('email')
     .then((email) => {
       console.log("AsyncStorage is running")
-
       this.setState({ email: email });    
     })
   }
-*/
+
 
   componentDidMount() {
     this.btStatusListener = DeviceEventEmitter.addListener('obd2BluetoothStatus', this.btStatus);
@@ -198,29 +200,32 @@ export default class OBDReader extends Component {
   startLiveData() {
     SharedPreference.getBoolean(Constant.KEY_ENABLE_MOCKUP)
       .then((isMockUpMode) => {
+        console.log(isMockUpMode)
+        console.log(this.state.btSelectedDeviceAddress)
         if (!isMockUpMode && this.state.btSelectedDeviceAddress.length === 0) {
-          Alert.alert(
-            'Bluetooth Device',
-            'You have to enable Bluetooth and select bluetooth device in Setting menu',
+            
+            this.setState({obdModalVisible: true})
+
+          {/*Alert.alert(
+            'Connect to OBD Device',
+            'You have to enable Bluetooth and select the Mahele Auto Doctor OBD device in the Settings menu',
             [
               {text: 'OK', onPress: () => {}},
             ]
-          )
+          )*/}
           return;
-        }
+        } else {
 
-        this.setState({
-          isStartLiveData: true,
-        });
-        
-        //SensorManager.startOrientation(1000);
-        this.listenerOrientation = DeviceEventEmitter.addListener('Orientation', this.sensorOrientation);
-        obd2.setMockUpMode(isMockUpMode);
-        obd2.startLiveData(this.state.btSelectedDeviceAddress);
-
-      
-    });
-  }
+            this.setState({
+              isStartLiveData: true,
+            });
+            
+            //SensorManager.startOrientation(1000);
+            this.listenerOrientation = DeviceEventEmitter.addListener('Orientation', this.sensorOrientation);
+            obd2.setMockUpMode(isMockUpMode);
+            obd2.startLiveData(this.state.btSelectedDeviceAddress);      
+    };
+  })}
 
   stopLiveData() {
     this.setState({
@@ -251,49 +256,52 @@ export default class OBDReader extends Component {
     });
   }
 
-  SettingsBtn() {
-    console.log('Settings is running')
-    this.props.navigation.dispatch({
-      type: 'Navigation/NAVIGATE',
-      btSelectedDeviceAddress : this.state.btSelectedDeviceAddress,
-      routeName: 'Settings'
-    });
-  }
-
-    /*
-    obd2.getBluetoothDeviceNameList()
-      .then((nameList) => {
-        console.log('Bluetooth device list : ' + JSON.stringify(nameList));
-        this.setState({btDeviceList : nameList});
-    
-      })
-      .catch((e) => {
-        console.log('Get device name error : ' + e)
-        Actions.Settings({
-          btSelectedDeviceAddress : '',
-          btDeviceList : []
+    SettingsBtn() {
+        console.log('Settings is running')
+        this.props.navigation.dispatch({
+          type: 'Navigation/NAVIGATE',
+          btSelectedDeviceAddress : this.state.btSelectedDeviceAddress,
+          routeName: 'Settings'
         });
-      });
-*/
+      
+
+        /*
+        obd2.getBluetoothDeviceNameList()
+          .then((nameList) => {
+            console.log('Bluetooth device list : ' + JSON.stringify(nameList));
+            this.setState({btDeviceList : nameList});
+        
+          })
+          .catch((e) => {
+            console.log('Get device name error : ' + e)
+            Actions.Settings({
+              btSelectedDeviceAddress : '',
+              btDeviceList : []
+            });
+          });
+        */
+    }
   
    
   
 
   runMenu(value) {
     switch(value) {
-      case 1 : 
-        this.startLiveData();
+        case 1 : 
+            this.startLiveData();
         break;
-      case 2 :
-        this.stopLiveData();
+        case 2 :
+            this.stopLiveData();
         break;
-      case 3 :
-        this.SettingsBtn();
+        case 3 :
+            this.SettingsBtn();
         break;
-      default :
+            default :
         break;
     }
   }
+
+  _hideObdModal = () => this.setState({ cancelModalVisible: false })
 
   render() {
     let startLiveColor = this.state.isStartLiveData ? Color.DISABLED_COLOR : Color.BLACK;
@@ -304,107 +312,172 @@ export default class OBDReader extends Component {
     let cmdData = cmdKeys.map(function(key) { return originData[key]; });
 
     return (
-      <MenuContext style={{flex: 1}}>
-      <View style={{flex: 1}}> 
-        <NavigationBar
-          style={{backgroundColor: "#666666"}}
-          tintColor="white"
-          
-          rightButton={
-            <Menu onSelect={this.runMenu.bind(this)}>
-              <MenuTrigger>
-                <Text style={{
-                  marginRight: 10, 
-                  padding: 10, 
-                  alignSelf: 'center', 
-                  fontSize: 20, 
-                  color: "white"
-                  }} >Menu</Text>
-              </MenuTrigger>
-              <MenuOptions>
-                <MenuOption disabled={this.state.isStartLiveData} value={1}>
-                  <Text style={[styles.menuOptionText, {color: startLiveColor}]} >Start Live Data</Text>
-                </MenuOption>
-                <MenuOption disabled={!this.state.isStartLiveData} value={2}>
-                  <Text style={[styles.menuOptionText, {color: stopLiveColor}]}>Stop Live Data</Text>
-                </MenuOption>
-                <MenuOption value={3}>
-                  <Text style={styles.menuOptionText}>Settings</Text>
-                </MenuOption>
-              </MenuOptions>
-            </Menu>
-          }
-        />
-        <View style={styles.bodyContainer}>
-          <View style={{flex: .1, flexDirection:'row'}}>
-            <Text style={{fontSize:30}}>{this.state.speed}</Text>
-            <View style={{flex: 0.8}}/>
-            <Text style={{fontSize:30}}>{this.state.direction}</Text>
-          </View>
-          <View style={{flex: .05, flexDirection:'row', justifyContent: 'space-around'}}>
-            <Text style={{fontSize:15}}>{this.state.speed}</Text>
-            <Text style={{fontSize:15}}>{this.state.engineRunTime}</Text>
-            <Text style={{fontSize:15}}>{this.state.rpm}</Text>
-          </View>
-          <View style={{flex: .6, borderWidth:1}}>
-            <ScrollView>
-              {
-                cmdData.map((item, index) => (
-                  <View 
-                    style={{flexDirection:'row', alignItems: 'center'}}
-                    key={index}
-                    >
-                    <Text style={{flex: .6, textAlign:'right'}}>{item.cmdName}</Text>
-                    <Text style={{flex: .4}}>: {item.cmdResult}</Text>
-                  </View>
-                ))
+        <MenuContext style={{flex: 1}}>
+            <View style={{flex: 1}}> 
+
+                <NavigationBar
+                    style={{backgroundColor: "#666666"}}
+                    tintColor="white"
+                    rightButton={
+                        <Menu onSelect={this.runMenu.bind(this)}>
+                            <MenuTrigger>
+                                <Text style={{marginRight: 10, padding: 10, alignSelf: 'center', fontSize: 20, color: "white"}}>       
+                                    Menu
+                                </Text>
+                            </MenuTrigger>
+                            <MenuOptions>
+                                <MenuOption disabled={this.state.isStartLiveData} value={1}>
+                                    <Text style={[styles.menuOptionText, {color: startLiveColor}]} >Start Live Data</Text>
+                                </MenuOption>
+                                <MenuOption disabled={!this.state.isStartLiveData} value={2}>
+                                    <Text style={[styles.menuOptionText, {color: stopLiveColor}]}>Stop Live Data</Text>
+                                </MenuOption>
+                                <MenuOption value={3}>
+                                    <Text style={styles.menuOptionText}>Settings</Text>
+                                </MenuOption>
+                            </MenuOptions>
+                        </Menu>
+                    }
+                />
                 
-              }
-            </ScrollView>
+                <View style={styles.bodyContainer}>
+                  <View style={{flex: .1, flexDirection:'row'}}>
+                    <Text style={{fontSize:30}}>{this.state.speed}</Text>
+                    <View style={{flex: 0.8}}/>
+                    <Text style={{fontSize:30}}>{this.state.direction}</Text>
+                  </View>
+                  <View style={{flex: .05, flexDirection:'row', justifyContent: 'space-around'}}>
+                    <Text style={{fontSize:15}}>{this.state.speed}</Text>
+                    <Text style={{fontSize:15}}>{this.state.engineRunTime}</Text>
+                    <Text style={{fontSize:15}}>{this.state.rpm}</Text>
+                  </View>
+                  <View style={{flex: .6, borderWidth:1}}>
+                    <ScrollView>
+                      {
+                        cmdData.map((item, index) => (
+                          <View 
+                            style={{flexDirection:'row', alignItems: 'center'}}
+                            key={index}
+                            >
+                            <Text style={{flex: .6, textAlign:'right'}}>{item.cmdName}</Text>
+                            <Text style={{flex: .4}}>: {item.cmdResult}</Text>
+                          </View>
+                        ))
+                        
+                      }
+                    </ScrollView>
 
-          </View>
-          <View style={{flex: .1, flexDirection:'row', justifyContent: 'space-around'}}>
-            <View>
-              <Text style={{fontSize:18}}>GPS</Text>
-              <Text style={{fontSize:15, textAlign: 'center'}}>{this.state.gpsState}</Text>
-            </View>
-            <View>
-              <Text style={{fontSize:18}}>Bluetooth</Text>
-              <Text style={{fontSize:15, textAlign: 'center'}}>{this.state.btStatus}</Text>
-            </View>
-            <View>
-              <Text style={{fontSize:18}}>OBD</Text>
-              <Text style={{fontSize:15, textAlign: 'center'}}>{this.state.obdStatus}</Text>
-            </View>
-          </View>
+                  </View>
+                  <View style={{flex: .1, flexDirection:'row', justifyContent: 'space-around'}}>
+                    <View>
+                      <Text style={{fontSize:18}}>GPS</Text>
+                      <Text style={{fontSize:15, textAlign: 'center'}}>{this.state.gpsState}</Text>
+                    </View>
+                    <View>
+                      <Text style={{fontSize:18}}>Bluetooth</Text>
+                      <Text style={{fontSize:15, textAlign: 'center'}}>{this.state.btStatus}</Text>
+                    </View>
+                    <View>
+                      <Text style={{fontSize:18}}>OBD</Text>
+                      <Text style={{fontSize:15, textAlign: 'center'}}>{this.state.obdStatus}</Text>
+                    </View>
+                  </View>      
+                </View>
 
-  
-        </View>
-      </View>
-    
-     </MenuContext>
+            </View>        
+       
 
-     
+            <Modal
+                animationType={'none'}
+                transparent={true}
+                visible = {this.state.obdModalVisible}
+                onRequestClose={this._hideObdModal}>
+                
+                <View style={styles.modalBackground}>
+                    <View style={styles.obdModal}>
+                        <View style={{flex: 1}}>
+                            <Text style={{fontSize: 17, fontWeight: "bold"}}>CONNECT TO OBD DEVICE</Text>
+                            <View style={styles.modalHr} />
+                            
+                            <Text>
+                                You have to enable Bluetooth and select 
+                                the Mahele Auto Doctor OBD device in the Settings menu.
+                            </Text>
+                            <View style={styles.modalHr} />
+
+                            <Text style={{marginBottom: 10}}>
+                                If you don't have the OBD device please contact our offices
+                                and we'll be happy to set you up
+                            </Text>
+                            
+                            <View style={{alignSelf: "center"}}>
+                                <Image                      
+                                style={{width: 150, height: 100}} 
+                                source={require('../../app/src/main/res/obd_image.jpg')}/>                            
+                                 
+                                <Image                      
+                                style={{width: 150, height: 100, marginTop: 10}} 
+                                source={require('../../app/src/main/res/obd_image2.jpg')}/>                                
+                            </View>
+
+                            <Text style={{marginTop: 10}}>
+                                Our contact information can be accessed in the Drawer Menu
+                                in "Contacts"
+                            </Text>
+                            <View style={styles.modalHr} />
+
+                            <TouchableOpacity onPress={this._hideOdbModal} style={{padding: 5}}>
+                                GOT IT
+                            </TouchableOpacity>
+                        </View>
+                                                            
+                    </View>
+                </View>                                                 
+            </Modal> 
+        </MenuContext>   
     );
   }
 }
 
 const styles = StyleSheet.create({
-  bodyContainer: {
-    backgroundColor: "white",
-    padding: 20,
-    flex: 1
-  },
-  menuOptionText: {
-    fontSize: 18,
-    padding: 5,
-    color: Color.BLACK
-  },
+    bodyContainer: {
+        backgroundColor: "white",
+        padding: 20,
+        flex: 1
+    },
+    menuOptionText: {
+        fontSize: 18,
+        padding: 5,
+        color: Color.BLACK
+    },
 
-  buttonContainer: {
-    backgroundColor: "#2980b6", 
-    paddingVertical: 15, 
-    marginTop: 10
-  }
+    buttonContainer: {
+        backgroundColor: "#2980b6", 
+        paddingVertical: 15, 
+        marginTop: 10
+    },
+    obdModal: {
+        backgroundColor: '#FFFFFF',
+        height: 500,
+        width: 290,
+        borderRadius: 5,
+        display: 'flex',
+        padding: 20
+    },
+    modalBackground: {
+        flex: 1,
+        alignItems: 'center',
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        backgroundColor: '#00000040'
+    },
+    modalHr: {
+        borderBottomColor: '#d3d3d3',
+        borderBottomWidth: 1,
+        marginTop: 10,
+        marginBottom: 5,
+        width: '100%',
+        alignSelf: 'center'
+    }
 });
 

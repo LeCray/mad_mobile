@@ -80,9 +80,9 @@ export default class Settings extends Component {
           <View style={styles.rowContainer}>
             <Category text='Bluetooth'/>
             <CheckBoxPreference
-              title='Mock up mode'
-              summaryOff='Mockup Mode Disabled'
-              summaryOn='Mockup Mode Enabled'
+              title='Demo Mode'
+              summaryOff='Demo Mode Disabled'
+              summaryOn='Demo Mode Enabled'
               prefKey={Constant.KEY_ENABLE_MOCKUP} />
           </View>
           <View style={styles.rowContainer}>
