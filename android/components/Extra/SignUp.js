@@ -57,7 +57,7 @@ export default class SignUp extends Component {
 		
 		 	this.setState({"signingUpModalVisible": true, 'signing_up': true})	
 
-	        await fetch("http://192.168.43.42:3000/api/v1/mobile_sign_up", {
+	        await fetch("http://mad-beta.herokuapp.com/api/v1/mobile_sign_up", {
 				method: "POST", 
 				headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 				body: JSON.stringify({
@@ -108,13 +108,13 @@ export default class SignUp extends Component {
 						</View>						
 														
 						<View style={styles.inputSection}>
-							
+							{/* FIRST NAME */}
 							<TextInput style = {styles.input} 
 								onFocus={(event: Event) => {
 									this._scrollToInput(findNodeHandle(event.target))
 								}} 
 								blurOnSubmit={ false }
-								autoCapitalize="none" 
+								autoCapitalize="sentences" 
 								onSubmitEditing={() => this.last_nameInput.focus()} 
 								autoCorrect={false} 
 								keyboardType='email-address' 
@@ -122,13 +122,14 @@ export default class SignUp extends Component {
 								placeholder='First Name:' 
 								placeholderTextColor='black'
 								onChangeText={(first_name) => this.setState({first_name})} />
-						
+
+							{/* LAST NAME */}
 							<TextInput style = {styles.input} 
 								onFocus={(event: Event) => {
 									this._scrollToInput(findNodeHandle(event.target))
 								}} 
 								blurOnSubmit={ false }
-								autoCapitalize="none" 
+								autoCapitalize="sentences" 
 								onSubmitEditing={() => this.emailInput.focus()} 
 								ref={(input)=> this.last_nameInput = input} 
 								autoCorrect={false} 
@@ -138,7 +139,7 @@ export default class SignUp extends Component {
 								placeholderTextColor='black'
 								onChangeText={(last_name) => this.setState({last_name})} />
 						
-						
+							{/* EMAIL */}
 							<TextInput style = {styles.input} 
 								onFocus={(event: Event) => {
 									this._scrollToInput(findNodeHandle(event.target))
@@ -153,7 +154,8 @@ export default class SignUp extends Component {
 								placeholder='Email:' 
 								placeholderTextColor='black'
 								onChangeText={(email) => this.setState({email})} />
-						
+							
+							{/* CELLPHONE NUMBER */}
 							<TextInput style = {styles.input} 
 								onFocus={(event: Event) => {
 									this._scrollToInput(findNodeHandle(event.target))
@@ -163,12 +165,13 @@ export default class SignUp extends Component {
 								onSubmitEditing={() => this.passwordInput.focus()} 
 								ref={(input)=> this.telInput = input} 
 								autoCorrect={false} 
-								keyboardType='email-address' 
+								keyboardType='numeric' 
 								returnKeyType="next" 
 								placeholder='Cell Number:' 
 								placeholderTextColor='black'
 								onChangeText={(tel) => this.setState({tel})} />
-
+							
+							{/* PASSWORD */}
 							<TextInput style = {styles.input}   
 								onFocus={(event: Event) => {
 									this._scrollToInput(findNodeHandle(event.target))
@@ -182,7 +185,8 @@ export default class SignUp extends Component {
 								placeholderTextColor='black' 
 								secureTextEntry
 								onChangeText={(password) => this.setState({password})} />
-
+							
+							{/* CONFIRM PASSWORD */}
 							<TextInput style = {styles.input}   
 								onFocus={(event: Event) => {
 									this._scrollToInput(findNodeHandle(event.target))

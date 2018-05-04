@@ -39,7 +39,7 @@ export class Csi extends Component {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 			body: JSON.stringify({
-				email: "captain@gmail.com"
+				email: this.state.email
 			}), 
       	})
         .then(responseData => responseData.json())

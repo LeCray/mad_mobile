@@ -31,12 +31,16 @@ export class Invoices extends Component {
 
 
 	componentWillMount() {
+		AsyncStorage.getItem('email')
+		.then((value) => { 
+			this.setState({'email': value})	
+		});
 
 		fetch("http://mad-beta.herokuapp.com/api/v1/get_invoices", {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 			body: JSON.stringify({
-				email: "captain@gmail.com"
+				email: this.state.email
 			}), 
         })
         .then(responseData => responseData.json())

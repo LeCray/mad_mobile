@@ -116,6 +116,7 @@ export default class Login extends Component {
 			} else {
 				console.log("Invalid User")
 				this.setState({invalidModalVisible: true})
+				setTimeout(() => {this.setState({invalidModalVisible: false})}, 2000)
 
 				this.setState({'logging_in': false})
 				this.setState({"modalVisible": false})
@@ -250,15 +251,13 @@ export default class Login extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        height: Dimensions.get('window').height,
-        borderWidth: 1
+        height: Dimensions.get('window').height,        
     },
     header: {
     	flex: 1,
     	backgroundColor: "white",
     	borderRadius: 4,
-    	padding: 20,
-    	borderWidth: 1
+    	padding: 20,    	
     },
     inputSection: {    	    
     	marginTop: 20  	

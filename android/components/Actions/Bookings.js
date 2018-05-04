@@ -42,7 +42,14 @@ export class Bookings extends Component {
 			loadingModalVisible: true
 		};
 	}
-/*
+
+	 componentWillMount() {
+
+		
+
+		
+	}
+
 	async componentWillMount() {
 
 		const email = await AsyncStorage.getItem('email')
@@ -50,17 +57,12 @@ export class Bookings extends Component {
 			console.log(email)
 			this.setState({ email: email });		
 		})
-
-		
-	}
-*/
-	componentWillMount() {
 		
 		fetch("http://mad-beta.herokuapp.com/api/v1/mobile_check_booking", {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 			body: JSON.stringify({
-				email: "captain@gmail.com", 
+				email: this.state.email, 
 			}), 
         })
         .then(responseData => responseData.json())
@@ -153,7 +155,7 @@ export class Bookings extends Component {
 				method: "POST", 
 				headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 				body: JSON.stringify({
-					email: "captain@gmail.com", 
+					email: this.state.email, 
 					date: this.state.date,
 					time: this.state.time,
 					description: this.state.description,
