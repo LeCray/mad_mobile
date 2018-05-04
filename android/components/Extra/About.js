@@ -30,8 +30,8 @@ export class About extends Component {
 
 	render() {
 		return(  
-			<ScrollView>
-				<View style={styles.container}>
+			<View style={styles.container}>
+				<ScrollView>
 
 					<View style={styles.header}>
 						<View style={{flexDirection: "row"}}>	
@@ -73,7 +73,7 @@ export class About extends Component {
 						</View>
 
 						<Text style={{textAlign: "center", fontWeight: "bold", fontSize: 15}}>Bobby Johannes Mahele </Text>
-						<Text style={{textAlign: "center"}}>Owner</Text>
+						<Text style={{textAlign: "center", marginBottom: 30}}>Owner</Text>
 							
 					</View>
 
@@ -92,15 +92,15 @@ export class About extends Component {
 							</View>
 						</View>
 			        </Modal>
-				</View>
-			</ScrollView>
+				</ScrollView>
+			</View>
 		)
 	}
 }
 
 const styles = StyleSheet.create({
     container: {
-        height: Dimensions.get('window').height+300,
+        flex: 1,
         padding: 20,
     },
     header: {

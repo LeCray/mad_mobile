@@ -206,13 +206,7 @@ export default class OBDReader extends Component {
             
             this.setState({obdModalVisible: true})
 
-          {/*Alert.alert(
-            'Connect to OBD Device',
-            'You have to enable Bluetooth and select the Mahele Auto Doctor OBD device in the Settings menu',
-            [
-              {text: 'OK', onPress: () => {}},
-            ]
-          )*/}
+          
           return;
         } else {
 
@@ -265,24 +259,13 @@ export default class OBDReader extends Component {
         });
       
 
-        /*
-        obd2.getBluetoothDeviceNameList()
-          .then((nameList) => {
-            console.log('Bluetooth device list : ' + JSON.stringify(nameList));
-            this.setState({btDeviceList : nameList});
-        
-          })
-          .catch((e) => {
-            console.log('Get device name error : ' + e)
-            Actions.Settings({
-              btSelectedDeviceAddress : '',
-              btDeviceList : []
-            });
-          });
-        */
+       
     }
   
-   
+ _hideObdModal = () => {
+    console.log("Its firing")
+    this.setState({ obdModalVisible: false })
+}
   
 
   runMenu(value) {
@@ -301,7 +284,8 @@ export default class OBDReader extends Component {
     }
   }
 
-  _hideObdModal = () => this.setState({ cancelModalVisible: false })
+
+
 
   render() {
     let startLiveColor = this.state.isStartLiveData ? Color.DISABLED_COLOR : Color.BLACK;
@@ -407,7 +391,7 @@ export default class OBDReader extends Component {
 
                             <Text style={{marginBottom: 10}}>
                                 If you don't have the OBD device please contact our offices
-                                and we'll be happy to set you up
+                                and we'll be happy to set you up.
                             </Text>
                             
                             <View style={{alignSelf: "center"}}>
@@ -421,13 +405,15 @@ export default class OBDReader extends Component {
                             </View>
 
                             <Text style={{marginTop: 10}}>
-                                Our contact information can be accessed in the Drawer Menu
-                                in "Contacts"
+                                Our contact information can be accessed from the Drawer Menu
+                                in "Contact"
                             </Text>
                             <View style={styles.modalHr} />
-
-                            <TouchableOpacity onPress={this._hideOdbModal} style={{padding: 5}}>
-                                GOT IT
+                            
+                            <TouchableOpacity onPress={this._hideObdModal} style={{padding: 5, width: "100%", marginTop: 5}}>
+                                <Text style={{textAlign: "right", color: "#47969e"}}>
+                                    OKAY
+                                </Text>
                             </TouchableOpacity>
                         </View>
                                                             
@@ -458,7 +444,7 @@ const styles = StyleSheet.create({
     },
     obdModal: {
         backgroundColor: '#FFFFFF',
-        height: 500,
+        height: 520,
         width: 290,
         borderRadius: 5,
         display: 'flex',
