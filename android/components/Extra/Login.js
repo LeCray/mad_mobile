@@ -64,7 +64,7 @@ export default class Login extends Component {
 	 	this.setState({'logging_in': true})
 	 	this.setState({"modalVisible": true})
 
-        await fetch("http://mad-beta.herokuapp.com/api/v1/mobile_login", {
+        await fetch("http://172.20.10.2:3000/api/v1/mobile_login", {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 			body: JSON.stringify({
@@ -81,11 +81,20 @@ export default class Login extends Component {
 				//ADMIN THINGS
 				console.log("You're logged in as ADMIN");			
 				AsyncStorage.setItem('email', responseData.email)
+				AsyncStorage.setItem('firstName', responseData.first_name)
+				AsyncStorage.setItem('lastName', responseData.last_name)
 			
 				AsyncStorage.getItem('email')
 				.then((value) => {
 					this.setState({'email': value})
 					console.log("Async has stored user email: ", value)
+				})
+				.catch((error) => {
+					console.error(error);
+				})
+				AsyncStorage.getItem('firstName')
+				.then((value) => {					
+					console.log("Async has stored user firstName: ", value)
 				})
 				.catch((error) => {
 					console.error(error);
@@ -99,7 +108,12 @@ export default class Login extends Component {
 			} else if (responseData.driver_authenticated == true) {
 				//DRIVER THINGS
 				console.log("You're logged in as DRIVER")
+
+				console.log("First Name: ", responseData.first_name)
+
 				AsyncStorage.setItem('email', responseData.email)
+				AsyncStorage.setItem('firstName', responseData.first_name)
+				AsyncStorage.setItem('lastName', responseData.last_name)
 			
 				AsyncStorage.getItem('email')
 				.then((value) => {
@@ -109,7 +123,15 @@ export default class Login extends Component {
 				.catch((error) => {
 					console.error(error);
 				})
-				
+		
+				AsyncStorage.getItem('firstName')
+				.then((value) => {					
+					console.log("Async has stored user firstName: ", value)
+				})
+				.catch((error) => {
+					console.error(error);
+				})
+
 				this.setState({'logging_in': false})
 				this.setState({"modalVisible": false})
 				this.props.navigation.navigate('Main');

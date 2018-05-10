@@ -27,7 +27,7 @@ export class DashboardHome extends Component {
 			firstName: "",
 			lastName: "",
 			loading: true,
-			loadingModalVisible: true
+			loadingModalVisible: true,			
 		};
 	}
 
@@ -36,9 +36,6 @@ export class DashboardHome extends Component {
 		drawerLabel: 'Home',
 		drawerIcon: <Feather name="layers" size={20} color="#51A8B1"/>
 	}
-	
-
-
 	
 	DataStreamBtn = function () {
 		console.log('DataStream is running')
@@ -84,6 +81,14 @@ export class DashboardHome extends Component {
 		AsyncStorage.getItem('email')
 		.then((value) => { 
 			this.setState({'email': value})	
+		});
+		AsyncStorage.getItem('firstName')
+		.then((value) => { 
+			this.setState({'firstName': value})	
+		});
+		AsyncStorage.getItem('lastName')
+		.then((value) => { 
+			this.setState({'lastName': value})	
 		});
 	}
 
@@ -147,6 +152,18 @@ export class DashboardHome extends Component {
 					</View>
 					<Text style={{alignSelf: "center", fontSize: 15, marginTop: -30}}>A Subsidary of Mahele Group Global</Text>
 					<Text style={{alignSelf: "center", fontSize: 17, marginTop: 20, fontWeight: "bold"}}>Manage Your Account</Text>
+				</View>
+
+				<View style={styles.subHeader}>
+					<View style={{flexDirection: "row", marginRight: 10}}>
+						<Feather name="user" color="#51A8B1" style={styles.nameIcon} />      
+						<View style={{flex: 1, flexDirection: "column", justifyContent: "center"}}>													
+							<Text style={{fontSize: 15}}>Welcome!</Text>
+							<Text style={{fontSize: 20}}> 
+								{this.state.firstName} {this.state.lastName}
+							</Text>							
+						</View>
+					</View>
 				</View>
 
 				<View style={styles.btnsCard}>
@@ -228,6 +245,13 @@ const styles = StyleSheet.create({
     	backgroundColor: "white",
     	borderRadius: 4, 
     	padding: 30, 
+    },
+	subHeader: {
+		height: "12%",
+		marginTop: 10,
+    	backgroundColor: "white",
+    	borderRadius: 4, 
+    	padding: 20,
 
     },
 	buttonContainer: {
@@ -256,6 +280,13 @@ const styles = StyleSheet.create({
     	padding: 20,
     	flex: 1
     },
+	nameIcon: {
+		fontSize: 40,
+		height: 40,
+		marginRight: 10,
+		color: "#51A8B1",
+		paddingTop: 8
+	},
 	cardIcon: {
 		fontSize: 25,
 		height: 40,

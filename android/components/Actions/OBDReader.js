@@ -310,11 +310,11 @@ export default class OBDReader extends Component {
                                 </Text>
                             </MenuTrigger>
                             <MenuOptions>
-                                <MenuOption disabled={this.state.isStartLiveData} value={1}>
-                                    <Text style={[styles.menuOptionText, {color: startLiveColor}]} >Start Live Data</Text>
-                                </MenuOption>
                                 <MenuOption disabled={!this.state.isStartLiveData} value={2}>
                                     <Text style={[styles.menuOptionText, {color: stopLiveColor}]}>Stop Live Data</Text>
+                                </MenuOption>
+                                <MenuOption disabled={this.state.isStartLiveData} value={1}>
+                                    <Text style={[styles.menuOptionText, {color: startLiveColor}]} >Start Live Data</Text>
                                 </MenuOption>
                                 <MenuOption value={3}>
                                     <Text style={styles.menuOptionText}>Settings</Text>
