@@ -138,81 +138,84 @@ export class DashboardHome extends Component {
 
 
 
-    return(  
-    	<ScrollView>
-			<View style={styles.container}>		
+    return( 
+    	
+			<ScrollView>
+				<View style={styles.container}>		
 
-				<View style={styles.header}>
-					<View style={styles.logo}>							
-						<Image
-						  style={{width: "80%", height: "70%", marginLeft: 10}}
-						  onLoad={this._endLoad}							    					  							   						 
-						  source={require('../../app/src/main/res/mad_logo.png')}
-						/>									
+					<View style={styles.header}>
+						<View style={styles.logo}>							
+							<Image
+							  style={{width: "80%", height: "80%", marginLeft: 10}}
+							  onLoad={this._endLoad}							    					  							   						 
+							  source={require('../../app/src/main/res/mad_logo.png')}
+							/>									
+						</View>
+						<Text style={{alignSelf: "center", fontSize: 15, marginTop: -25}}>A Subsidary of Mahele Group Global</Text>
+						<Text style={{alignSelf: "center", fontSize: 17, marginTop: 10, fontWeight: "bold"}}>Manage Your Account</Text>
 					</View>
-					<Text style={{alignSelf: "center", fontSize: 15, marginTop: -30}}>A Subsidary of Mahele Group Global</Text>
-					<Text style={{alignSelf: "center", fontSize: 17, marginTop: 20, fontWeight: "bold"}}>Manage Your Account</Text>
-				</View>
 
-				<View style={styles.subHeader}>
-					<View style={{flexDirection: "row", marginRight: 10}}>
-						<Feather name="user" color="#51A8B1" style={styles.nameIcon} />      
-						<View style={{flex: 1, flexDirection: "column", justifyContent: "center"}}>													
-							<Text style={{fontSize: 15}}>Welcome!</Text>
-							<Text style={{fontSize: 20}}> 
-								{this.state.firstName} {this.state.lastName}
-							</Text>							
+					<View style={styles.subHeader}>
+						<View style={{flexDirection: "row", marginRight: 10}}>
+							<Feather name="user" color="#51A8B1" style={styles.nameIcon} />      
+							<View style={{flex: 1, flexDirection: "column", justifyContent: "center"}}>													
+								<Text style={{fontSize: 15}}>Welcome!</Text>
+								<Text style={{fontSize: 20}}> 
+									{this.state.firstName} {this.state.lastName}
+								</Text>							
+							</View>
+						</View>
+					</View>
+
+					<View style={styles.btnsCard}>
+
+						<View style={styles.buttonContainer}>
+							<Feather name="calendar" color="#51A8B1" style={styles.cardIcon} />      
+							<View style={{flex: 1, flexDirection: "column", justifyContent: "center"}}>
+								<TouchableOpacity style={styles.button} onPress={this.BookingBtn}>  							
+									<Text style={styles.text}>BOOKINGS</Text>
+								</TouchableOpacity>
+							</View>
+						</View>
+						
+						<View style={styles.buttonContainer}>
+							<Feather name="bell" color="#4F8EF7" style={styles.cardIcon} />      
+							<View style={{flex: 1, flexDirection: "column", justifyContent: 'center'}}>
+								<TouchableOpacity style={styles.button} onPress={this.QuotationsBtn}>       
+									<Text style={styles.text}>QUOTATIONS</Text>
+								</TouchableOpacity>
+							</View>
+						</View>
+
+						<View style={styles.buttonContainer}>
+							<Feather name="file-text" color="#4F8EF7" style={styles.cardIcon} />      
+							<View style={{flex: 1, flexDirection: "column", justifyContent: 'center'}}>
+								<TouchableOpacity style={styles.button} onPress={this.InvoicesBtn}> 
+									<Text style={styles.text}>INVOICES</Text>
+								</TouchableOpacity>
+							</View>
+						</View>
+						
+						<View style={styles.buttonContainer}>	
+							<Feather name="shield" color="#4F8EF7" style={styles.cardIcon} />      
+							<View style={{flex: 1, flexDirection: "column", justifyContent: 'center'}}>	
+								<TouchableOpacity style={styles.button} onPress={this.CsiBtn}>       
+									<Text style={styles.text}>CSI</Text>
+								</TouchableOpacity>
+							</View>
+						</View>
+
+						<View style={styles.buttonContainer}>
+							<FontAwesome name="car" color="#4F8EF7" style={styles.cardIcon} />      
+							<View style={{flex: 1, flexDirection: "column", justifyContent: 'center'}}>
+								<TouchableOpacity style={styles.button} onPress={this.DataStreamBtn}>       
+									<Text style={styles.text}>DATA STREAM</Text>
+								</TouchableOpacity>
+							</View>
 						</View>
 					</View>
 				</View>
-
-				<View style={styles.btnsCard}>
-
-					<View style={styles.buttonContainer}>
-						<Feather name="calendar" color="#51A8B1" style={styles.cardIcon} />      
-						<View style={{flex: 1, flexDirection: "column", justifyContent: "center"}}>
-							<TouchableOpacity style={styles.button} onPress={this.BookingBtn}>  							
-								<Text style={styles.text}>BOOKINGS</Text>
-							</TouchableOpacity>
-						</View>
-					</View>
-					
-					<View style={styles.buttonContainer}>
-						<Feather name="bell" color="#4F8EF7" style={styles.cardIcon} />      
-						<View style={{flex: 1, flexDirection: "column", justifyContent: 'center'}}>
-							<TouchableOpacity style={styles.button} onPress={this.QuotationsBtn}>       
-								<Text style={styles.text}>QUOTATIONS</Text>
-							</TouchableOpacity>
-						</View>
-					</View>
-
-					<View style={styles.buttonContainer}>
-						<Feather name="file-text" color="#4F8EF7" style={styles.cardIcon} />      
-						<View style={{flex: 1, flexDirection: "column", justifyContent: 'center'}}>
-							<TouchableOpacity style={styles.button} onPress={this.InvoicesBtn}> 
-								<Text style={styles.text}>INVOICES</Text>
-							</TouchableOpacity>
-						</View>
-					</View>
-					
-					<View style={styles.buttonContainer}>	
-						<Feather name="shield" color="#4F8EF7" style={styles.cardIcon} />      
-						<View style={{flex: 1, flexDirection: "column", justifyContent: 'center'}}>	
-							<TouchableOpacity style={styles.button} onPress={this.CsiBtn}>       
-								<Text style={styles.text}>CSI</Text>
-							</TouchableOpacity>
-						</View>
-					</View>
-
-					<View style={styles.buttonContainer}>
-						<FontAwesome name="car" color="#4F8EF7" style={styles.cardIcon} />      
-						<View style={{flex: 1, flexDirection: "column", justifyContent: 'center'}}>
-							<TouchableOpacity style={styles.button} onPress={this.DataStreamBtn}>       
-								<Text style={styles.text}>DATA STREAM</Text>
-							</TouchableOpacity>
-						</View>
-					</View>
-				</View>
+			
 
 				<Modal
 					animationType={'none'}
@@ -229,30 +232,46 @@ export class DashboardHome extends Component {
 						</View>
 					</View>
 		        </Modal>
-			</View>
+
 		</ScrollView>
+		
+	
     )
   }
 }
 
 const styles = StyleSheet.create({
 	container: {
-        height: Dimensions.get('window').height + 50,
+        flex: 1,
         padding: 20,
+        paddingBottom: 50
     },
 	header: {
-		height: "40%",
+		height: "30%",
     	backgroundColor: "white",
     	borderRadius: 4, 
     	padding: 30, 
     },
+	logo: {
+		marginTop: 0,
+		flexDirection: "row", 
+		justifyContent: "center", 
+		height: "100%", 		 				
+	},
 	subHeader: {
 		height: "12%",
 		marginTop: 10,
     	backgroundColor: "white",
     	borderRadius: 4, 
     	padding: 20,
-
+    },
+    btnsCard: {	
+    	backgroundColor: "white",
+    	borderRadius: 4,
+    	marginTop: 10,
+    	padding: 20,  
+    	marginBottom: 100,
+    	flex: 1  	
     },
 	buttonContainer: {
 		flexDirection: "row",
@@ -273,13 +292,6 @@ const styles = StyleSheet.create({
     	justifyContent: "center",
     	fontWeight: "bold"
     },
-    btnsCard: {	
-    	backgroundColor: "white",
-    	borderRadius: 4,
-    	marginTop: 10,
-    	padding: 20,
-    	flex: 1
-    },
 	nameIcon: {
 		fontSize: 40,
 		height: 40,
@@ -293,12 +305,6 @@ const styles = StyleSheet.create({
 		marginRight: 10,
 		color: "#51A8B1",
 		paddingTop: 8
-	},
-	logo: {
-		marginTop: -10,
-		flexDirection: "row", 
-		justifyContent: "center", 
-		height: "90%", 		 				
 	},
 	modalBackground: {
 	    flex: 1,

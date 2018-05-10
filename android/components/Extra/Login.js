@@ -64,7 +64,7 @@ export default class Login extends Component {
 	 	this.setState({'logging_in': true})
 	 	this.setState({"modalVisible": true})
 
-        await fetch("http://172.20.10.2:3000/api/v1/mobile_login", {
+        await fetch("http://mad-beta.herokuapp.com/api/v1/mobile_login", {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 			body: JSON.stringify({

@@ -111,7 +111,6 @@ const styles = StyleSheet.create({
     	paddingLeft: 30,
     	paddingRight: 30
     },
-
 	buttonContainer: {
       backgroundColor: "#2980b6", 
 	  paddingVertical: 15, 
