@@ -16,8 +16,8 @@ export default class SignUp extends Component {
 		super(props);
 		this.state = {
 			email: '',
-			first_name: '',
-			last_name: '',
+			firstName: '',
+			lastName: '',
 			tel: '', 
 			password: '', 
 			password_confirm: '',
@@ -46,7 +46,7 @@ export default class SignUp extends Component {
 	
 
 	async _signUp() {
-	 	console.log(this.state.password + this.state.password_confirm)
+		 	
 		if (this.state.password != this.state.password_confirm) {
 
 	 		this.setState({"xPasswordModalVisible": true})
@@ -57,12 +57,15 @@ export default class SignUp extends Component {
 		
 		 	this.setState({"signingUpModalVisible": true, 'signing_up': true})	
 
+		 	AsyncStorage.setItem('firstName', this.state.firstName)
+			AsyncStorage.setItem('lastName', this.state.lastName)
+
 	        await fetch("http://mad-beta.herokuapp.com/api/v1/mobile_sign_up", {
 				method: "POST", 
 				headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 				body: JSON.stringify({
-					first_name: this.state.first_name,
-					last_name: this.state.last_name,
+					first_name: this.state.firstName,
+					last_name: this.state.lastName,
 					tel: this.state.tel,
 					email: this.state.email, 
 					password: this.state.password,
@@ -91,7 +94,7 @@ export default class SignUp extends Component {
     }
 
     componentDidMount() {
-    	this.first_nameInput.focus()
+    	this.firstNameInput.focus()
     }
 
     
@@ -119,14 +122,14 @@ export default class SignUp extends Component {
 								}} 
 								blurOnSubmit={ false }
 								autoCapitalize="sentences" 
-								onSubmitEditing={() => this.last_nameInput.focus()} 
-								ref={(input)=> this.first_nameInput = input} 
+								onSubmitEditing={() => this.lastNameInput.focus()} 
+								ref={(input)=> this.firstNameInput = input} 
 								autoCorrect={false} 
 								keyboardType='email-address' 
 								returnKeyType="next" 
 								placeholder='First Name:' 
 								placeholderTextColor='black'
-								onChangeText={(first_name) => this.setState({first_name})} />
+								onChangeText={(firstName) => this.setState({firstName})} />
 
 							{/* LAST NAME */}
 							<TextInput style = {styles.input} 
@@ -136,13 +139,13 @@ export default class SignUp extends Component {
 								blurOnSubmit={ false }
 								autoCapitalize="sentences" 
 								onSubmitEditing={() => this.emailInput.focus()} 
-								ref={(input)=> this.last_nameInput = input} 
+								ref={(input)=> this.lastNameInput = input} 
 								autoCorrect={false} 
 								keyboardType='email-address' 
 								returnKeyType="next" 
 								placeholder='Last Name:' 
 								placeholderTextColor='black'
-								onChangeText={(last_name) => this.setState({last_name})} />
+								onChangeText={(lastName) => this.setState({lastName})} />
 						
 							{/* EMAIL */}
 							<TextInput style = {styles.input} 

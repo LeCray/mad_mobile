@@ -63,8 +63,8 @@ export default class OBDReader extends Component {
       gpsState: '-',
       btStatus : '-',
       btDeviceList: [],
-      //btSelectedDeviceAddress: '00:1D:A5:00:2C:74',
-      btSelectedDeviceAddress: '',
+      btSelectedDeviceAddress: '00:1D:A5:00:2C:74',
+      //btSelectedDeviceAddress: '',
       obdStatus: 'disconnected',
       debug : '-',
       obd2Data : { },
@@ -256,10 +256,7 @@ export default class OBDReader extends Component {
           type: 'Navigation/NAVIGATE',
           btSelectedDeviceAddress : this.state.btSelectedDeviceAddress,
           routeName: 'Settings'
-        });
-      
-
-       
+        });   
     }
   
  _hideObdModal = () => {
